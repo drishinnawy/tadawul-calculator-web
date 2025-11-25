@@ -324,7 +324,7 @@ export default function TadawulCalculator() {
       احسب
     </Button>
 
-    <Alert className="mt-4" variant={profitOrLoss >= 0 ? "success" : "destructive"}>
+    <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
       <AlertTitle>النتائج</AlertTitle>
       <AlertDescription className="space-y-2">
         <div className="flex justify-between">
