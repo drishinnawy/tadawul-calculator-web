@@ -60,7 +60,7 @@ function useToast() {
       toast: {
         ...toast,
         id,
-        open: true,
+       
       },
     })
 
