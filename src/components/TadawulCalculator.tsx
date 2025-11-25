@@ -281,7 +281,7 @@ export default function TadawulCalculator() {
               <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
             </Button>
 
-            <Alert variant="success" className="mt-4 bg-emerald-50 border-emerald-200">
+            <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-200">
               <Info className="h-5 w-5" />
               <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
               <AlertDescription className="space-y-2">
