@@ -1,0 +1,16 @@
+مسار المشروع
+cd C:\Users\drish\tadawul-calculator
+فتح PowerShell داخل المسار
+cd C:\Users\drish\tadawul-calculator
+العودة إلى مجلد المشروع
+cd C:\Users\drish\tadawul-calculator
+فتح المشروع مباشرة داخل VS Code
+cd "C:\Users\drish\tadawul-calculator"
+code .
+أعد تشغيل المشروع:
+npm run dev
+ثم افتح المتصفح على:
+http://localhost:3000
+رابط المستودع على جيت هوب
+https://github.com/drishinnawy/أفضل-حاسبة-تداول-للمتصفح.git
+
