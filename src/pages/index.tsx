@@ -1,6 +1,5 @@
-// src/pages/index.tsx
 import Head from "next/head";
-import TadawulCalculator from "../components/ui/TadawulCalculator";
+import TadawulCalculator from "../components/ui/TadawulCalculator"; // أو غيّر الأحرف لتطابق اسم الملف بالضبط
 
 export default function HomePage() {
   return (
