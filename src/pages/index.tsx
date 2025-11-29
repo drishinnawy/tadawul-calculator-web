@@ -1,5 +1,5 @@
 import Head from "next/head";
-import TadawulCalculator from "@/components/TadawulCalculator";
+import TadawulCalculator from "@/components/ui/TadawulCalculator";
 
 export default function HomePage() {
   return (
