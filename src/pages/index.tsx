@@ -16,7 +16,7 @@ export default function HomePage() {
         />
 
         {/* أيقونة التبويب */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-new.ico" sizes="any" />
 
         {/* صورة المشاركة الاجتماعية */}
         <meta property="og:title" content="أفضل حاسبة تداول" />
