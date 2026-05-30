@@ -18,7 +18,7 @@ export default function ContactPage() {
         </p>
 
         <a
-          href="mailto:your-email@example.com"
+          href="mailto:drishinnawy@gmail.com"
           style={{
             display: "inline-block",
             marginTop: "20px",
@@ -28,7 +28,7 @@ export default function ContactPage() {
             fontWeight: "bold",
           }}
         >
-          your-email@example.com
+          drishinnawy@gmail.com
         </a>
 
         <p style={{ marginTop: "30px", fontSize: "16px", color: "#555" }}>
