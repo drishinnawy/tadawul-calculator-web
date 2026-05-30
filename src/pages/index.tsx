@@ -39,7 +39,7 @@ export default function HomePage() {
       </Head>
 
       <div style={{ textAlign: "center", marginTop: "40px" }}>
-        {/* العداد في الأعلى بالمنتصف */}
+        {/* العداد */}
         <div
           style={{
             display: "inline-block",
@@ -84,6 +84,10 @@ export default function HomePage() {
           |
           <a href="/refund" style={{ margin: "0 10px", color: "#666" }}>
             Refund Policy
+          </a>
+          |
+          <a href="/contact" style={{ margin: "0 10px", color: "#666" }}>
+            اتصل بنا
           </a>
         </footer>
       </div>
