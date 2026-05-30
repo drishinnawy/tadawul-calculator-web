@@ -25,7 +25,7 @@ export default function HomePage() {
           content="اكتشف أداة تداول مبتكرة تساعدك على حساب أرباحك وخسائرك بدقة."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tadawul-calculator-web.vercel.app" />
+        <meta property="og:url" content="https://tadawul-calculator-web-ufov.vercel.app" />
         <meta property="og:image" content="/preview.png" />
 
         {/* وسوم Twitter */}
@@ -39,12 +39,12 @@ export default function HomePage() {
       </Head>
 
       <div style={{ textAlign: "center", marginTop: "40px" }}>
-        {/* العداد في الأعلى بالمنتصف مع تنسيق وأيقونة */}
+        {/* العداد في الأعلى بالمنتصف */}
         <div
           style={{
             display: "inline-block",
-            backgroundColor: "#f0f8ff", // خلفية فاتحة
-            border: "2px solid #0070f3", // إطار أزرق
+            backgroundColor: "#f0f8ff",
+            border: "2px solid #0070f3",
             borderRadius: "10px",
             padding: "15px 30px",
             fontSize: "20px",
@@ -58,10 +58,34 @@ export default function HomePage() {
         {/* عنوان الصفحة */}
         <h1 style={{ marginTop: "30px", fontSize: "28px" }}>تداول كالكوليتر</h1>
 
-        {/* الحاسبة تحت العنوان */}
+        {/* الحاسبة */}
         <div style={{ marginTop: "40px" }}>
           <TadawulCalculator />
         </div>
+
+        {/* الفوتر */}
+        <footer
+          style={{
+            marginTop: "60px",
+            padding: "20px",
+            textAlign: "center",
+            fontSize: "14px",
+            color: "#666",
+            borderTop: "1px solid #ddd",
+          }}
+        >
+          <a href="/terms" style={{ margin: "0 10px", color: "#666" }}>
+            Terms of Service
+          </a>
+          |
+          <a href="/privacy" style={{ margin: "0 10px", color: "#666" }}>
+            Privacy Policy
+          </a>
+          |
+          <a href="/refund" style={{ margin: "0 10px", color: "#666" }}>
+            Refund Policy
+          </a>
+        </footer>
       </div>
     </>
   );
