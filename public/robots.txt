@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tadawul-calculator-web-ufov.vercel.app/sitemap.xml
