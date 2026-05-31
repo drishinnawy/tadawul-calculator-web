@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Calculator,
   Info,
@@ -23,7 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 
-// ✅ Toast بديل بسيط مدمج داخل نفس الملف
+// Toast
 const Toast = ({ message, type }: { message: string; type: "success" | "error" | "info" }) => (
   <div
     className={`fixed top-6 right-6 z-50 px-4 py-2 rounded-lg shadow-lg text-white text-sm ${
@@ -51,23 +51,6 @@ export default function TadawulCalculator() {
   const [remainingCost, setRemainingCost] = useState(0);
   const [theme, setTheme] = useState("mint");
   const [toastMsg, setToastMsg] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
-
-  // Roller داخل الحاسبة
-  const features = [
-    "حاسبة الصفقة",
-    "حاسبة البيع",
-    "حاسبة المتوسط",
-    "نظرة شاملة على المحفظة",
-  ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => setCurrentIndex((prev) => (prev + 1) % features.length),
-      3000
-    );
-    return () => clearInterval(interval);
-  }, [features.length]);
 
   const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
     setToastMsg({ message, type });
@@ -142,7 +125,6 @@ export default function TadawulCalculator() {
     window.open("https://www.argaam.com/ar/company/shariahcompanies/3//3", "_blank");
   };
 
-  // ✅ تعديل حاسبة البيع لتستخدم الصفقة أو المتوسط
   const handleSellCalculation = () => {
     const ss = parseFloat(sellShares);
     const sp = parseFloat(sellPrice);
@@ -200,52 +182,6 @@ export default function TadawulCalculator() {
         </Button>
       </div>
 
-      {/* Roller */}
-      <div
-        style={{
-          overflow: "hidden",
-          height: "36px",
-          width: "100%",
-          maxWidth: "300px",
-          margin: "15px auto",
-          borderRadius: "10px",
-          background: "rgba(255,255,255,0.35)",
-          border: "1px solid rgba(255,255,255,0.4)",
-          backdropFilter: "blur(10px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "18px",
-          fontWeight: "bold",
-          direction: "rtl",
-          color: "black",
-          mixBlendMode: "normal",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            transform: `translateY(-${currentIndex * 36}px)`,
-            transition: "transform 0.6s ease-in-out",
-          }}
-        >
-          {features.map((text, idx) => (
-            <div
-              key={idx}
-              style={{
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {text}
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* حاسبة الصفقة */}
       <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
         <CardHeader>
@@ -265,19 +201,11 @@ export default function TadawulCalculator() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <Label>مبلغ الصفقة (ر.س)</Label>
-                  <Input
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
+                  <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
                 </div>
                 <div>
                   <Label>سعر السهم</Label>
-                  <Input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
+                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
                 </div>
               </div>
             </TabsContent>
@@ -286,19 +214,11 @@ export default function TadawulCalculator() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <Label>عدد الأسهم</Label>
-                  <Input
-                    type="number"
-                    value={shares}
-                    onChange={(e) => setShares(e.target.value)}
-                  />
+                  <Input type="number" value={shares} onChange={(e) => setShares(e.target.value)} />
                 </div>
                 <div>
                   <Label>سعر السهم</Label>
-                  <Input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
+                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
                 </div>
               </div>
             </TabsContent>
@@ -308,21 +228,15 @@ export default function TadawulCalculator() {
           <div className="grid md:grid-cols-3 gap-4 text-center">
             <div className="bg-emerald-50 p-3 rounded-lg">
               <p>عدد الأسهم</p>
-              <p className="font-bold text-emerald-700">
-                {formatNumber(calculatedShares)}
-              </p>
+              <p className="font-bold text-emerald-700">{formatNumber(calculatedShares)}</p>
             </div>
             <div className="bg-emerald-50 p-3 rounded-lg">
               <p>التكلفة الإجمالية</p>
-              <p className="font-bold text-emerald-700">
-                {formatNumber(calculatedCost)} ر.س
-              </p>
+              <p className="font-bold text-emerald-700">{formatNumber(calculatedCost)} ر.س</p>
             </div>
             <div className="bg-emerald-50 p-3 rounded-lg">
               <p>متوسط السهم بعد العمولة</p>
-              <p className="font-bold text-emerald-700">
-                {formatNumber(averagePriceWithFees)} ر.س
-              </p>
+              <p className="font-bold text-emerald-700">{formatNumber(averagePriceWithFees)} ر.س</p>
             </div>
           </div>
         </CardContent>
@@ -344,36 +258,21 @@ export default function TadawulCalculator() {
               value={stockName}
               onChange={(e) => setStockName(e.target.value)}
             />
-            <Button
-              onClick={handleShariaCheck}
-              className="w-full bg-sky-600 hover:bg-sky-700"
-            >
+            <Button onClick={handleShariaCheck} className="w-full bg-sky-600 hover:bg-sky-700">
               <ShieldCheck className="mr-2 h-4 w-4" /> التحقق من الشرعية في أرقام
             </Button>
             <Button variant="outline" asChild className="w-full">
-              <a
-                href="https://trynaqua.com/calculator"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://trynaqua.com/calculator" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-2 h-4 w-4" /> صفحة تطهير الأسهم
               </a>
             </Button>
             <Button variant="outline" asChild className="w-full">
-              <a
-                href="https://www.tickerchart.net/app/ar"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://www.tickerchart.net/app/ar" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-2 h-4 w-4" /> تكرتشارت
               </a>
             </Button>
             <Button variant="outline" asChild className="w-full">
-              <a
-                href="https://ar.tradingview.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://ar.tradingview.com/" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-2 h-4 w-4" /> تريدينج فيو
               </a>
             </Button>
@@ -395,33 +294,20 @@ export default function TadawulCalculator() {
                   type="number"
                   placeholder="عدد الأسهم"
                   value={p.shares}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "shares", e.target.value)
-                  }
+                  onChange={(e) => handlePurchaseChange(p.id, "shares", e.target.value)}
                 />
                 <Input
                   type="number"
                   placeholder="سعر الشراء"
                   value={p.price}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "price", e.target.value)
-                  }
+                  onChange={(e) => handlePurchaseChange(p.id, "price", e.target.value)}
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRemovePurchase(p.id)}
-                >
+                <Button variant="ghost" size="icon" onClick={() => handleRemovePurchase(p.id)}>
                   <MinusCircle className="text-red-500" />
                 </Button>
               </div>
             ))}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleAddNewPurchase}
-              className="mt-2"
-            >
+            <Button variant="outline" size="sm" onClick={handleAddNewPurchase} className="mt-2">
               <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
             </Button>
 
@@ -453,9 +339,7 @@ export default function TadawulCalculator() {
           <CardTitle className="flex items-center gap-2 text-amber-700">
             <Scale /> حاسبة البيع الجزئي
           </CardTitle>
-          <CardDescription>
-            احسب الربح أو الخسارة عند بيع جزء من الأسهم
-          </CardDescription>
+          <CardDescription>احسب الربح أو الخسارة عند بيع جزء من الأسهم</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 gap-4">
@@ -472,34 +356,22 @@ export default function TadawulCalculator() {
               onChange={(e) => setSellPrice(e.target.value)}
             />
           </div>
-          <Button
-            onClick={handleSellCalculation}
-            className="mt-4 bg-amber-500 hover:bg-amber-600 text-white"
-          >
+          <Button onClick={handleSellCalculation} className="mt-4 bg-amber-500 hover:bg-amber-600 text-white">
             احسب
           </Button>
 
-          <Alert
-            className="mt-4"
-            variant={profitOrLoss >= 0 ? "default" : "destructive"}
-          >
+          <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
             <AlertTitle>النتائج</AlertTitle>
             <AlertDescription className="space-y-2">
               <div className="flex justify-between">
                 <span>صافي البيع:</span>
-                <span className="font-bold text-primary">
-                  {formatNumber(netProceeds)} ر.س
-                </span>
+                <span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span>
               </div>
               <div className="flex justify-between">
                 <span>الربح / الخسارة لكل سهم:</span>
                 <span
                   className={`font-bold ${
-                    profitOrLoss > 0
-                      ? "text-green-600"
-                      : profitOrLoss < 0
-                      ? "text-red-600"
-                      : "text-gray-600"
+                    profitOrLoss > 0 ? "text-green-600" : profitOrLoss < 0 ? "text-red-600" : "text-gray-600"
                   }`}
                 >
                   {sellShares && parseFloat(sellShares) > 0
@@ -508,86 +380,3 @@ export default function TadawulCalculator() {
                   ر.س
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>إجمالي الربح / الخسارة:</span>
-                <span
-                  className={`font-bold ${
-                    profitOrLoss > 0
-                      ? "text-green-600"
-                      : profitOrLoss < 0
-                      ? "text-red-600"
-                      : "text-gray-600"
-                  }`}
-                >
-                  {formatNumber(profitOrLoss)} ر.س
-                </span>
-              </div>
-            </AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
-
-      {/* الخلاصة */}
-      <Card className="shadow-lg mt-8 bg-white/80 border border-amber-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-700">
-            <TrendingUp /> الخلاصة المالية
-          </CardTitle>
-          <CardDescription>
-            نظرة شاملة على محفظتك بعد الصفقات والبيع
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid md:grid-cols-4 gap-4 text-center">
-          <div className="border rounded-xl p-3 bg-white/70 shadow-sm">
-            <p className="text-sm text-gray-500">الأسهم المتبقية</p>
-            <p className="text-xl font-bold text-primary">
-              {remainingShares && remainingShares > 0
-                ? formatNumber(remainingShares)
-                : formatNumber(totalShares)}
-            </p>
-          </div>
-          <div className="border rounded-xl p-3 bg-white/70 shadow-sm">
-            <p className="text-sm text-gray-500">المتوسط بعد البيع</p>
-            <p className="text-xl font-bold text-primary">
-              {remainingShares && remainingShares > 0
-                ? formatNumber(remainingCost / remainingShares) + " ر.س"
-                : totalShares > 0
-                ? formatNumber(totalCost / totalShares) + " ر.س"
-                : "0"}
-            </p>
-          </div>
-          <div className="border rounded-xl p-3 bg-white/70 shadow-sm">
-            <p className="text-sm text-gray-500">إجمالي التكلفة</p>
-            <p className="text-xl font-bold text-primary">
-              {remainingCost && remainingCost > 0
-                ? formatNumber(remainingCost) + " ر.س"
-                : totalCost > 0
-                ? formatNumber(totalCost) + " ر.س"
-                : "0"}
-            </p>
-          </div>
-          <div className="border rounded-xl p-3 bg-white/70 shadow-sm">
-            <p className="text-sm text-gray-500">صافي الأرباح / الخسائر</p>
-            <p
-              className={`text-xl font-bold ${
-                profitOrLoss > 0
-                  ? "text-green-600"
-                  : profitOrLoss < 0
-                  ? "text-red-600"
-                  : "text-gray-600"
-              }`}
-            >
-              {formatNumber(profitOrLoss)} ر.س
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="text-center mt-8">
-        <Button variant="destructive" onClick={handleClearAll}>
-          <Trash2 className="mr-2 h-4 w-4" /> مسح جميع الإدخالات
-        </Button>
-      </div>
-    </div>
-  );
-}
