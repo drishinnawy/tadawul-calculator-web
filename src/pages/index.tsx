@@ -9,10 +9,16 @@ export default function HomePage() {
         {/* عنوان التبويب */}
         <title>أفضل حاسبة تداول</title>
 
-        {/* وصف SEO */}
+        {/* وصف SEO المحسن */}
         <meta
           name="description"
-          content="اكتشف أداة تداول مبتكرة تساعدك على حساب أرباحك وخسائرك بدقة، مصممة خصيصًا للمتداولين في السعودية."
+          content="حاسبة تداول سعودية دقيقة لحساب الأرباح والخسائر، العمولات، نقاط الدخول والخروج، وحجم الصفقة. أداة مجانية وسهلة الاستخدام للمتداولين في سوق الأسهم السعودي."
+        />
+
+        {/* الكلمات المفتاحية */}
+        <meta
+          name="keywords"
+          content="حاسبة تداول, حاسبة الأسهم, تداول السعودية, حساب الأرباح, حساب الخسائر, الأسهم السعودية, الاستثمار, سوق الأسهم, حاسبة المضاربة, حاسبة الأسهم السعودية"
         />
 
         {/* أيقونة التبويب */}
@@ -22,7 +28,7 @@ export default function HomePage() {
         <meta property="og:title" content="أفضل حاسبة تداول" />
         <meta
           property="og:description"
-          content="اكتشف أداة تداول مبتكرة تساعدك على حساب أرباحك وخسائرك بدقة."
+          content="حاسبة تداول سعودية دقيقة لحساب الأرباح والخسائر بسهولة ووضوح."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tadawul-calculator-web-ufov.vercel.app" />
@@ -36,6 +42,58 @@ export default function HomePage() {
           content="حاسبة تداول عربية لحساب الأرباح والخسائر بسهولة ووضوح."
         />
         <meta name="twitter:image" content="/preview.png" />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "أفضل حاسبة تداول",
+              "url": "https://tadawul-calculator-web-ufov.vercel.app",
+              "applicationCategory": "FinanceApplication",
+              "operatingSystem": "All",
+              "inLanguage": "ar",
+              "description":
+                "حاسبة تداول سعودية لحساب الأرباح والخسائر والعمولات وحجم الصفقة بسهولة وبدقة.",
+              "creator": {
+                "@type": "Person",
+                "name": "Ibrahim Alnabegha"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Tadawul Calculator"
+              },
+              "mainEntity": {
+                "@type": "WebPage",
+                "@id": "https://tadawul-calculator-web-ufov.vercel.app"
+              },
+              "hasPart": [
+                {
+                  "@type": "WebPage",
+                  "url": "https://tadawul-calculator-web-ufov.vercel.app/terms",
+                  "name": "Terms of Service"
+                },
+                {
+                  "@type": "WebPage",
+                  "url": "https://tadawul-calculator-web-ufov.vercel.app/privacy",
+                  "name": "Privacy Policy"
+                },
+                {
+                  "@type": "WebPage",
+                  "url": "https://tadawul-calculator-web-ufov.vercel.app/refund",
+                  "name": "Refund Policy"
+                },
+                {
+                  "@type": "WebPage",
+                  "url": "https://tadawul-calculator-web-ufov.vercel.app/contact",
+                  "name": "Contact Page"
+                }
+              ]
+            }),
+          }}
+        />
       </Head>
 
       <div style={{ textAlign: "center", marginTop: "40px" }}>
