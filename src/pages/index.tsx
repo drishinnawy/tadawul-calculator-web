@@ -106,7 +106,7 @@ export default function HomePage() {
   style={{
     width: "100%",
     backgroundColor: "#e6f0ff",
-    padding: "15px 25px",
+    padding: "12px 25px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -116,10 +116,74 @@ export default function HomePage() {
     zIndex: 1000,
   }}
 >
+  {/* Logo / Title */}
   <div style={{ fontSize: "20px", fontWeight: "bold", color: "#0044aa" }}>
-    تداول كالكوليتر
+    أفضل حاسبة تداول
   </div>
 
+  {/* Center Section: Counter + Rotating Text */}
+  <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+    {/* Counter (Small Glassmorphism) */}
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        padding: "6px 14px",
+        borderRadius: "10px",
+        backdropFilter: "blur(8px)",
+        background: "rgba(255, 255, 255, 0.35)",
+        border: "1px solid rgba(255, 255, 255, 0.4)",
+        fontSize: "15px",
+        fontWeight: "bold",
+        color: "#0044aa",
+      }}
+    >
+      <span style={{ fontSize: "18px" }}>📊</span>
+      <span><VisitCounter /></span>
+    </div>
+
+    {/* Rotating Text */}
+    <div
+      style={{
+        fontSize: "15px",
+        fontWeight: "bold",
+        color: "#0055aa",
+        minWidth: "120px",
+        textAlign: "right",
+        animation: "fadeText 6s infinite",
+      }}
+    >
+      <span id="rotating-text"></span>
+    </div>
+
+    <style>
+      {`
+        @keyframes fadeText {
+          0% { opacity: 0; }
+          10% { opacity: 1; }
+          40% { opacity: 1; }
+          50% { opacity: 0; }
+          100% { opacity: 0; }
+        }
+      `}
+    </style>
+
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          const texts = ["حاسبة الصفقة", "حاسبة المتوسط", "حاسبة البيع"];
+          let index = 0;
+          setInterval(() => {
+            document.getElementById("rotating-text").textContent = texts[index];
+            index = (index + 1) % texts.length;
+          }, 2000);
+        `,
+      }}
+    />
+  </div>
+
+  {/* Links */}
   <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
     <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
       الرئيسية
@@ -130,8 +194,7 @@ export default function HomePage() {
     <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
       اتصل بنا
     </a>
-
-    </div>
+  </div>
 </nav>
 
 {/* الشريط المتحرك */}
