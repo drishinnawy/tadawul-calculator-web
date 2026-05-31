@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useState, useMemo } from "react";
+
 import {
   Calculator,
   Info,
@@ -15,6 +17,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,19 +39,32 @@ const Toast = ({ message, type }: { message: string; type: "success" | "error" |
 
 export default function TadawulCalculator() {
   const [activeTab, setActiveTab] = useState("byAmount");
+
   const [amount, setAmount] = useState("");
   const [price, setPrice] = useState("");
   const [shares, setShares] = useState("");
+
   const [commission, setCommission] = useState("0.0015");
   const [vat, setVat] = useState("15");
+
   const [stockName, setStockName] = useState("");
   const [purchases, setPurchases] = useState([{ id: 1, shares: "", price: "" }]);
+
   const [sellShares, setSellShares] = useState("");
   const [sellPrice, setSellPrice] = useState("");
+
   const [profitOrLoss, setProfitOrLoss] = useState(0);
   const [netProceeds, setNetProceeds] = useState(0);
+
+  // 🔥 المتغيرات الجديدة
   const [remainingShares, setRemainingShares] = useState(0);
   const [remainingCost, setRemainingCost] = useState(0);
+  const [newAverageCost, setNewAverageCost] = useState(0);
+  const [totalProfitOrLoss, setTotalProfitOrLoss] = useState(0);
+
+  // 🔥 إعداد العمولة العام
+  const [sellCommissionRate, setSellCommissionRate] = useState("0.00015");
+
   const [theme, setTheme] = useState("mint");
   const [toastMsg, setToastMsg] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
 
@@ -65,347 +81,412 @@ export default function TadawulCalculator() {
   const formatNumber = (num: number | string) =>
     isNaN(Number(num)) ? "-" : Number(num).toLocaleString("ar-SA", { maximumFractionDigits: 2 });
 
-  const calculatedShares = useMemo(() => {
-    if (activeTab === "byAmount" && amount && price) {
-      const a = parseFloat(amount);
-      const p = parseFloat(price);
-      const c = parseFloat(commission);
-      const v = parseFloat(vat) / 100;
-      const totalFees = a * c * (1 + v);
-      return Math.floor((a - totalFees) / p);
-    } else if (activeTab === "byShares" && shares && price) {
-      return parseFloat(shares);
-    }
-    return 0;
-  }, [activeTab, amount, price, shares, commission, vat]);
-
-  const calculatedCost = useMemo(() => {
-    if (price && calculatedShares) {
-      const p = parseFloat(price);
-      const c = parseFloat(commission);
-      const v = parseFloat(vat) / 100;
-      const base = p * calculatedShares;
-      const fees = base * c * (1 + v);
-      return base + fees;
-    }
-    return 0;
-  }, [price, calculatedShares, commission, vat]);
-
-  const averagePriceWithFees = useMemo(() => {
-    if (calculatedShares && price) {
-      return calculatedCost / calculatedShares;
-    }
-    return 0;
-  }, [calculatedCost, calculatedShares]);
-
-  const totalShares = purchases.reduce((sum, p) => sum + Number(p.shares || 0), 0);
-  const totalCost = purchases.reduce(
-    (sum, p) => sum + Number(p.shares || 0) * Number(p.price || 0),
-    0
-  );
-  const averagePrice = totalShares ? totalCost / totalShares : 0;
-
-  const handlePurchaseChange = (id: number, field: string, value: string) => {
-    setPurchases(purchases.map((p) => (p.id === id ? { ...p, [field]: value } : p)));
-  };
-
-  const handleAddNewPurchase = () => {
-    setPurchases([...purchases, { id: Date.now(), shares: "", price: "" }]);
-  };
-
-  const handleRemovePurchase = (id: number) => {
-    setPurchases(purchases.filter((p) => p.id !== id));
-  };
-
-  const handleShariaCheck = () => {
-    if (!stockName.trim()) {
-      showToast("يرجى إدخال اسم السهم أو رمزه للتحقق.", "error");
-      return;
-    }
-    window.open("https://www.argaam.com/ar/company/shariahcompanies/3//3", "_blank");
-  };
-
+  // 🔥 حسابات البيع الجزئي الجديدة
   const handleSellCalculation = () => {
     const ss = parseFloat(sellShares);
     const sp = parseFloat(sellPrice);
-    const c = parseFloat(commission);
-    const v = parseFloat(vat);
+    const rate = parseFloat(sellCommissionRate || "0.00015");
 
-    const effectiveShares = totalShares > 0 ? totalShares : calculatedShares;
-    const effectiveAveragePrice = totalShares > 0 ? averagePrice : averagePriceWithFees;
-
-    if (isNaN(ss) || ss <= 0 || ss > effectiveShares) {
-      showToast("الكمية غير صالحة أو أكبر من إجمالي الأسهم.", "error");
+    if (isNaN(ss) || ss <= 0) {
+      showToast("الكمية غير صالحة.", "error");
       return;
     }
 
-    const proceeds = ss * sp;
-    const fees = proceeds * c * (1 + v / 100);
-    const net = proceeds - fees;
-    const avgCost = effectiveAveragePrice * ss;
-    const profit = net - avgCost;
+    const totalSharesNum = purchases.reduce((sum, p) => sum + Number(p.shares || 0), 0);
+    const totalCostNum = purchases.reduce(
+      (sum, p) => sum + Number(p.shares || 0) * Number(p.price || 0),
+      0
+    );
 
-    setNetProceeds(net);
-    setProfitOrLoss(profit);
-    const remainingS = effectiveShares - ss;
-    const remainingC = effectiveShares * effectiveAveragePrice - avgCost;
-    setRemainingShares(remainingS);
-    setRemainingCost(remainingC);
+    if (ss > totalSharesNum) {
+      showToast("لا يمكنك بيع أكثر من إجمالي الأسهم.", "error");
+      return;
+    }
+
+    const sellValue = ss * sp;
+    const sellCommission = sellValue * rate;
+    const netSell = sellValue - sellCommission;
+
+    const avgBuyPrice = totalSharesNum > 0 ? totalCostNum / totalSharesNum : 0;
+    const avgCostOfSold = avgBuyPrice * ss;
+
+    const realizedPL = netSell - avgCostOfSold;
+
+    const newRemainingShares = totalSharesNum - ss;
+    const newRemainingCost = totalCostNum - avgCostOfSold;
+
+    const newAvg =
+      newRemainingShares > 0
+        ? (newRemainingCost + sellCommission) / newRemainingShares
+        : 0;
+
+    setNetProceeds(netSell);
+    setProfitOrLoss(realizedPL);
+
+    setRemainingShares(newRemainingShares);
+    setRemainingCost(newRemainingCost);
+    setNewAverageCost(newAvg);
+
+    setTotalProfitOrLoss(realizedPL);
   };
+return (
+  <div className={`p-6 rounded-2xl ${themeClasses}`}>
+    {toastMsg && <Toast message={toastMsg.message} type={toastMsg.type} />}
 
-  const handleClearAll = () => {
-    setAmount("");
-    setPrice("");
-    setShares("");
-    setPurchases([{ id: 1, shares: "", price: "" }]);
-    setSellShares("");
-    setSellPrice("");
-    setNetProceeds(0);
-    setProfitOrLoss(0);
-    setRemainingShares(0);
-    setRemainingCost(0);
-    showToast("تم مسح جميع البيانات بنجاح", "success");
-  };
+    {/* تبديل الثيم */}
+    <div className="flex justify-end mb-4">
+      <Button
+        variant="outline"
+        onClick={() => setTheme(theme === "mint" ? "royal" : "mint")}
+        className="flex items-center gap-2"
+      >
+        {theme === "mint" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+        تبديل الثيم
+      </Button>
+    </div>
 
-  return (
-    <div className={`p-6 rounded-2xl ${themeClasses}`}>
-      {toastMsg && <Toast message={toastMsg.message} type={toastMsg.type} />}
+    {/* 🔥 كارد إعداد العمولة العام */}
+    <Card className="mb-6 bg-white/80 shadow-md border border-blue-200">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-blue-700">
+          <Info /> إعدادات عامة
+        </CardTitle>
+        <CardDescription>إعدادات تؤثر على دقة الحسابات</CardDescription>
+      </CardHeader>
 
-      <div className="flex justify-end mb-4">
-        <Button
-          variant="outline"
-          onClick={() => setTheme(theme === "mint" ? "royal" : "mint")}
-          className="flex items-center gap-2"
-        >
-          {theme === "mint" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          تبديل الثيم
-        </Button>
-      </div>
+      <CardContent className="space-y-3">
+        <Label>نسبة عمولة البيع (تداول)</Label>
+        <Input
+          type="number"
+          step="0.00001"
+          placeholder="0.00015 (العمولة الافتراضية)"
+          value={sellCommissionRate}
+          onChange={(e) => setSellCommissionRate(e.target.value)}
+        />
 
-      {/* حاسبة الصفقة */}
-      <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-emerald-700">
-            <Calculator /> حاسبة الصفقة الرئيسية
-          </CardTitle>
-          <CardDescription>احسب تكلفة صفقتك أو عدد الأسهم</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="byAmount">حسب المبلغ</TabsTrigger>
-              <TabsTrigger value="byShares">حسب عدد الأسهم</TabsTrigger>
-            </TabsList>
+        <p className="text-xs text-gray-500">
+          بعض المنصات لا تضيف عمولة البيع في حساب متوسط التكلفة،
+          لذلك قد ترى اختلافًا بسيطًا بين الحاسبة ومنصتك.
+          الحاسبة هنا أدق محاسبيًا.
+        </p>
+      </CardContent>
+    </Card>
 
-            <TabsContent value="byAmount" className="space-y-4 pt-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>مبلغ الصفقة (ر.س)</Label>
-                  <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                </div>
-                <div>
-                  <Label>سعر السهم</Label>
-                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-                </div>
+    {/* حاسبة الصفقة */}
+    <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-emerald-700">
+          <Calculator /> حاسبة الصفقة الرئيسية
+        </CardTitle>
+        <CardDescription>احسب تكلفة صفقتك أو عدد الأسهم</CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="byAmount">حسب المبلغ</TabsTrigger>
+            <TabsTrigger value="byShares">حسب عدد الأسهم</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="byAmount" className="space-y-4 pt-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label>مبلغ الصفقة (ر.س)</Label>
+                <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
               </div>
-            </TabsContent>
 
-            <TabsContent value="byShares" className="space-y-4 pt-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>عدد الأسهم</Label>
-                  <Input type="number" value={shares} onChange={(e) => setShares(e.target.value)} />
-                </div>
-                <div>
-                  <Label>سعر السهم</Label>
-                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-                </div>
+              <div>
+                <Label>سعر السهم</Label>
+                <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </TabsContent>
 
-          <Separator className="my-4" />
-          <div className="grid md:grid-cols-3 gap-4 text-center">
-            <div className="bg-emerald-50 p-3 rounded-lg">
-              <p>عدد الأسهم</p>
-              <p className="font-bold text-emerald-700">{formatNumber(calculatedShares)}</p>
+          <TabsContent value="byShares" className="space-y-4 pt-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label>عدد الأسهم</Label>
+                <Input type="number" value={shares} onChange={(e) => setShares(e.target.value)} />
+              </div>
+
+              <div>
+                <Label>سعر السهم</Label>
+                <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+              </div>
             </div>
-            <div className="bg-emerald-50 p-3 rounded-lg">
-              <p>التكلفة الإجمالية</p>
-              <p className="font-bold text-emerald-700">{formatNumber(calculatedCost)} ر.س</p>
-            </div>
-            <div className="bg-emerald-50 p-3 rounded-lg">
-              <p>متوسط السهم بعد العمولة</p>
-              <p className="font-bold text-emerald-700">{formatNumber(averagePriceWithFees)} ر.س</p>
-            </div>
+          </TabsContent>
+        </Tabs>
+
+        <Separator className="my-4" />
+
+        <div className="grid md:grid-cols-3 gap-4 text-center">
+          <div className="bg-emerald-50 p-3 rounded-lg">
+            <p>عدد الأسهم</p>
+            <p className="font-bold text-emerald-700">{formatNumber(calculatedShares)}</p>
           </div>
+
+          <div className="bg-emerald-50 p-3 rounded-lg">
+            <p>التكلفة الإجمالية</p>
+            <p className="font-bold text-emerald-700">{formatNumber(calculatedCost)} ر.س</p>
+          </div>
+
+          <div className="bg-emerald-50 p-3 rounded-lg">
+            <p>متوسط السهم بعد العمولة</p>
+            <p className="font-bold text-emerald-700">{formatNumber(averagePriceWithFees)} ر.س</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+
+    {/* أدوات السهم + حاسبة المتوسط */}
+    <div className="grid md:grid-cols-3 gap-6">
+      {/* أدوات السهم */}
+      <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-sky-700">
+            <BookOpen /> أدوات السهم
+          </CardTitle>
+          <CardDescription>تحقق من شرعية السهم وتابع تحليله</CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-3">
+          <Input
+            placeholder="اسم السهم أو رمزه"
+            value={stockName}
+            onChange={(e) => setStockName(e.target.value)}
+          />
+
+          <Button onClick={handleShariaCheck} className="w-full bg-sky-600 hover:bg-sky-700">
+            <ShieldCheck className="mr-2 h-4 w-4" /> التحقق من الشرعية في أرقام
+          </Button>
+
+          <Button variant="outline" asChild className="w-full">
+            <a href="https://trynaqua.com/calculator" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" /> صفحة تطهير الأسهم
+            </a>
+          </Button>
+
+          <Button variant="outline" asChild className="w-full">
+            <a href="https://www.tickerchart.net/app/ar" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" /> تكرتشارت
+            </a>
+          </Button>
+
+          <Button variant="outline" asChild className="w-full">
+            <a href="https://ar.tradingview.com/" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" /> تريدينج فيو
+            </a>
+          </Button>
         </CardContent>
       </Card>
 
-      {/* أدوات السهم + حاسبة المتوسط */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* أدوات السهم */}
-        <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-sky-700">
-              <BookOpen /> أدوات السهم
-            </CardTitle>
-            <CardDescription>تحقق من شرعية السهم وتابع تحليله</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Input
-              placeholder="اسم السهم أو رمزه"
-              value={stockName}
-              onChange={(e) => setStockName(e.target.value)}
-            />
-            <Button onClick={handleShariaCheck} className="w-full bg-sky-600 hover:bg-sky-700">
-              <ShieldCheck className="mr-2 h-4 w-4" /> التحقق من الشرعية في أرقام
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <a href="https://trynaqua.com/calculator" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> صفحة تطهير الأسهم
-              </a>
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <a href="https://www.tickerchart.net/app/ar" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> تكرتشارت
-              </a>
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <a href="https://ar.tradingview.com/" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> تريدينج فيو
-              </a>
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* حاسبة المتوسط */}
-        <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-emerald-700">
-              <Repeat /> حاسبة متوسط التكلفة
-            </CardTitle>
-            <CardDescription>أدخل عمليات الشراء المتعددة</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {purchases.map((p) => (
-              <div key={p.id} className="flex gap-2 mb-2">
-                <Input
-                  type="number"
-                  placeholder="عدد الأسهم"
-                  value={p.shares}
-                  onChange={(e) => handlePurchaseChange(p.id, "shares", e.target.value)}
-                />
-                <Input
-                  type="number"
-                  placeholder="سعر الشراء"
-                  value={p.price}
-                  onChange={(e) => handlePurchaseChange(p.id, "price", e.target.value)}
-                />
-                <Button variant="ghost" size="icon" onClick={() => handleRemovePurchase(p.id)}>
-                  <MinusCircle className="text-red-500" />
-                </Button>
-              </div>
-            ))}
-            <Button variant="outline" size="sm" onClick={handleAddNewPurchase} className="mt-2">
-              <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
-            </Button>
-
-            <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-200">
-              <Info className="h-5 w-5" />
-              <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
-              <AlertDescription className="space-y-2">
-                <div className="flex justify-between">
-                  <span>إجمالي الأسهم:</span>
-                  <span>{formatNumber(totalShares)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>متوسط سعر السهم:</span>
-                  <span>{formatNumber(averagePrice)} ر.س</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>إجمالي التكلفة:</span>
-                  <span>{formatNumber(totalCost)} ر.س</span>
-                </div>
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* حاسبة البيع الجزئي */}
-      <Card className="mt-6 bg-white/80 shadow-md border border-amber-100">
+      {/* حاسبة المتوسط */}
+      <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-700">
-            <Scale /> حاسبة البيع الجزئي
+          <CardTitle className="flex items-center gap-2 text-emerald-700">
+            <Repeat /> حاسبة متوسط التكلفة
           </CardTitle>
-          <CardDescription>احسب الربح أو الخسارة عند بيع جزء من الأسهم</CardDescription>
+          <CardDescription>أدخل عمليات الشراء المتعددة</CardDescription>
         </CardHeader>
+
         <CardContent>
-          <div className="grid md:grid-cols-2 gap-4">
-            <Input
-              type="number"
-              placeholder="عدد أسهم البيع"
-              value={sellShares}
-              onChange={(e) => setSellShares(e.target.value)}
-            />
-            <Input
-              type="number"
-              placeholder="سعر البيع"
-              value={sellPrice}
-              onChange={(e) => setSellPrice(e.target.value)}
-            />
-          </div>
-          <Button onClick={handleSellCalculation} className="mt-4 bg-amber-500 hover:bg-amber-600 text-white">
-            احسب
+          {purchases.map((p) => (
+            <div key={p.id} className="flex gap-2 mb-2">
+              <Input
+                type="number"
+                placeholder="عدد الأسهم"
+                value={p.shares}
+                onChange={(e) => handlePurchaseChange(p.id, "shares", e.target.value)}
+              />
+
+              <Input
+                type="number"
+                placeholder="سعر الشراء"
+                value={p.price}
+                onChange={(e) => handlePurchaseChange(p.id, "price", e.target.value)}
+              />
+
+              <Button variant="ghost" size="icon" onClick={() => handleRemovePurchase(p.id)}>
+                <MinusCircle className="text-red-500" />
+              </Button>
+            </div>
+          ))}
+
+          <Button variant="outline" size="sm" onClick={handleAddNewPurchase} className="mt-2">
+            <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
           </Button>
 
-          <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
-            <AlertTitle>النتائج</AlertTitle>
+          <Alert variant="default" className="mt-4 bg-emerald-50 border-emerald-200">
+            <Info className="h-5 w-5" />
+            <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
+
             <AlertDescription className="space-y-2">
               <div className="flex justify-between">
-                <span>صافي البيع:</span>
-                <span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span>
-              </div>
-              <div className="flex justify-between">
-                <span>الربح / الخسارة لكل سهم:</span>
-                <span
-                  className={`font-bold ${
-                    profitOrLoss > 0 ? "text-green-600" : profitOrLoss < 0 ? "text-red-600" : "text-gray-600"
-                  }`}
-                >
-                  {sellShares && parseFloat(sellShares) > 0
-  ? formatNumber(profitOrLoss / parseFloat(sellShares))
-  : "0"} ر.س
-
-                                  </span>
+                <span>إجمالي الأسهم:</span>
+                <span>{formatNumber(totalShares)}</span>
               </div>
 
               <div className="flex justify-between">
-                <span>إجمالي الربح / الخسارة:</span>
-                <span
-                  className={`font-bold ${
-                    profitOrLoss > 0 ? "text-green-600" : profitOrLoss < 0 ? "text-red-600" : "text-gray-600"
-                  }`}
-                >
-                  {formatNumber(profitOrLoss)} ر.س
-                </span>
+                <span>متوسط سعر السهم:</span>
+                <span>{formatNumber(averagePrice)} ر.س</span>
               </div>
 
+              <div className="flex justify-between">
+                <span>إجمالي التكلفة:</span>
+                <span>{formatNumber(totalCost)} ر.س</span>
+              </div>
             </AlertDescription>
           </Alert>
         </CardContent>
       </Card>
-
-      {/* زر مسح البيانات */}
-      <div className="mt-6 flex justify-center">
-        <Button
-          onClick={handleClearAll}
-          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
-        >
-          مسح جميع البيانات
-        </Button>
-      </div>
     </div>
-  );
+
+    {/* حاسبة البيع الجزئي */}
+    <Card className="mt-6 bg-white/80 shadow-md border border-amber-100">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-amber-700">
+          <Scale /> حاسبة البيع الجزئي
+        </CardTitle>
+        <CardDescription>احسب الربح أو الخسارة عند بيع جزء من الأسهم</CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <div className="grid md:grid-cols-2 gap-4">
+          <Input
+            type="number"
+            placeholder="عدد أسهم البيع"
+            value={sellShares}
+            onChange={(e) => setSellShares(e.target.value)}
+          />
+
+          <Input
+            type="number"
+            placeholder="سعر البيع"
+            value={sellPrice}
+            onChange={(e) => setSellPrice(e.target.value)}
+          />
+        </div>
+
+        {/* 🔥 أزرار النسب تحت خانة عدد الأسهم */}
+        <div className="flex gap-2 mt-3">
+          {[5, 10, 25, 50, 100].map((p) => (
+            <Button
+              key={p}
+              variant="outline"
+              onClick={() => {
+                setSellShares(Math.floor((totalShares * p) / 100).toString());
+              }}
+            >
+              {p}%
+            </Button>
+          ))}
+        </div>
+
+        {/* إدخال نسبة البيع يدويًا */}
+        <Input
+          type="number"
+          placeholder="أدخل نسبة البيع %"
+          className="mt-3"
+          onChange={(e) => {
+            const val = parseFloat(e.target.value);
+            if (!isNaN(val)) {
+              setSellShares(Math.floor((totalShares * val) / 100).toString());
+            }
+          }}
+        />
+
+        <Button onClick={handleSellCalculation} className="mt-4 bg-amber-500 hover:bg-amber-600 text-white">
+          احسب
+        </Button>
+
+        {/* نتائج البيع */}
+        <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
+          <AlertTitle>النتائج</AlertTitle>
+
+          <AlertDescription className="space-y-2">
+            <div className="flex justify-between">
+              <span>صافي البيع:</span>
+              <span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>إجمالي الربح / الخسارة:</span>
+              <span
+                className={`font-bold ${
+                  profitOrLoss > 0
+                    ? "text-green-600"
+                    : profitOrLoss < 0
+                    ? "text-red-600"
+                    : "text-gray-600"
+                }`}
+              >
+                {formatNumber(profitOrLoss)} ر.س
+              </span>
+            </div>
+          </AlertDescription>
+        </Alert>
+
+        {/* 🔥 نظرة شاملة على المحفظة */}
+        <Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-blue-700">
+              <TrendingUp /> نظرة شاملة على محفظتك
+            </CardTitle>
+            <CardDescription>بعد تنفيذ عملية البيع الجزئي</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-3">
+            <div className="flex justify-between">
+              <span>الأسهم المتبقية:</span>
+              <span className="font-bold">{formatNumber(remainingShares)}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>التكلفة المتبقية:</span>
+              <span className="font-bold">{formatNumber(remainingCost)} ر.س</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>متوسط التكلفة الجديد:</span>
+              <span className="font-bold">{formatNumber(newAverageCost)} ر.س</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>الربح / الخسارة الكلي:</span>
+              <span
+                className={`font-bold ${
+                  totalProfitOrLoss > 0
+                    ? "text-green-600"
+                    : totalProfitOrLoss < 0
+                    ? "text-red-600"
+                    : "text-gray-600"
+                }`}
+              >
+                {formatNumber(totalProfitOrLoss)} ر.س
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      </CardContent>
+    </Card>
+    {/* زر مسح البيانات */}
+    <div className="mt-6 flex justify-center">
+      <Button
+        onClick={handleClearAll}
+        className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+      >
+        مسح جميع البيانات
+      </Button>
+    </div>
+
+    {/* الفوتر */}
+    <div className="mt-10 text-center text-sm text-gray-600">
+      <a href="/terms" className="mx-2 hover:underline">Terms of Service</a> |
+      <a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a> |
+      <a href="/refund" className="mx-2 hover:underline">Refund Policy</a> |
+      <a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
+    </div>
+
+  </div>
+);
 }
