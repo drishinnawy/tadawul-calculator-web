@@ -7,7 +7,6 @@ import VisitCounter from "../components/VisitCounter";
 const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // إصلاح useEffect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % 4);
@@ -41,7 +40,6 @@ const Home: NextPage = () => {
           zIndex: 1000,
         }}
       >
-        {/* Logo */}
         <div
           style={{
             fontSize: "20px",
@@ -53,7 +51,6 @@ const Home: NextPage = () => {
           أفضل حاسبة تداول
         </div>
 
-        {/* Center Section */}
         <div
           style={{
             display: "flex",
@@ -61,7 +58,6 @@ const Home: NextPage = () => {
             gap: "20px",
           }}
         >
-          {/* Counter */}
           <div
             style={{
               display: "flex",
@@ -85,7 +81,6 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        {/* Links */}
         <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
           <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
             الرئيسية
@@ -133,7 +128,7 @@ const Home: NextPage = () => {
         </style>
       </div>
 
-      {/* المحتوى الرئيسي — الحاسبة مباشرة تحت الشريط */}
+      {/* الحاسبة مباشرة تحت الشريط */}
       <main
         style={{
           textAlign: "center",
