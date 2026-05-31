@@ -174,6 +174,81 @@ export default function TadawulCalculator() {
           تبديل الثيم
         </Button>
       </div>
+const handleClearAll = () => {
+  setAmount("");
+  setPrice("");
+  setShares("");
+  setPurchases([{ id: 1, shares: "", price: "" }]);
+  setSellShares("");
+  setSellPrice("");
+  setNetProceeds(0);
+  setProfitOrLoss(0);
+  setRemainingShares(0);
+  setRemainingCost(0);
+  showToast("تم مسح جميع البيانات بنجاح", "success");
+};
+
+return (
+  <div className={`p-6 rounded-2xl ${themeClasses}`}>
+    {toastMsg && <Toast message={toastMsg.message} type={toastMsg.type} />}
+    <div className="flex justify-end mb-4">
+      <Button
+        variant="outline"
+        onClick={() => setTheme(theme === "mint" ? "royal" : "mint")}
+        className="flex items-center gap-2"
+      >
+        {theme === "mint" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+        تبديل الثيم
+      </Button>
+    </div>
+
+    {/* Roller */}
+    <div
+      style={{
+        overflow: "hidden",
+        height: "36px",
+        width: "100%",
+        maxWidth: "300px",
+        margin: "15px auto",
+        borderRadius: "10px",
+        background: "rgba(255,255,255,0.35)",
+        border: "1px solid rgba(255,255,255,0.4)",
+        backdropFilter: "blur(10px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "18px",
+        fontWeight: "bold",
+        direction: "rtl",
+        color: "black",
+        mixBlendMode: "normal",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          transform: `translateY(-${currentIndex * 36}px)`,
+          transition: "transform 0.6s ease-in-out",
+        }}
+      >
+        <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          حاسبة الصفقة
+        </div>
+        <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          حاسبة البيع
+        </div>
+        <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          حاسبة المتوسط
+        </div>
+        <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          نظرة شاملة على المحفظة
+        </div>
+      </div>
+    </div>
+
+    {/* حاسبة الصفقة */}
+    <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
 
       {/* حاسبة الصفقة */}
       <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
