@@ -99,9 +99,56 @@ export default function HomePage() {
             }),
           }}
         />
-      </Head>
+</Head>
 
-      {/* الشريط المتحرك */}
+{/* Navbar */}
+<nav
+  style={{
+    width: "100%",
+    backgroundColor: "#e6f0ff",
+    padding: "15px 25px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: "1px solid #cdd7f3",
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+  }}
+>
+  <div style={{ fontSize: "20px", fontWeight: "bold", color: "#0044aa" }}>
+    تداول كالكوليتر
+  </div>
+
+  <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
+    <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
+      الرئيسية
+    </a>
+    <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
+      حول الموقع
+    </a>
+    <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
+      اتصل بنا
+    </a>
+
+    <a
+      href="/contact"
+      style={{
+        backgroundColor: "#0070f3",
+        color: "white",
+        padding: "8px 15px",
+        borderRadius: "6px",
+        textDecoration: "none",
+        fontWeight: "bold",
+      }}
+    >
+      تواصل معنا
+    </a>
+  </div>
+</nav>
+
+{/* الشريط المتحرك */}
+
       <div
         style={{
           width: "100%",
