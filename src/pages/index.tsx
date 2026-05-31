@@ -169,21 +169,26 @@ export default function HomePage() {
       </div>
 
       <div style={{ textAlign: "center", marginTop: "40px" }}>
-        {/* العداد */}
-        <div
-          style={{
-            display: "inline-block",
-            backgroundColor: "#f0f8ff",
-            border: "2px solid #0070f3",
-            borderRadius: "10px",
-            padding: "15px 30px",
-            fontSize: "20px",
-            fontWeight: "bold",
-            color: "#0070f3",
-          }}
-        >
-          📊 عدد الزيارات: <VisitCounter />
-        </div>
+        {/* العداد الجديد (Glassmorphism) */}
+<div
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "12px",
+    padding: "18px 35px",
+    borderRadius: "15px",
+    backdropFilter: "blur(10px)",
+    background: "rgba(255, 255, 255, 0.25)",
+    border: "1px solid rgba(255, 255, 255, 0.4)",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+    fontSize: "22px",
+    fontWeight: "bold",
+    color: "#0044aa",
+  }}
+>
+  <span style={{ fontSize: "26px" }}>📊</span>
+  <span>عدد الزيارات: <VisitCounter /></span>
+</div>
 
         {/* عنوان الصفحة */}
         <h1 style={{ marginTop: "30px", fontSize: "28px" }}>تداول كالكوليتر</h1>
