@@ -131,20 +131,7 @@ export default function HomePage() {
       اتصل بنا
     </a>
 
-    <a
-      href="/contact"
-      style={{
-        backgroundColor: "#0070f3",
-        color: "white",
-        padding: "8px 15px",
-        borderRadius: "6px",
-        textDecoration: "none",
-        fontWeight: "bold",
-      }}
-    >
-      تواصل معنا
-    </a>
-  </div>
+    </div>
 </nav>
 
 {/* الشريط المتحرك */}
