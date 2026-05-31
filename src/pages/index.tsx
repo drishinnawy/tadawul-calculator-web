@@ -7,6 +7,7 @@ import VisitCounter from "../components/VisitCounter";
 const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // إصلاح useEffect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % 4);
@@ -82,77 +83,6 @@ const Home: NextPage = () => {
               عدد الزيارات: <VisitCounter />
             </span>
           </div>
-
-          {/* Roller */}
-          <div
-            style={{
-              overflow: "hidden",
-              height: "36px",
-              width: "260px",
-              borderRadius: "10px",
-              background: "rgba(255,255,255,0.35)",
-              border: "1px solid rgba(255,255,255,0.4)",
-              backdropFilter: "blur(10px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "18px",
-              fontWeight: "bold",
-              direction: "rtl",
-              color: "black",
-              mixBlendMode: "normal",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                transform: `translateY(-${currentIndex * 36}px)`,
-                transition: "transform 0.6s ease-in-out",
-              }}
-            >
-              <div
-                style={{
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                حاسبة الصفقة
-              </div>
-              <div
-                style={{
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                حاسبة البيع
-              </div>
-              <div
-                style={{
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                حاسبة المتوسط
-              </div>
-              <div
-                style={{
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                نظرة شاملة على المحفظة
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Links */}
@@ -163,10 +93,7 @@ const Home: NextPage = () => {
           <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
             حول الموقع
           </a>
-          <a
-            href="/contact"
-            style={{ color: "#0044aa", textDecoration: "none" }}
-          >
+          <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
             اتصل بنا
           </a>
         </div>
@@ -206,11 +133,11 @@ const Home: NextPage = () => {
         </style>
       </div>
 
-      {/* المحتوى الرئيسي */}
+      {/* المحتوى الرئيسي — الحاسبة مباشرة تحت الشريط */}
       <main
         style={{
           textAlign: "center",
-          marginTop: "10px",
+          marginTop: "0px",
           padding: "10px 0 40px 0",
           background: "linear-gradient(to bottom, #f5f8ff, #eef3ff)",
         }}
