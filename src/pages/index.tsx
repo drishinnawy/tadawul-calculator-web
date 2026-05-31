@@ -168,7 +168,15 @@ export default function HomePage() {
         </style>
       </div>
 
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
+      <div
+  style={{
+    textAlign: "center",
+    marginTop: "40px",
+    padding: "40px 0",
+    background: "linear-gradient(to bottom, #f5f8ff, #eef3ff)",
+    minHeight: "100vh",
+  }}
+>
         {/* العداد الجديد (Glassmorphism) */}
 <div
   style={{
@@ -189,9 +197,6 @@ export default function HomePage() {
   <span style={{ fontSize: "26px" }}>📊</span>
   <span>عدد الزيارات: <VisitCounter /></span>
 </div>
-
-        {/* عنوان الصفحة */}
-        <h1 style={{ marginTop: "30px", fontSize: "28px" }}>تداول كالكوليتر</h1>
 
         {/* الحاسبة */}
         <div style={{ marginTop: "40px" }}>
