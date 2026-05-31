@@ -118,7 +118,7 @@ export default function HomePage() {
           style={{
             display: "inline-block",
             paddingLeft: "100%",
-            animation: "marquee 15s linear infinite",
+            animation: "marquee 25s linear infinite",
           }}
         >
           🚀 إصدار تطبيق الأندرويد قريبًا — 💻 إصدار التطبيق المكتبي قيد التطوير — 📈 تابع آخر تحديثات سوق الأسهم السعودي
