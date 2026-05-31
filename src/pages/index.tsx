@@ -5,18 +5,11 @@ import TadawulCalculator from "../components/TadawulCalculator";
 import VisitCounter from "../components/VisitCounter";
 
 const Home: NextPage = () => {
-  const features = [
-    { text: "حاسبة الصفقة", color: "#0044aa" },
-    { text: "حاسبة البيع", color: "#006644" },
-    { text: "حاسبة المتوسط", color: "#6633cc" },
-    { text: "نظرة شاملة على المحفظة", color: "#cc6600" },
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % features.length);
+      setCurrentIndex((prev) => (prev + 1) % 4);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -85,51 +78,82 @@ const Home: NextPage = () => {
             }}
           >
             <span style={{ fontSize: "20px" }}>📊</span>
-            <span>عدد الزيارات: <VisitCounter /></span>
+            <span>
+              عدد الزيارات: <VisitCounter />
+            </span>
           </div>
 
           {/* Roller */}
-<div
-  style={{
-    overflow: "hidden",
-    height: "36px",
-    width: "260px",
-    borderRadius: "10px",
-    background: "rgba(255,255,255,0.35)",
-    border: "1px solid rgba(255,255,255,0.4)",
-    backdropFilter: "blur(10px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "18px",
-    fontWeight: "bold",
-    direction: "rtl",
-    color: "black",            // ← الحل
-    mixBlendMode: "normal",    // ← الحل
-  }}
->
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      transform: `translateY(-${currentIndex * 36}px)`,
-      transition: "transform 0.6s ease-in-out",
-    }}
-  >
-    <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      حاسبة الصفقة
-    </div>
-    <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      حاسبة البيع
-    </div>
-    <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      حاسبة المتوسط
-    </div>
-    <div style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      نظرة شاملة على المحفظة
-    </div>
-  </div>
-</div>
+          <div
+            style={{
+              overflow: "hidden",
+              height: "36px",
+              width: "260px",
+              borderRadius: "10px",
+              background: "rgba(255,255,255,0.35)",
+              border: "1px solid rgba(255,255,255,0.4)",
+              backdropFilter: "blur(10px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "18px",
+              fontWeight: "bold",
+              direction: "rtl",
+              color: "black",
+              mixBlendMode: "normal",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                transform: `translateY(-${currentIndex * 36}px)`,
+                transition: "transform 0.6s ease-in-out",
+              }}
+            >
+              <div
+                style={{
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                حاسبة الصفقة
+              </div>
+              <div
+                style={{
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                حاسبة البيع
+              </div>
+              <div
+                style={{
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                حاسبة المتوسط
+              </div>
+              <div
+                style={{
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                نظرة شاملة على المحفظة
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Links */}
         <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
@@ -148,7 +172,7 @@ const Home: NextPage = () => {
         </div>
       </nav>
 
-      {/* الشريط المتحرك — خارج الـ Navbar */}
+      {/* الشريط المتحرك */}
       <div
         style={{
           width: "100%",
