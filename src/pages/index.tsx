@@ -121,67 +121,87 @@ export default function HomePage() {
     أفضل حاسبة تداول
   </div>
 
-  {/* Center Section: Counter + Rotating Text */}
-  <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-    {/* Counter (Small Glassmorphism) */}
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        padding: "6px 14px",
-        borderRadius: "10px",
-        backdropFilter: "blur(8px)",
-        background: "rgba(255, 255, 255, 0.35)",
-        border: "1px solid rgba(255, 255, 255, 0.4)",
-        fontSize: "15px",
-        fontWeight: "bold",
-        color: "#0044aa",
-      }}
-    >
-      <span style={{ fontSize: "18px" }}>📊</span>
-      <span><VisitCounter /></span>
-    </div>
+  {/* Center Section: Counter + Rotating Feature Box */}
+<div style={{ display: "flex", alignItems: "center", gap: "25px" }}>
 
-    {/* Rotating Text */}
-    <div
-      style={{
-        fontSize: "15px",
-        fontWeight: "bold",
-        color: "#0055aa",
-        minWidth: "120px",
-        textAlign: "right",
-        animation: "fadeText 6s infinite",
-      }}
-    >
-      <span id="rotating-text"></span>
-    </div>
-
-    <style>
-      {`
-        @keyframes fadeText {
-          0% { opacity: 0; }
-          10% { opacity: 1; }
-          40% { opacity: 1; }
-          50% { opacity: 0; }
-          100% { opacity: 0; }
-        }
-      `}
-    </style>
-
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
-          const texts = ["حاسبة الصفقة", "حاسبة المتوسط", "حاسبة البيع"];
-          let index = 0;
-          setInterval(() => {
-            document.getElementById("rotating-text").textContent = texts[index];
-            index = (index + 1) % texts.length;
-          }, 2000);
-        `,
-      }}
-    />
+  {/* Counter (Glassmorphism) */}
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      padding: "10px 18px",
+      borderRadius: "14px",
+      backdropFilter: "blur(10px)",
+      background: "rgba(255, 255, 255, 0.35)",
+      border: "1px solid rgba(255, 255, 255, 0.4)",
+      fontSize: "17px",
+      fontWeight: "bold",
+      color: "#0044aa",
+    }}
+  >
+    <span style={{ fontSize: "20px" }}>📊</span>
+    <span>عدد الزيارات: <VisitCounter /></span>
   </div>
+
+  {/* Rotating Feature Box */}
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      padding: "10px 18px",
+      borderRadius: "14px",
+      backdropFilter: "blur(10px)",
+      background: "rgba(255, 255, 255, 0.35)",
+      border: "1px solid rgba(255, 255, 255, 0.4)",
+      fontSize: "17px",
+      fontWeight: "bold",
+      minWidth: "200px",
+      justifyContent: "center",
+    }}
+  >
+    <span style={{ fontSize: "20px" }}>⚙️</span>
+    <span id="rotating-feature"></span>
+  </div>
+
+  <style>
+    {`
+      @keyframes fadeInOut {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+    `}
+  </style>
+
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+        const features = [
+          { text: "حاسبة الصفقة", color: "#0044aa" },
+          { text: "حاسبة البيع", color: "#006644" },
+          { text: "حاسبة المتوسط", color: "#6633cc" },
+          { text: "نظرة شاملة على المحفظة", color: "#cc6600" }
+        ];
+
+        let fIndex = 0;
+        const featureBox = document.getElementById("rotating-feature");
+
+        function updateFeature() {
+          featureBox.textContent = features[fIndex].text;
+          featureBox.style.color = features[fIndex].color;
+          featureBox.style.animation = "fadeInOut 3s linear";
+          fIndex = (fIndex + 1) % features.length;
+        }
+
+        updateFeature();
+        setInterval(updateFeature, 3000);
+      `,
+    }}
+  />
+</div>
 
   {/* Links */}
   <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
@@ -240,27 +260,7 @@ export default function HomePage() {
     minHeight: "100vh",
   }}
 >
-        {/* العداد الجديد (Glassmorphism) */}
-<div
-  style={{
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "12px",
-    padding: "18px 35px",
-    borderRadius: "15px",
-    backdropFilter: "blur(10px)",
-    background: "rgba(255, 255, 255, 0.25)",
-    border: "1px solid rgba(255, 255, 255, 0.4)",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-    fontSize: "22px",
-    fontWeight: "bold",
-    color: "#0044aa",
-  }}
->
-  <span style={{ fontSize: "26px" }}>📊</span>
-  <span>عدد الزيارات: <VisitCounter /></span>
-</div>
-
+        
         {/* الحاسبة */}
         <div style={{ marginTop: "40px" }}>
           <TadawulCalculator />
