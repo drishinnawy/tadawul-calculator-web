@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         <title>أفضل حاسبة تداول</title>
         <meta
           name="description"
-          content="أفضل حاسبة تداول للأسهم السعودية لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
+          content="أفضل حاسبة تداول لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
         />
       </Head>
 
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           zIndex: 1000,
         }}
       >
-        {/* Logo / Title */}
+        {/* Logo */}
         <div
           style={{
             fontSize: "20px",
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
           أفضل حاسبة تداول
         </div>
 
-        {/* Center Section: Counter + Roller */}
+        {/* Center Section */}
         <div
           style={{
             display: "flex",
@@ -89,49 +89,50 @@ const Home: NextPage = () => {
           </div>
 
           {/* Roller Text */}
-<div
-  style={{
-    overflow: "hidden",
-    height: "32px",
-    width: "240px",
-    borderRadius: "10px",
-    background: "rgba(255,255,255,0.35)",
-    border: "1px solid rgba(255,255,255,0.4)",
-    backdropFilter: "blur(10px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "17px",
-    fontWeight: "bold",
-    direction: "rtl",
-  }}
->
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      transform: `translateY(-${currentIndex * 32}px)`,
-      transition: "transform 0.6s ease-in-out",
-    }}
-  >
-    {features.map((f, i) => (
-      <div
-        key={i}
-        style={{
-          height: "32px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: f.color,
-          whiteSpace: "nowrap",
-          padding: "0 10px",
-        }}
-      >
-        {f.text}
-      </div>
-    ))}
-  </div>
-</div>
+          <div
+            style={{
+              overflow: "hidden",
+              height: "32px",
+              width: "240px",
+              borderRadius: "10px",
+              background: "rgba(255,255,255,0.35)",
+              border: "1px solid rgba(255,255,255,0.4)",
+              backdropFilter: "blur(10px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "17px",
+              fontWeight: "bold",
+              direction: "rtl",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                transform: `translateY(-${currentIndex * 32}px)`,
+                transition: "transform 0.6s ease-in-out",
+              }}
+            >
+              {features.map((f, i) => (
+                <div
+                  key={i}
+                  style={{
+                    height: "32px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: f.color,
+                    whiteSpace: "nowrap",
+                    padding: "0 10px",
+                  }}
+                >
+                  {f.text}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Links */}
         <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
@@ -171,8 +172,9 @@ const Home: NextPage = () => {
         >
           تحديثات سوق الأسهم السعودي • راقب صفقاتك • احسب متوسطاتك • خطط
           لاستراتيجيتك بثقة • أفضل حاسبة تداول تساعدك على اتخاذ قرار مدروس •
-          لا تعتبر هذه الأداة توصية استثمارية وإنما أداة مساعدة فقط.
+          هذه الأداة ليست توصية استثمارية وإنما أداة مساعدة فقط.
         </div>
+
         <style>
           {`
             @keyframes marquee {
@@ -187,12 +189,11 @@ const Home: NextPage = () => {
       <main
         style={{
           textAlign: "center",
-          marginTop: "15px",
+          marginTop: "10px",
           padding: "10px 0 40px 0",
           background: "linear-gradient(to bottom, #f5f8ff, #eef3ff)",
         }}
       >
-        {/* الحاسبة */}
         <div style={{ marginTop: "10px" }}>
           <TadawulCalculator />
         </div>
