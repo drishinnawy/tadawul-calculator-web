@@ -89,12 +89,50 @@ export default function HomePage() {
                   "@type": "WebPage",
                   "url": "https://tadawul-calculator-web-ufov.vercel.app/contact",
                   "name": "Contact Page"
+                },
+                {
+                  "@type": "WebPage",
+                  "url": "https://tadawul-calculator-web-ufov.vercel.app/about",
+                  "name": "About Page"
                 }
               ]
             }),
           }}
         />
       </Head>
+
+      {/* الشريط المتحرك */}
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "#e6f2ff",
+          padding: "10px 0",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          fontSize: "16px",
+          fontWeight: "bold",
+          color: "#0055aa",
+        }}
+      >
+        <div
+          style={{
+            display: "inline-block",
+            paddingLeft: "100%",
+            animation: "marquee 15s linear infinite",
+          }}
+        >
+          🚀 إصدار تطبيق الأندرويد قريبًا — 💻 إصدار التطبيق المكتبي قيد التطوير — 📈 تابع آخر تحديثات سوق الأسهم السعودي
+        </div>
+
+        <style>
+          {`
+            @keyframes marquee {
+              0% { transform: translate(0, 0); }
+              100% { transform: translate(-100%, 0); }
+            }
+          `}
+        </style>
+      </div>
 
       <div style={{ textAlign: "center", marginTop: "40px" }}>
         {/* العداد */}
@@ -146,6 +184,10 @@ export default function HomePage() {
           |
           <a href="/contact" style={{ margin: "0 10px", color: "#666" }}>
             اتصل بنا
+          </a>
+          |
+          <a href="/about" style={{ margin: "0 10px", color: "#666" }}>
+            حول الموقع
           </a>
         </footer>
       </div>
