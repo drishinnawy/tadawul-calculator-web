@@ -88,68 +88,46 @@ const Home: NextPage = () => {
             <span>عدد الزيارات: <VisitCounter /></span>
           </div>
 
-          {/* Roller Text */}
-          <div
-            style={{
-              overflow: "hidden",
-              height: "32px",
-              width: "240px",
-              borderRadius: "10px",
-              background: "rgba(255,255,255,0.35)",
-              border: "1px solid rgba(255,255,255,0.4)",
-              backdropFilter: "blur(10px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "17px",
-              fontWeight: "bold",
-              direction: "rtl",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                transform: `translateY(-${currentIndex * 32}px)`,
-                transition: "transform 0.6s ease-in-out",
-              }}
-            >
-              {features.map((f, i) => (
-                <div
-                  key={i}
-                  style={{
-                    height: "32px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: f.color,
-                    whiteSpace: "nowrap",
-                    padding: "0 10px",
-                  }}
-                >
-                  {f.text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Links */}
-        <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
-          <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
-            الرئيسية
-          </a>
-          <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
-            حول الموقع
-          </a>
-          <a
-            href="/contact"
-            style={{ color: "#0044aa", textDecoration: "none" }}
-          >
-            اتصل بنا
-          </a>
-        </div>
-      </nav>
+          {/* Roller Text — TEST VERSION */}
+<div
+  style={{
+    overflow: "hidden",
+    height: "32px",
+    width: "260px",
+    borderRadius: "10px",
+    background: "rgba(255,255,255,0.35)",
+    border: "1px solid rgba(255,255,255,0.4)",
+    backdropFilter: "blur(10px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "17px",
+    fontWeight: "bold",
+    direction: "rtl",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      transform: `translateY(-${currentIndex * 32}px)`,
+      transition: "transform 0.6s ease-in-out",
+    }}
+  >
+    <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#0044aa" }}>
+      حاسبة الصفقة
+    </div>
+    <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#006644" }}>
+      حاسبة البيع
+    </div>
+    <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#6633cc" }}>
+      حاسبة المتوسط
+    </div>
+    <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#cc6600" }}>
+      نظرة شاملة على المحفظة
+    </div>
+  </div>
+</div>
 
       {/* الشريط المتحرك */}
       <div
