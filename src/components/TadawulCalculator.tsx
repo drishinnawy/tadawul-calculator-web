@@ -377,4 +377,3 @@ export default function TadawulCalculator() {
                   {sellShares && parseFloat(sellShares) > 0
   ? formatNumber(profitOrLoss / parseFloat(sellShares))
   : "0"} ر.س
-
