@@ -377,3 +377,35 @@ export default function TadawulCalculator() {
                   {sellShares && parseFloat(sellShares) > 0
   ? formatNumber(profitOrLoss / parseFloat(sellShares))
   : "0"} ر.س
+
+                                  </span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>إجمالي الربح / الخسارة:</span>
+                <span
+                  className={`font-bold ${
+                    profitOrLoss > 0 ? "text-green-600" : profitOrLoss < 0 ? "text-red-600" : "text-gray-600"
+                  }`}
+                >
+                  {formatNumber(profitOrLoss)} ر.س
+                </span>
+              </div>
+
+            </AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+
+      {/* زر مسح البيانات */}
+      <div className="mt-6 flex justify-center">
+        <Button
+          onClick={handleClearAll}
+          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+        >
+          مسح جميع البيانات
+        </Button>
+      </div>
+    </div>
+  );
+}
