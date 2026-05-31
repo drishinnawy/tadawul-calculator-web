@@ -89,47 +89,49 @@ const Home: NextPage = () => {
           </div>
 
           {/* Roller Text */}
-          <div
-            style={{
-              overflow: "hidden",
-              height: "28px",
-              width: "230px",
-              borderRadius: "10px",
-              background: "rgba(255,255,255,0.35)",
-              border: "1px solid rgba(255,255,255,0.4)",
-              backdropFilter: "blur(10px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "17px",
-              fontWeight: "bold",
-              direction: "rtl",
-            }}
-          >
-            <div
-              style={{
-                transform: `translateY(-${currentIndex * 28}px)`,
-                transition: "transform 0.6s ease-in-out",
-              }}
-            >
-              {features.map((f, i) => (
-                <div
-                  key={i}
-                  style={{
-                    height: "28px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: f.color,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {f.text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+<div
+  style={{
+    overflow: "hidden",
+    height: "32px",
+    width: "240px",
+    borderRadius: "10px",
+    background: "rgba(255,255,255,0.35)",
+    border: "1px solid rgba(255,255,255,0.4)",
+    backdropFilter: "blur(10px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "17px",
+    fontWeight: "bold",
+    direction: "rtl",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      transform: `translateY(-${currentIndex * 32}px)`,
+      transition: "transform 0.6s ease-in-out",
+    }}
+  >
+    {features.map((f, i) => (
+      <div
+        key={i}
+        style={{
+          height: "32px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: f.color,
+          whiteSpace: "nowrap",
+          padding: "0 10px",
+        }}
+      >
+        {f.text}
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* Links */}
         <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
