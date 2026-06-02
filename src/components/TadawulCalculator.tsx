@@ -115,14 +115,53 @@ return(
 </Button>
 </div>
 
-<Card className="mb-6 bg-white/80 shadow-md border border-blue-200">
-<CardHeader><CardTitle className="flex items-center gap-2 text-blue-700"><Info/> إعدادات عامة</CardTitle></CardHeader>
-<CardContent className="space-y-3">
-<Label>نسبة عمولة البيع (تداول)</Label>
-<Input type="number" step="0.00001" value={sellCommissionRate} onChange={e=>setSellCommissionRate(e.target.value)}/>
-<p className="text-xs text-gray-500">بعض المنصات لا تضيف عمولة البيع في حساب متوسط التكلفة.</p>
-</CardContent>
-</Card>
+{/* شريط الإعدادات المختصر */}
+<div className="flex flex-col md:flex-row items-center justify-between gap-3 mb-6 p-3 bg-white/70 rounded-xl shadow-sm border border-gray-200">
+
+  {/* الثيم */}
+  <div className="flex items-center gap-2">
+    <span className="text-sm font-semibold text-gray-700">الثيم:</span>
+
+    <button
+      onClick={() => setTheme("mint")}
+      className={`w-5 h-5 rounded-full ${
+        theme === "mint" ? "ring-2 ring-emerald-500 bg-emerald-300" : "bg-emerald-200"
+      }`}
+    ></button>
+
+    <button
+      onClick={() => setTheme("pink")}
+      className={`w-5 h-5 rounded-full ${
+        theme === "pink" ? "ring-2 ring-pink-500 bg-pink-300" : "bg-pink-200"
+      }`}
+    ></button>
+
+    <button
+      onClick={() => setTheme("purple")}
+      className={`w-5 h-5 rounded-full ${
+        theme === "purple" ? "ring-2 ring-purple-500 bg-purple-300" : "bg-purple-200"
+      }`}
+    ></button>
+  </div>
+
+  {/* النص */}
+  <p className="text-xs text-gray-600 text-center">
+    بعض المنصات لا تضيف عمولة المنصة، والحاسبة تضيفها لتوحيد النتائج
+  </p>
+
+  {/* عمولة المنصة */}
+  <div className="flex items-center gap-2">
+    <span className="text-sm font-semibold text-gray-700">عمولة المنصة:</span>
+    <Input
+      type="number"
+      step="0.00001"
+      value={sellCommissionRate}
+      onChange={(e) => setSellCommissionRate(e.target.value)}
+      className="w-24 h-8 text-sm"
+    />
+  </div>
+
+</div>
 
 <Card className="mb-6 bg-white/80 shadow-md border border-emerald-100">
 <CardHeader><CardTitle className="flex items-center gap-2 text-emerald-700"><Calculator/> حاسبة الصفقة الرئيسية</CardTitle></CardHeader>
