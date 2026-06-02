@@ -560,9 +560,10 @@ export default function TadawulCalculator() {
               </div>
             </AlertDescription>
           </Alert>
+</CardContent>   // ← هذا السطر كان مفقودًا
 
-          {/* نظرة شاملة على المحفظة */}
-          <Card
+{/* نظرة شاملة على المحفظة */}
+<Card
             className="mt-6 shadow-md border border-blue-100"
             style={{ background: t.card }}
           >
