@@ -1,27 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import TadawulCalculator from "../components/TadawulCalculator";
 import VisitCounter from "../components/VisitCounter";
 
 const Home: NextPage = () => {
-  const features = [
-    { text: "حاسبة الصفقة", color: "#0044aa" },
-    { text: "حاسبة البيع", color: "#006644" },
-    { text: "حاسبة المتوسط", color: "#6633cc" },
-    { text: "نظرة شاملة على المحفظة", color: "#cc6600" },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % features.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
       <Head>
@@ -59,7 +41,7 @@ const Home: NextPage = () => {
           أفضل حاسبة تداول
         </div>
 
-        {/* Center Section */}
+        {/* Center Section (Counter فقط بدون رولر) */}
         <div
           style={{
             display: "flex",
@@ -85,48 +67,9 @@ const Home: NextPage = () => {
             }}
           >
             <span style={{ fontSize: "20px" }}>📊</span>
-            <span>عدد الزيارات: <VisitCounter /></span>
-          </div>
-
-          {/* Roller Text */}
-          <div
-            style={{
-              overflow: "hidden",
-              height: "32px",
-              width: "260px",
-              borderRadius: "10px",
-              background: "rgba(255,255,255,0.35)",
-              border: "1px solid rgba(255,255,255,0.4)",
-              backdropFilter: "blur(10px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "17px",
-              fontWeight: "bold",
-              direction: "rtl",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                transform: `translateY(-${currentIndex * 32}px)`,
-                transition: "transform 0.6s ease-in-out",
-              }}
-            >
-              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#0044aa" }}>
-                حاسبة الصفقة
-              </div>
-              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#006644" }}>
-                حاسبة البيع
-              </div>
-              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#6633cc" }}>
-                حاسبة المتوسط
-              </div>
-              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#cc6600" }}>
-                نظرة شاملة على المحفظة
-              </div>
-            </div>
+            <span>
+              عدد الزيارات: <VisitCounter />
+            </span>
           </div>
         </div>
 
