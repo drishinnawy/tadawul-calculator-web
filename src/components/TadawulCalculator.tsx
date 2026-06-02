@@ -110,7 +110,7 @@ export default function TadawulCalculator() {
     setTimeout(() => setToastMsg(null), 3000);
   };
 
-   /* ---------------- الحسابات ---------------- */
+     /* ---------------- الحسابات ---------------- */
 
   const formatNumber = (n: number | string) =>
     isNaN(Number(n))
@@ -176,6 +176,20 @@ export default function TadawulCalculator() {
     window.open(url, "_blank");
   };
 
+  /* ---------------- دالة تعديل عمليات الشراء ---------------- */
+
+  const handlePurchaseChange = (
+    id: number,
+    field: "shares" | "price",
+    value: string
+  ) => {
+    setPurchases((prev) =>
+      prev.map((p) =>
+        p.id === id ? { ...p, [field]: value } : p
+      )
+    );
+  };
+
   /* ---------------- واجهة الحاسبة — الجزء الأول ---------------- */
 
   return (
@@ -187,6 +201,7 @@ export default function TadawulCalculator() {
         transition: "0.3s",
       }}
     >
+      
       {toastMsg && (
         <Toast message={toastMsg.message} type={toastMsg.type} />
       )}
