@@ -22,12 +22,23 @@ const[commission,setCommission]=useState("0.0015");
 const[vat,setVat]=useState("15");
 const[stockName,setStockName]=useState("");
 const[purchases,setPurchases]=useState([{id:1,shares:"",price:""}]);
+
+// ✔ يجب أن تأتي هذه قبل profitPerShare
 const[sellShares,setSellShares]=useState("");
 const[sellPrice,setSellPrice]=useState("");
+const[averagePrice,setAveragePrice]=useState(0);
+const[totalShares,setTotalShares]=useState(0);
+
+// ✔ هنا المكان الصحيح 100%
+const profitPerShare =
+  sellPrice && averagePrice
+    ? parseFloat(sellPrice) - averagePrice
+    : 0;
+
+// ✔ باقي الـ states تأتي بعده
 const [sellMode, setSellMode] = useState("shares");
 const[profitOrLoss,setProfitOrLoss]=useState(0);
 const[netProceeds,setNetProceeds]=useState(0);
-const profitPerShare = sellPrice && averagePrice ? parseFloat(sellPrice) - averagePrice : 0;
 const[remainingShares,setRemainingShares]=useState(0);
 const[remainingCost,setRemainingCost]=useState(0);
 const[newAverageCost,setNewAverageCost]=useState(0);
@@ -37,12 +48,16 @@ const[theme,setTheme]=useState("mint");
 const[toastMsg,setToastMsg]=useState<{message:string;type:"success"|"error"|"info"}|null>(null);
 
 const showToast=(m:string,t:"success"|"error"|"info"="info")=>{
-setToastMsg({message:m,type:t});
-setTimeout(()=>setToastMsg(null),3000);
+  setToastMsg({message:m,type:t});
+  setTimeout(()=>setToastMsg(null),3000);
 };
 
-const themeClasses=theme==="mint"?"bg-gradient-to-br from-emerald-50 to-sky-50":"bg-gradient-to-br from-amber-50 to-beige-50";
-const formatNumber=(n:number|string)=>isNaN(Number(n))?"-":Number(n).toLocaleString("ar-SA",{maximumFractionDigits:2});
+const themeClasses=theme==="mint"
+  ?"bg-gradient-to-br from-emerald-50 to-sky-50"
+  :"bg-gradient-to-br from-amber-50 to-beige-50";
+
+const formatNumber=(n:number|string)=>
+  isNaN(Number(n))?"-":Number(n).toLocaleString("ar-SA",{maximumFractionDigits:2});
 
 const calculatedShares=useMemo(()=>{
 if(activeTab==="byAmount"&&amount&&price){
