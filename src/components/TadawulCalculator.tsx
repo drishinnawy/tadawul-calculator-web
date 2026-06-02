@@ -115,49 +115,56 @@ return(
 </Button>
 </div>
 
-{/* شريط الإعدادات المختصر */}
-<div className="flex flex-col md:flex-row items-center justify-between gap-3 mb-6 p-3 bg-white/70 rounded-xl shadow-sm border border-gray-200">
+{/* شريط الإعدادات المحسّن */}
+<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 bg-white/90 rounded-xl shadow-md border border-gray-300">
 
   {/* الثيم */}
-  <div className="flex items-center gap-2">
-    <span className="text-sm font-semibold text-gray-700">الثيم:</span>
+  <div className="flex items-center gap-3">
+    <span className="text-sm font-medium text-gray-800">الثيم:</span>
 
     <button
       onClick={() => setTheme("mint")}
-      className={`w-5 h-5 rounded-full ${
-        theme === "mint" ? "ring-2 ring-emerald-500 bg-emerald-300" : "bg-emerald-200"
+      className={`w-6 h-6 rounded-full shadow-sm transition-all ${
+        theme === "mint"
+          ? "ring-2 ring-emerald-500 bg-emerald-300"
+          : "bg-emerald-200 hover:bg-emerald-300"
       }`}
     ></button>
 
     <button
       onClick={() => setTheme("pink")}
-      className={`w-5 h-5 rounded-full ${
-        theme === "pink" ? "ring-2 ring-pink-500 bg-pink-300" : "bg-pink-200"
+      className={`w-6 h-6 rounded-full shadow-sm transition-all ${
+        theme === "pink"
+          ? "ring-2 ring-pink-500 bg-pink-300"
+          : "bg-pink-200 hover:bg-pink-300"
       }`}
     ></button>
 
     <button
       onClick={() => setTheme("purple")}
-      className={`w-5 h-5 rounded-full ${
-        theme === "purple" ? "ring-2 ring-purple-500 bg-purple-300" : "bg-purple-200"
+      className={`w-6 h-6 rounded-full shadow-sm transition-all ${
+        theme === "purple"
+          ? "ring-2 ring-purple-500 bg-purple-300"
+          : "bg-purple-200 hover:bg-purple-300"
       }`}
     ></button>
   </div>
 
   {/* النص */}
-  <p className="text-xs text-gray-600 text-center">
-    بعض المنصات لا تضيف عمولة المنصة، والحاسبة تضيفها لتوحيد النتائج
+  <p className="text-xs md:text-sm text-gray-700 text-center leading-relaxed">
+    عمولة المنصة يمكن تعديلها حسب المنصة المستخدمة، والحاسبة تضيفها لتوحيد النتائج
   </p>
 
   {/* عمولة المنصة */}
   <div className="flex items-center gap-2">
-    <span className="text-sm font-semibold text-gray-700">عمولة المنصة:</span>
+    <span className="text-sm font-medium text-gray-800">عمولة المنصة:</span>
     <Input
       type="number"
       step="0.00001"
+      placeholder="0.00015"
       value={sellCommissionRate}
       onChange={(e) => setSellCommissionRate(e.target.value)}
-      className="w-24 h-8 text-sm"
+      className="w-28 h-9 text-sm"
     />
   </div>
 
