@@ -1,66 +1,34 @@
+import type { NextPage } from "next";
 import Head from "next/head";
-import VisitCounter from "../components/VisitCounter";
+import { useEffect, useState } from "react";
 import TadawulCalculator from "../components/TadawulCalculator";
+import VisitCounter from "../components/VisitCounter";
 
-export default function HomePage() {
+const Home: NextPage = () => {
+  const features = [
+    { text: "حاسبة الصفقة", color: "#0044aa" },
+    { text: "حاسبة البيع", color: "#006644" },
+    { text: "حاسبة المتوسط", color: "#6633cc" },
+    { text: "نظرة شاملة على المحفظة", color: "#cc6600" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % features.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Head>
         <title>أفضل حاسبة تداول</title>
-
         <meta
           name="description"
-          content="حاسبة تداول سعودية دقيقة لحساب الأرباح والخسائر، العمولات، نقاط الدخول والخروج، وحجم الصفقة. أداة مجانية وسهلة الاستخدام للمتداولين في سوق الأسهم السعودي."
-        />
-
-        <meta
-          name="keywords"
-          content="حاسبة تداول, حاسبة الأسهم, تداول السعودية, حساب الأرباح, حساب الخسائر, الأسهم السعودية, الاستثمار, سوق الأسهم, حاسبة المضاربة, حاسبة الأسهم السعودية"
-        />
-
-        <link rel="icon" href="/favicon-new.ico" sizes="any" />
-
-        <meta property="og:title" content="أفضل حاسبة تداول" />
-        <meta
-          property="og:description"
-          content="حاسبة تداول سعودية دقيقة لحساب الأرباح والخسائر بسهولة ووضوح."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tadawul-calculator-web.vercel.app" />
-        <meta property="og:image" content="/preview.png" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="أفضل حاسبة تداول" />
-        <meta
-          name="twitter:description"
-          content="حاسبة تداول عربية لحساب الأرباح والخسائر بسهولة ووضوح."
-        />
-        <meta name="twitter:image" content="/preview.png" />
-
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "أفضل حاسبة تداول",
-              url: "https://tadawul-calculator-web.vercel.app",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "All",
-              inLanguage: "ar",
-              description:
-                "حاسبة تداول سعودية لحساب الأرباح والخسائر والعمولات وحجم الصفقة بسهولة وبدقة.",
-              creator: {
-                "@type": "Person",
-                name: "Ibrahim Alnabegha",
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Tadawul Calculator",
-              },
-            }),
-          }}
+          content="أفضل حاسبة تداول لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
         />
       </Head>
 
@@ -79,12 +47,26 @@ export default function HomePage() {
           zIndex: 1000,
         }}
       >
-        <div style={{ fontSize: "20px", fontWeight: "bold", color: "#0044aa" }}>
+        {/* Logo */}
+        <div
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "#0044aa",
+            whiteSpace: "nowrap",
+          }}
+        >
           أفضل حاسبة تداول
         </div>
 
-        {/* Counter + Rotating Feature */}
-        <div style={{ display: "flex", alignItems: "center", gap: "25px" }}>
+        {/* Center Section */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
           {/* Counter */}
           <div
             style={{
@@ -99,76 +81,69 @@ export default function HomePage() {
               fontSize: "17px",
               fontWeight: "bold",
               color: "#0044aa",
+              whiteSpace: "nowrap",
             }}
           >
             <span style={{ fontSize: "20px" }}>📊</span>
             <span>عدد الزيارات: <VisitCounter /></span>
           </div>
 
-          {/* Rotating Feature */}
+          {/* Roller Text */}
           <div
             style={{
+              overflow: "hidden",
+              height: "32px",
+              width: "260px",
+              borderRadius: "10px",
+              background: "rgba(255,255,255,0.35)",
+              border: "1px solid rgba(255,255,255,0.4)",
+              backdropFilter: "blur(10px)",
               display: "flex",
               alignItems: "center",
-              gap: "10px",
-              padding: "10px 18px",
-              borderRadius: "14px",
-              backdropFilter: "blur(10px)",
-              background: "rgba(255, 255, 255, 0.35)",
-              border: "1px solid rgba(255, 255, 255, 0.4)",
+              justifyContent: "center",
               fontSize: "17px",
               fontWeight: "bold",
-              minWidth: "200px",
-              justifyContent: "center",
+              direction: "rtl",
             }}
           >
-            <span style={{ fontSize: "20px" }}>⚙️</span>
-            <span id="rotating-feature"></span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                transform: `translateY(-${currentIndex * 32}px)`,
+                transition: "transform 0.6s ease-in-out",
+              }}
+            >
+              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#0044aa" }}>
+                حاسبة الصفقة
+              </div>
+              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#006644" }}>
+                حاسبة البيع
+              </div>
+              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#6633cc" }}>
+                حاسبة المتوسط
+              </div>
+              <div style={{ height: "32px", display: "flex", alignItems: "center", justifyContent: "center", color: "#cc6600" }}>
+                نظرة شاملة على المحفظة
+              </div>
+            </div>
           </div>
-
-          <style>
-            {`
-              @keyframes fadeInOut {
-                0% { opacity: 0; }
-                10% { opacity: 1; }
-                90% { opacity: 1; }
-                100% { opacity: 0; }
-              }
-            `}
-          </style>
-
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                const features = [
-                  { text: "حاسبة الصفقة", color: "#0044aa" },
-                  { text: "حاسبة البيع", color: "#006644" },
-                  { text: "حاسبة المتوسط", color: "#6633cc" },
-                  { text: "نظرة شاملة على المحفظة", color: "#cc6600" }
-                ];
-
-                let fIndex = 0;
-                const featureBox = document.getElementById("rotating-feature");
-
-                function updateFeature() {
-                  featureBox.textContent = features[fIndex].text;
-                  featureBox.style.color = features[fIndex].color;
-                  featureBox.style.animation = "fadeInOut 3s linear";
-                  fIndex = (fIndex + 1) % features.length;
-                }
-
-                updateFeature();
-                setInterval(updateFeature, 3000);
-              `,
-            }}
-          />
         </div>
 
-        {/* Navbar Links */}
+        {/* Links */}
         <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
-          <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>الرئيسية</a>
-          <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>حول الموقع</a>
-          <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>اتصل بنا</a>
+          <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
+            الرئيسية
+          </a>
+          <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
+            حول الموقع
+          </a>
+          <a
+            href="/contact"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            اتصل بنا
+          </a>
         </div>
       </nav>
 
@@ -176,13 +151,12 @@ export default function HomePage() {
       <div
         style={{
           width: "100%",
-          backgroundColor: "#e6f2ff",
-          padding: "10px 0",
+          backgroundColor: "#0044aa",
+          color: "white",
           overflow: "hidden",
           whiteSpace: "nowrap",
-          fontSize: "16px",
-          fontWeight: "bold",
-          color: "#0055aa",
+          padding: "6px 0",
+          fontSize: "14px",
         }}
       >
         <div
@@ -192,51 +166,36 @@ export default function HomePage() {
             animation: "marquee 25s linear infinite",
           }}
         >
-          🚀 إصدار تطبيق الأندرويد قريبًا — 💻 إصدار التطبيق المكتبي قيد التطوير — 📈 تابع آخر تحديثات سوق الأسهم السعودي
+          تحديثات سوق الأسهم السعودي • راقب صفقاتك • احسب متوسطاتك • خطط
+          لاستراتيجيتك بثقة • أفضل حاسبة تداول تساعدك على اتخاذ قرار مدروس •
+          هذه الأداة ليست توصية استثمارية وإنما أداة مساعدة فقط.
         </div>
 
         <style>
           {`
             @keyframes marquee {
-              0% { transform: translate(0, 0); }
-              100% { transform: translate(-100%, 0); }
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-100%); }
             }
           `}
         </style>
       </div>
 
-      {/* الحاسبة */}
-      <div
+      {/* المحتوى الرئيسي */}
+      <main
         style={{
           textAlign: "center",
-          marginTop: "40px",
-          padding: "40px 0",
+          marginTop: "10px",
+          padding: "10px 0 40px 0",
           background: "linear-gradient(to bottom, #f5f8ff, #eef3ff)",
-          minHeight: "100vh",
         }}
       >
-        <div style={{ marginTop: "40px" }}>
+        <div style={{ marginTop: "10px" }}>
           <TadawulCalculator />
         </div>
-
-        {/* Footer */}
-        <footer
-          style={{
-            marginTop: "60px",
-            padding: "20px",
-            textAlign: "center",
-            fontSize: "14px",
-            color: "#666",
-            borderTop: "1px solid #ddd",
-          }}
-        >
-          <a href="/terms" style={{ margin: "0 10px", color: "#666" }}>Terms of Service</a> |
-          <a href="/privacy" style={{ margin: "0 10px", color: "#666" }}>Privacy Policy</a> |
-          <a href="/refund" style={{ margin: "0 10px", color: "#666" }}>Refund Policy</a> |
-          <a href="/contact" style={{ margin: "0 10px", color: "#666" }}>اتصل بنا</a> |
-          <a href="/about" style={{ margin: "0 10px", color: "#666" }}>حول الموقع</a>
-        </footer>
-      </div>
+      </main>
     </>
   );
-}
+};
+
+export default Home;
