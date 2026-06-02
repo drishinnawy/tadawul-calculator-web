@@ -32,7 +32,7 @@ import { Separator } from "@/components/ui/separator";
 
 /* ---------------- Toast ---------------- */
 
-const Toast = ({ message, type }) => (
+const Toast = ({ message, type }: { message: string; type: string }) => (
   <div
     className={`fixed top-6 right-6 z-50 px-4 py-2 rounded-lg shadow-lg text-white text-sm ${type === "success"
         ? "bg-green-600"
