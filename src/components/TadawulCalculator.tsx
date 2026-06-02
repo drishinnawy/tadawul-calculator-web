@@ -110,28 +110,28 @@ return(
 <div className={`p-6 rounded-2xl ${themeClasses}`}>
 {toastMsg&&<Toast message={toastMsg.message} type={toastMsg.type}/>}
 
-{/* شريط الإعدادات النعناعي */}
-<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 rounded-xl shadow-lg border border-emerald-200 bg-gradient-to-r from-emerald-50 to-emerald-100">
+{/* شريط الإعدادات الأزرق الملكي الفاتح */}
+<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 rounded-xl shadow-lg border border-blue-200 bg-gradient-to-r from-blue-400 to-blue-600 text-white">
 
-  {/* الثيم */}
+  {/* الثيم (يمين) */}
   <div className="flex items-center gap-3 order-1 md:order-none">
-    <span className="text-sm font-semibold text-gray-800">الثيم:</span>
+    <span className="text-sm font-semibold">الثيم:</span>
+
+    <button
+      onClick={() => setTheme("blue")}
+      className={`w-7 h-7 rounded-full shadow-md transition-all ${
+        theme === "blue"
+          ? "ring-2 ring-white bg-blue-300"
+          : "bg-blue-200 hover:bg-blue-300"
+      }`}
+    ></button>
 
     <button
       onClick={() => setTheme("mint")}
       className={`w-7 h-7 rounded-full shadow-md transition-all ${
         theme === "mint"
-          ? "ring-2 ring-emerald-600 bg-emerald-300"
+          ? "ring-2 ring-white bg-emerald-300"
           : "bg-emerald-200 hover:bg-emerald-300"
-      }`}
-    ></button>
-
-    <button
-      onClick={() => setTheme("pink")}
-      className={`w-7 h-7 rounded-full shadow-md transition-all ${
-        theme === "pink"
-          ? "ring-2 ring-rose-500 bg-rose-300"
-          : "bg-rose-200 hover:bg-rose-300"
       }`}
     ></button>
 
@@ -139,27 +139,27 @@ return(
       onClick={() => setTheme("purple")}
       className={`w-7 h-7 rounded-full shadow-md transition-all ${
         theme === "purple"
-          ? "ring-2 ring-purple-600 bg-purple-300"
+          ? "ring-2 ring-white bg-purple-300"
           : "bg-purple-200 hover:bg-purple-300"
       }`}
     ></button>
   </div>
 
-  {/* النص */}
-  <p className="text-xs md:text-sm font-medium text-gray-700 text-center leading-relaxed flex-1">
+  {/* النص (وسط) */}
+  <p className="text-xs md:text-sm font-medium text-center leading-relaxed flex-1">
     عمولة المنصة يمكن تعديلها حسب المنصة المستخدمة، والحاسبة تضيفها لتوحيد النتائج
   </p>
 
-  {/* عمولة المنصة */}
+  {/* العمولة (يسار) */}
   <div className="flex items-center gap-2 order-2 md:order-none">
-    <span className="text-sm font-semibold text-gray-800">عمولة المنصة:</span>
+    <span className="text-sm font-semibold">عمولة المنصة:</span>
     <Input
       type="number"
       step="0.00001"
       placeholder="0.00015"
       value={sellCommissionRate}
       onChange={(e) => setSellCommissionRate(e.target.value)}
-      className="w-28 h-9 text-sm"
+      className="w-28 h-9 text-sm text-black"
     />
   </div>
 
@@ -221,9 +221,9 @@ return(
 </Card>
 </div>
 
-<Card className="mt-6 bg-white/80 shadow-md border border-emerald-200">
+<Card className="mt-6 bg-white/90 shadow-md border border-blue-200">
   <CardHeader>
-    <CardTitle className="flex items-center gap-2 text-emerald-700">
+    <CardTitle className="flex items-center gap-2 text-blue-700">
       <Scale /> حاسبة البيع الجزئي
     </CardTitle>
   </CardHeader>
@@ -234,10 +234,10 @@ return(
     <div className="flex gap-2 justify-center">
       <button
         onClick={() => setSellMode("shares")}
-        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
           sellMode === "shares"
-            ? "bg-emerald-600 text-white shadow"
-            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+            ? "bg-blue-600 text-white shadow"
+            : "bg-blue-100 text-blue-700 hover:bg-blue-200"
         }`}
       >
         📦 بيع حسب عدد الأسهم
@@ -245,10 +245,10 @@ return(
 
       <button
         onClick={() => setSellMode("percentShares")}
-        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
           sellMode === "percentShares"
-            ? "bg-emerald-600 text-white shadow"
-            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+            ? "bg-blue-600 text-white shadow"
+            : "bg-blue-100 text-blue-700 hover:bg-blue-200"
         }`}
       >
         📊 بيع حسب نسبة الأسهم
@@ -256,20 +256,20 @@ return(
 
       <button
         onClick={() => setSellMode("percentValue")}
-        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
           sellMode === "percentValue"
-            ? "bg-emerald-600 text-white shadow"
-            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+            ? "bg-blue-600 text-white shadow"
+            : "bg-blue-100 text-blue-700 hover:bg-blue-200"
         }`}
       >
         💰 بيع حسب نسبة المبلغ
       </button>
     </div>
 
-    {/* محتوى كل وضع */}
+    {/* وضع 1: بيع حسب عدد الأسهم */}
     {sellMode === "shares" && (
       <div className="space-y-3">
-        <Label>أدخل عدد الأسهم التي تريد بيعها</Label>
+        <Label>عدد الأسهم المراد بيعها</Label>
         <Input
           type="number"
           value={sellShares}
@@ -278,9 +278,10 @@ return(
       </div>
     )}
 
+    {/* وضع 2: بيع حسب نسبة الأسهم */}
     {sellMode === "percentShares" && (
       <div className="space-y-3">
-        <Label>أدخل نسبة البيع من إجمالي أسهمك</Label>
+        <Label>نسبة البيع من إجمالي الأسهم</Label>
         <Input
           type="number"
           onChange={(e) => {
@@ -297,21 +298,19 @@ return(
               onClick={() =>
                 setSellShares(Math.floor((totalShares * p) / 100).toString())
               }
+              className="border-blue-400 text-blue-700 hover:bg-blue-100"
             >
               {p}%
             </Button>
           ))}
         </div>
-
-        <p className="text-xs text-gray-500">
-          هذه النسبة من إجمالي أسهمك الحالية
-        </p>
       </div>
     )}
 
-        {sellMode === "percentValue" && (
+    {/* وضع 3: بيع حسب نسبة المبلغ */}
+    {sellMode === "percentValue" && (
       <div className="space-y-3">
-        <Label>أدخل نسبة البيع من إجمالي قيمة محفظتك</Label>
+        <Label>نسبة البيع من قيمة المحفظة</Label>
         <Input
           type="number"
           onChange={(e) => {
@@ -324,37 +323,37 @@ return(
             }
           }}
         />
-        <p className="text-xs text-gray-500">
-          سيتم حساب عدد الأسهم تلقائيًا بناءً على قيمة محفظتك
-        </p>
       </div>
     )}
 
     {/* النتائج */}
     <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
       <AlertTitle>النتائج</AlertTitle>
-      <AlertDescription className="space-y-2">
+      <AlertDescription className="space-y-3">
+
         <div className="flex justify-between">
           <span>صافي البيع:</span>
-          <span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span>
+          <span className="font-bold text-blue-700">{formatNumber(netProceeds)} ر.س</span>
         </div>
 
         <div className="flex justify-between">
-          <span>إجمالي الربح / الخسارة:</span>
-          <span
-            className={`font-bold ${
-              profitOrLoss > 0
-                ? "text-green-600"
-                : profitOrLoss < 0
-                ? "text-red-600"
-                : "text-gray-600"
-            }`}
-          >
-            {formatNumber(profitOrLoss)} ر.س
-          </span>
+          <span>الربح/الخسارة لكل سهم:</span>
+          <span className="font-bold text-blue-700">{formatNumber(profitPerShare)} ر.س</span>
         </div>
+
+        <div className="flex justify-between">
+          <span>الربح/الخسارة الإجمالي:</span>
+          <span className="font-bold text-blue-700">{formatNumber(profitOrLoss)} ر.س</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>الأسهم المتبقية:</span>
+          <span className="font-bold text-blue-700">{formatNumber(remainingShares)}</span>
+        </div>
+
       </AlertDescription>
     </Alert>
+
   </CardContent>
 </Card>
 
