@@ -144,23 +144,28 @@ export default function TadawulCalculator() {
   );
 
   // -----------------------------
-  // 🟦 حساب متوسط التكلفة العام
-  // -----------------------------
-  const totalSharesCalc = purchases.reduce((s, p) => s + Number(p.shares || 0), 0);
-  const totalCost = purchases.reduce(
-    (s, p) => s + Number(p.shares || 0) * Number(p.price || 0),
-    0
-  );
+// 🟦 حساب متوسط التكلفة العام
+// -----------------------------
+const totalSharesCalc = purchases.reduce((s, p) => s + Number(p.shares || 0), 0);
+const totalCost = purchases.reduce(
+  (s, p) => s + Number(p.shares || 0) * Number(p.price || 0),
+  0
+);
 
-  // ⚠️ هذا هو averagePrice الصحيح — لا يجب تعريفه بـ useState
-  const averagePrice = totalSharesCalc ? totalCost / totalSharesCalc : 0;
-<div className="grid md:grid-cols-3 gap-6">
+// ⚠️ هذا هو averagePrice الصحيح
+const averagePrice = totalSharesCalc ? totalCost / totalSharesCalc : 0;
 
-  {/* أدوات السهم */}
+// ✅ هنا المكان الصحيح 100%
+const profitPerShare =
+  sellPrice && averagePrice
+    ? parseFloat(sellPrice) - averagePrice
+    : 0;
+
+  {/* روابط مفيدة */}
   <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
     <CardHeader>
       <CardTitle className="flex items-center gap-2 text-sky-700">
-        <BookOpen /> أدوات السهم
+        <BookOpen /> روابط مفيدة
       </CardTitle>
     </CardHeader>
 
