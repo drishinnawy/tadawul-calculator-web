@@ -112,7 +112,7 @@ export default function TadawulCalculator() {
 
   /* ---------------- الحسابات ---------------- */
 
-  const formatNumber = (n) =>
+  const formatNumber = (n: number | string) =>
     isNaN(Number(n))
       ? "-"
       : Number(n).toLocaleString("ar-SA", {
