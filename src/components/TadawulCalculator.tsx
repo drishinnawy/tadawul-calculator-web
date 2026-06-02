@@ -110,14 +110,14 @@ export default function TadawulCalculator() {
     setTimeout(() => setToastMsg(null), 3000);
   };
 
-  /* ---------------- الحسابات ---------------- */
+   /* ---------------- الحسابات ---------------- */
 
   const formatNumber = (n: number | string) =>
     isNaN(Number(n))
       ? "-"
       : Number(n).toLocaleString("ar-SA", {
-        maximumFractionDigits: 2,
-      });
+          maximumFractionDigits: 2,
+        });
 
   const calculatedShares = useMemo(() => {
     if (activeTab === "byAmount" && amount && price) {
@@ -154,11 +154,27 @@ export default function TadawulCalculator() {
     (s, p) => s + Number(p.shares || 0),
     0
   );
+
   const totalCost = purchases.reduce(
     (s, p) => s + Number(p.shares || 0) * Number(p.price || 0),
     0
   );
+
   const averagePrice = totalShares ? totalCost / totalShares : 0;
+
+  /* ---------------- دالة التحقق الشرعي ---------------- */
+
+  const handleShariaCheck = () => {
+    if (!stockName.trim()) {
+      showToast("الرجاء إدخال اسم السهم أو رمزه", "error");
+      return;
+    }
+
+    const url = `https://trynaqua.com/calculator?stock=${encodeURIComponent(
+      stockName
+    )}`;
+    window.open(url, "_blank");
+  };
 
   /* ---------------- واجهة الحاسبة — الجزء الأول ---------------- */
 
