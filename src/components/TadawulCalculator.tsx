@@ -27,6 +27,7 @@ const[sellPrice,setSellPrice]=useState("");
 const [sellMode, setSellMode] = useState("shares");
 const[profitOrLoss,setProfitOrLoss]=useState(0);
 const[netProceeds,setNetProceeds]=useState(0);
+const profitPerShare = sellPrice && averagePrice ? parseFloat(sellPrice) - averagePrice : 0;
 const[remainingShares,setRemainingShares]=useState(0);
 const[remainingCost,setRemainingCost]=useState(0);
 const[newAverageCost,setNewAverageCost]=useState(0);
