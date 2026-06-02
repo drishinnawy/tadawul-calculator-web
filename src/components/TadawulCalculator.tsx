@@ -162,7 +162,7 @@ export default function TadawulCalculator() {
 
   const averagePrice = totalShares ? totalCost / totalShares : 0;
 
-  /* ---------------- دالة التحقق الشرعي ---------------- */
+    /* ---------------- دالة التحقق الشرعي ---------------- */
 
   const handleShariaCheck = () => {
     if (!stockName.trim()) {
@@ -188,6 +188,12 @@ export default function TadawulCalculator() {
         p.id === id ? { ...p, [field]: value } : p
       )
     );
+  };
+
+  /* ---------------- دالة حذف عملية شراء ---------------- */
+
+  const handleRemovePurchase = (id: number) => {
+    setPurchases((prev) => prev.filter((p) => p.id !== id));
   };
 
   /* ---------------- واجهة الحاسبة — الجزء الأول ---------------- */
