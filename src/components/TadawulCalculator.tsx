@@ -72,7 +72,7 @@ const THEMES = {
 };
 
 export default function TadawulCalculator() {
-  const [theme, setTheme] = useState("mint");
+  const [theme, setTheme] = useState<"mint" | "pink" | "purple">("mint");
   const t = THEMES[theme];
 
   /* ---------------- الحقول ---------------- */
