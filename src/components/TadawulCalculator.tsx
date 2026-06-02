@@ -109,10 +109,59 @@ return(
 <div className={`p-6 rounded-2xl ${themeClasses}`}>
 {toastMsg&&<Toast message={toastMsg.message} type={toastMsg.type}/>}
 
-<div className="flex justify-end mb-4">
-<Button variant="outline" onClick={()=>setTheme(theme==="mint"?"royal":"mint")} className="flex items-center gap-2">
-{theme==="mint"?<Moon className="w-4 h-4"/>:<Sun className="w-4 h-4"/>} تبديل الثيم
-</Button>
+{/* شريط الإعدادات الملون */}
+<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 rounded-xl shadow-lg border border-gray-200 bg-gradient-to-r from-emerald-50 via-pink-50 to-purple-50">
+
+  {/* الثيم */}
+  <div className="flex items-center gap-3 order-1 md:order-none">
+    <span className="text-sm font-semibold text-gray-800">الثيم:</span>
+
+    <button
+      onClick={() => setTheme("mint")}
+      className={`w-7 h-7 rounded-full shadow-md transition-all ${
+        theme === "mint"
+          ? "ring-2 ring-emerald-500 bg-emerald-300"
+          : "bg-emerald-200 hover:bg-emerald-300"
+      }`}
+    ></button>
+
+    <button
+      onClick={() => setTheme("pink")}
+      className={`w-7 h-7 rounded-full shadow-md transition-all ${
+        theme === "pink"
+          ? "ring-2 ring-pink-500 bg-pink-300"
+          : "bg-pink-200 hover:bg-pink-300"
+      }`}
+    ></button>
+
+    <button
+      onClick={() => setTheme("purple")}
+      className={`w-7 h-7 rounded-full shadow-md transition-all ${
+        theme === "purple"
+          ? "ring-2 ring-purple-500 bg-purple-300"
+          : "bg-purple-200 hover:bg-purple-300"
+      }`}
+    ></button>
+  </div>
+
+  {/* النص */}
+  <p className="text-xs md:text-sm font-medium text-gray-700 text-center leading-relaxed flex-1">
+    عمولة المنصة يمكن تعديلها حسب المنصة المستخدمة، والحاسبة تضيفها لتوحيد النتائج
+  </p>
+
+  {/* عمولة المنصة */}
+  <div className="flex items-center gap-2 order-2 md:order-none">
+    <span className="text-sm font-semibold text-gray-800">عمولة المنصة:</span>
+    <Input
+      type="number"
+      step="0.00001"
+      placeholder="0.00015"
+      value={sellCommissionRate}
+      onChange={(e) => setSellCommissionRate(e.target.value)}
+      className="w-28 h-9 text-sm"
+    />
+  </div>
+
 </div>
 
 {/* شريط الإعدادات المحسّن */}
