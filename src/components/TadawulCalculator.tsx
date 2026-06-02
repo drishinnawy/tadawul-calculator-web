@@ -24,6 +24,7 @@ const[stockName,setStockName]=useState("");
 const[purchases,setPurchases]=useState([{id:1,shares:"",price:""}]);
 const[sellShares,setSellShares]=useState("");
 const[sellPrice,setSellPrice]=useState("");
+const [sellMode, setSellMode] = useState("shares");
 const[profitOrLoss,setProfitOrLoss]=useState(0);
 const[netProceeds,setNetProceeds]=useState(0);
 const[remainingShares,setRemainingShares]=useState(0);
