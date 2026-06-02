@@ -105,7 +105,7 @@ export default function TadawulCalculator() {
 
   const [toastMsg, setToastMsg] = useState(null);
 
-  const showToast = (m, t = "info") => {
+  const showToast = (m: string, t: "success" | "error" | "info" = "info") => {
     setToastMsg({ message: m, type: t });
     setTimeout(() => setToastMsg(null), 3000);
   };
