@@ -225,7 +225,10 @@ export default function TadawulCalculator() {
   };
 
   // -----------------------------
-  // 🟦 الواجهة
+  // 🟦 بداية الواجهة (هنا ينتهي ج1)
+  // -----------------------------
+  // -----------------------------
+  // 🟦 الواجهة — بداية return
   // -----------------------------
   return (
     <div className={`p-6 rounded-2xl ${themeClasses}`}>
@@ -233,8 +236,10 @@ export default function TadawulCalculator() {
         <Toast message={toastMsg.message} type={toastMsg.type} />
       )}
 
-      {/* روابط مفيدة */}
+      {/* روابط مفيدة + حاسبة متوسط التكلفة */}
       <div className="grid md:grid-cols-3 gap-6">
+
+        {/* روابط مفيدة */}
         <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-sky-700">
@@ -350,8 +355,8 @@ export default function TadawulCalculator() {
             </Alert>
           </CardContent>
         </Card>
-      </div>
 
+      </div>
       {/* حاسبة البيع الجزئي */}
       <Card className="mt-6 bg-white/90 shadow-md border border-blue-200">
         <CardHeader>
@@ -361,6 +366,7 @@ export default function TadawulCalculator() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+
           {/* أزرار اختيار وضع البيع */}
           <div className="flex gap-2 justify-center">
             <button
@@ -397,7 +403,7 @@ export default function TadawulCalculator() {
             </button>
           </div>
 
-          {/* وضع 1 */}
+          {/* وضع 1: بيع حسب عدد الأسهم */}
           {sellMode === "shares" && (
             <div className="space-y-3">
               <Label>عدد الأسهم المراد بيعها</Label>
@@ -409,7 +415,7 @@ export default function TadawulCalculator() {
             </div>
           )}
 
-          {/* وضع 2 */}
+          {/* وضع 2: بيع حسب نسبة الأسهم */}
           {sellMode === "percentShares" && (
             <div className="space-y-3">
               <Label>نسبة البيع من إجمالي الأسهم</Label>
@@ -443,7 +449,7 @@ export default function TadawulCalculator() {
             </div>
           )}
 
-          {/* وضع 3 */}
+          {/* وضع 3: بيع حسب نسبة المبلغ */}
           {sellMode === "percentValue" && (
             <div className="space-y-3">
               <Label>نسبة البيع من قيمة المحفظة</Label>
@@ -491,77 +497,78 @@ export default function TadawulCalculator() {
                 <span className="font-bold text-blue-700">
                   {formatNumber(profitOrLoss)} ر.س
                 </span>
-</div>
+              </div>
 
-<div className="flex justify-between">
-  <span>الأسهم المتبقية:</span>
-  <span className="font-bold text-blue-700">
-    {formatNumber(remainingShares)}
-  </span>
-</div>
+              <div className="flex justify-between">
+                <span>الأسهم المتبقية:</span>
+                <span className="font-bold text-blue-700">
+                  {formatNumber(remainingShares)}
+                </span>
+              </div>
+            </AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
 
-</AlertDescription>
-</Alert>
-</CardContent>
-</Card>
+      {/* نظرة شاملة على المحفظة */}
+      <Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-blue-700">
+            <TrendingUp /> نظرة شاملة على محفظتك
+          </CardTitle>
+        </CardHeader>
 
-{/* نظرة شاملة على المحفظة */}
-<Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
-  <CardHeader>
-    <CardTitle className="flex items-center gap-2 text-blue-700">
-      <TrendingUp /> نظرة شاملة على محفظتك
-    </CardTitle>
-  </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex justify-between">
+            <span>الأسهم المتبقية:</span>
+            <span className="font-bold">{formatNumber(remainingShares)}</span>
+          </div>
 
-  <CardContent className="space-y-3">
-    <div className="flex justify-between">
-      <span>الأسهم المتبقية:</span>
-      <span className="font-bold">{formatNumber(remainingShares)}</span>
+          <div className="flex justify-between">
+            <span>التكلفة المتبقية:</span>
+            <span className="font-bold">{formatNumber(remainingCost)} ر.س</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>متوسط التكلفة الجديد:</span>
+            <span className="font-bold">{formatNumber(newAverageCost)} ر.س</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>الربح / الخسارة الكلي:</span>
+            <span
+              className={`font-bold ${
+                totalProfitOrLoss > 0
+                  ? "text-green-600"
+                  : totalProfitOrLoss < 0
+                  ? "text-red-600"
+                  : "text-gray-600"
+              }`}
+            >
+              {formatNumber(totalProfitOrLoss)} ر.س
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* زر مسح البيانات */}
+      <div className="mt-6 flex justify-center">
+        <Button
+          onClick={handleClearAll}
+          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+        >
+          مسح جميع البيانات
+        </Button>
+      </div>
+
+      {/* روابط أسفل الصفحة */}
+      <div className="mt-10 text-center text-sm text-gray-600">
+        <a href="/terms" className="mx-2 hover:underline">Terms of Service</a> |
+        <a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a> |
+        <a href="/refund" className="mx-2 hover:underline">Refund Policy</a> |
+        <a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
+      </div>
+
     </div>
-
-    <div className="flex justify-between">
-      <span>التكلفة المتبقية:</span>
-      <span className="font-bold">{formatNumber(remainingCost)} ر.س</span>
-    </div>
-
-    <div className="flex justify-between">
-      <span>متوسط التكلفة الجديد:</span>
-      <span className="font-bold">{formatNumber(newAverageCost)} ر.س</span>
-    </div>
-
-    <div className="flex justify-between">
-      <span>الربح / الخسارة الكلي:</span>
-      <span
-        className={`font-bold ${
-          totalProfitOrLoss > 0
-            ? "text-green-600"
-            : totalProfitOrLoss < 0
-            ? "text-red-600"
-            : "text-gray-600"
-        }`}
-      >
-        {formatNumber(totalProfitOrLoss)} ر.س
-      </span>
-    </div>
-  </CardContent>
-</Card>
-
-<div className="mt-6 flex justify-center">
-  <Button
-    onClick={handleClearAll}
-    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
-  >
-    مسح جميع البيانات
-  </Button>
-</div>
-
-<div className="mt-10 text-center text-sm text-gray-600">
-  <a href="/terms" className="mx-2 hover:underline">Terms of Service</a> |
-  <a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a> |
-  <a href="/refund" className="mx-2 hover:underline">Refund Policy</a> |
-  <a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
-</div>
-
-</div>
-);
+  );
 }
