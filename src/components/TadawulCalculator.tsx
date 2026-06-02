@@ -109,8 +109,8 @@ return(
 <div className={`p-6 rounded-2xl ${themeClasses}`}>
 {toastMsg&&<Toast message={toastMsg.message} type={toastMsg.type}/>}
 
-{/* شريط الإعدادات الملون */}
-<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 rounded-xl shadow-lg border border-gray-200 bg-gradient-to-r from-emerald-50 via-pink-50 to-purple-50">
+{/* شريط الإعدادات النعناعي */}
+<div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 rounded-xl shadow-lg border border-emerald-200 bg-gradient-to-r from-emerald-50 to-emerald-100">
 
   {/* الثيم */}
   <div className="flex items-center gap-3 order-1 md:order-none">
@@ -120,7 +120,7 @@ return(
       onClick={() => setTheme("mint")}
       className={`w-7 h-7 rounded-full shadow-md transition-all ${
         theme === "mint"
-          ? "ring-2 ring-emerald-500 bg-emerald-300"
+          ? "ring-2 ring-emerald-600 bg-emerald-300"
           : "bg-emerald-200 hover:bg-emerald-300"
       }`}
     ></button>
@@ -129,8 +129,8 @@ return(
       onClick={() => setTheme("pink")}
       className={`w-7 h-7 rounded-full shadow-md transition-all ${
         theme === "pink"
-          ? "ring-2 ring-pink-500 bg-pink-300"
-          : "bg-pink-200 hover:bg-pink-300"
+          ? "ring-2 ring-rose-500 bg-rose-300"
+          : "bg-rose-200 hover:bg-rose-300"
       }`}
     ></button>
 
@@ -138,7 +138,7 @@ return(
       onClick={() => setTheme("purple")}
       className={`w-7 h-7 rounded-full shadow-md transition-all ${
         theme === "purple"
-          ? "ring-2 ring-purple-500 bg-purple-300"
+          ? "ring-2 ring-purple-600 bg-purple-300"
           : "bg-purple-200 hover:bg-purple-300"
       }`}
     ></button>
@@ -220,34 +220,142 @@ return(
 </Card>
 </div>
 
-<Card className="mt-6 bg-white/80 shadow-md border border-amber-100">
-<CardHeader><CardTitle className="flex items-center gap-2 text-amber-700"><Scale/> حاسبة البيع الجزئي</CardTitle></CardHeader>
-<CardContent>
-<div className="grid md:grid-cols-2 gap-4">
-<Input type="number" placeholder="عدد أسهم البيع" value={sellShares} onChange={e=>setSellShares(e.target.value)}/>
-<Input type="number" placeholder="سعر البيع" value={sellPrice} onChange={e=>setSellPrice(e.target.value)}/>
-</div>
+<Card className="mt-6 bg-white/80 shadow-md border border-emerald-200">
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2 text-emerald-700">
+      <Scale /> حاسبة البيع الجزئي
+    </CardTitle>
+  </CardHeader>
 
-<div className="flex gap-2 mt-3">
-{[5,10,25,50,100].map(p=>(
-<Button key={p} variant="outline" onClick={()=>setSellShares(Math.floor((totalShares*p)/100).toString())}>{p}%</Button>
-))}
-</div>
+  <CardContent className="space-y-4">
 
-<Input type="number" placeholder="أدخل نسبة البيع %" className="mt-3" onChange={e=>{
-const v=parseFloat(e.target.value);
-if(!isNaN(v))setSellShares(Math.floor((totalShares*v)/100).toString());
-}}/>
+    {/* أزرار اختيار وضع البيع */}
+    <div className="flex gap-2 justify-center">
+      <button
+        onClick={() => setSellMode("shares")}
+        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+          sellMode === "shares"
+            ? "bg-emerald-600 text-white shadow"
+            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+        }`}
+      >
+        📦 بيع حسب عدد الأسهم
+      </button>
 
-<Button onClick={handleSellCalculation} className="mt-4 bg-amber-500 hover:bg-amber-600 text-white">احسب</Button>
+      <button
+        onClick={() => setSellMode("percentShares")}
+        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+          sellMode === "percentShares"
+            ? "bg-emerald-600 text-white shadow"
+            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+        }`}
+      >
+        📊 بيع حسب نسبة الأسهم
+      </button>
 
-<Alert className="mt-4" variant={profitOrLoss>=0?"default":"destructive"}>
-<AlertTitle>النتائج</AlertTitle>
-<AlertDescription className="space-y-2">
-<div className="flex justify-between"><span>صافي البيع:</span><span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span></div>
-<div className="flex justify-between"><span>إجمالي الربح / الخسارة:</span><span className={`font-bold ${profitOrLoss>0?"text-green-600":profitOrLoss<0?"text-red-600":"text-gray-600"}`}>{formatNumber(profitOrLoss)} ر.س</span></div>
-</AlertDescription>
-</Alert>
+      <button
+        onClick={() => setSellMode("percentValue")}
+        className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-all ${
+          sellMode === "percentValue"
+            ? "bg-emerald-600 text-white shadow"
+            : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+        }`}
+      >
+        💰 بيع حسب نسبة المبلغ
+      </button>
+    </div>
+
+    {/* محتوى كل وضع */}
+    {sellMode === "shares" && (
+      <div className="space-y-3">
+        <Label>أدخل عدد الأسهم التي تريد بيعها</Label>
+        <Input
+          type="number"
+          value={sellShares}
+          onChange={(e) => setSellShares(e.target.value)}
+        />
+      </div>
+    )}
+
+    {sellMode === "percentShares" && (
+      <div className="space-y-3">
+        <Label>أدخل نسبة البيع من إجمالي أسهمك</Label>
+        <Input
+          type="number"
+          onChange={(e) => {
+            const v = parseFloat(e.target.value);
+            if (!isNaN(v)) setSellShares(Math.floor((totalShares * v) / 100).toString());
+          }}
+        />
+
+        <div className="flex gap-2">
+          {[5, 10, 25, 50, 100].map((p) => (
+            <Button
+              key={p}
+              variant="outline"
+              onClick={() =>
+                setSellShares(Math.floor((totalShares * p) / 100).toString())
+              }
+            >
+              {p}%
+            </Button>
+          ))}
+        </div>
+
+        <p className="text-xs text-gray-500">
+          هذه النسبة من إجمالي أسهمك الحالية
+        </p>
+      </div>
+    )}
+
+    {sellMode === "percentValue" && (
+      <div className="space-y-3">
+        <Label>أدخل نسبة البيع من إجمالي قيمة محفظتك</Label>
+        <Input
+          type="number"
+          onChange={(e) => {
+            const v = parseFloat(e.target.value);
+            if (!isNaN(v)) {
+              const portfolioValue = totalShares * averagePrice;
+              const targetValue = (portfolioValue * v) / 100;
+              const sharesToSell = Math.floor(targetValue / parseFloat(sellPrice || "1"));
+              setSellShares(sharesToSell.toString());
+            }
+          }}
+        />
+        <p className="text-xs text-gray-500">
+          سيتم حساب عدد الأسهم تلقائيًا بناءً على قيمة محفظتك
+        </p>
+      </div>
+    )}
+
+    {/* النتائج */}
+    <Alert className="mt-4" variant={profitOrLoss >= 0 ? "default" : "destructive"}>
+      <AlertTitle>النتائج</AlertTitle>
+      <AlertDescription className="space-y-2">
+        <div className="flex justify-between">
+          <span>صافي البيع:</span>
+          <span className="font-bold text-primary">{formatNumber(netProceeds)} ر.س</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>إجمالي الربح / الخسارة:</span>
+          <span
+            className={`font-bold ${
+              profitOrLoss > 0
+                ? "text-green-600"
+                : profitOrLoss < 0
+                ? "text-red-600"
+                : "text-gray-600"
+            }`}
+          >
+            {formatNumber(profitOrLoss)} ر.س
+          </span>
+        </div>
+      </AlertDescription>
+    </Alert>
+  </CardContent>
+</Card>
 
 <Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
 <CardHeader><CardTitle className="flex items-center gap-2 text-blue-700"><TrendingUp/> نظرة شاملة على محفظتك</CardTitle></CardHeader>
