@@ -309,7 +309,7 @@ return(
       </div>
     )}
 
-    {sellMode === "percentValue" && (
+        {sellMode === "percentValue" && (
       <div className="space-y-3">
         <Label>أدخل نسبة البيع من إجمالي قيمة محفظتك</Label>
         <Input
@@ -358,28 +358,61 @@ return(
   </CardContent>
 </Card>
 
+{/* نظرة شاملة على المحفظة */}
 <Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
-<CardHeader><CardTitle className="flex items-center gap-2 text-blue-700"><TrendingUp/> نظرة شاملة على محفظتك</CardTitle></CardHeader>
-<CardContent className="space-y-3">
-<div className="flex justify-between"><span>الأسهم المتبقية:</span><span className="font-bold">{formatNumber(remainingShares)}</span></div>
-<div className="flex justify-between"><span>التكلفة المتبقية:</span><span className="font-bold">{formatNumber(remainingCost)} ر.س</span></div>
-<div className="flex justify-between"><span>متوسط التكلفة الجديد:</span><span className="font-bold">{formatNumber(newAverageCost)} ر.س</span></div>
-<div className="flex justify-between"><span>الربح / الخسارة الكلي:</span><span className={`font-bold ${totalProfitOrLoss>0?"text-green-600":totalProfitOrLoss<0?"text-red-600":"text-gray-600"}`}>{formatNumber(totalProfitOrLoss)} ر.س</span></div>
-</CardContent>
-</Card>
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2 text-blue-700">
+      <TrendingUp /> نظرة شاملة على محفظتك
+    </CardTitle>
+  </CardHeader>
 
-</CardContent>
+  <CardContent className="space-y-3">
+    <div className="flex justify-between">
+      <span>الأسهم المتبقية:</span>
+      <span className="font-bold">{formatNumber(remainingShares)}</span>
+    </div>
+
+    <div className="flex justify-between">
+      <span>التكلفة المتبقية:</span>
+      <span className="font-bold">{formatNumber(remainingCost)} ر.س</span>
+    </div>
+
+    <div className="flex justify-between">
+      <span>متوسط التكلفة الجديد:</span>
+      <span className="font-bold">{formatNumber(newAverageCost)} ر.س</span>
+    </div>
+
+    <div className="flex justify-between">
+      <span>الربح / الخسارة الكلي:</span>
+      <span
+        className={`font-bold ${
+          totalProfitOrLoss > 0
+            ? "text-green-600"
+            : totalProfitOrLoss < 0
+            ? "text-red-600"
+            : "text-gray-600"
+        }`}
+      >
+        {formatNumber(totalProfitOrLoss)} ر.س
+      </span>
+    </div>
+  </CardContent>
 </Card>
 
 <div className="mt-6 flex justify-center">
-<Button onClick={handleClearAll} className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg">مسح جميع البيانات</Button>
+  <Button
+    onClick={handleClearAll}
+    className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+  >
+    مسح جميع البيانات
+  </Button>
 </div>
 
 <div className="mt-10 text-center text-sm text-gray-600">
-<a href="/terms" className="mx-2 hover:underline">Terms of Service</a> |
-<a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a> |
-<a href="/refund" className="mx-2 hover:underline">Refund Policy</a> |
-<a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
+  <a href="/terms" className="mx-2 hover:underline">Terms of Service</a> |
+  <a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a> |
+  <a href="/refund" className="mx-2 hover:underline">Refund Policy</a> |
+  <a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
 </div>
 
 </div>
