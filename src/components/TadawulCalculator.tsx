@@ -612,9 +612,7 @@ export default function TadawulCalculator() {
               </div>
             </CardContent>
           </Card>
-        </CardContent>
-      </Card>
-
+          
       {/* زر مسح البيانات */}
       <div className="mt-6 flex justify-center">
         <Button
