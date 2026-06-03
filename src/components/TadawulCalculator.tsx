@@ -246,16 +246,16 @@ const handleSellCalculation = () => {
   const newRemainingCost = totalCost - avgCostOfSold;
 
   const newAvg =
-    newRemainingShares > 0
-      ? newRemainingCost / newRemainingShares
-      : 0;
+  newRemainingShares > 0
+    ? newRemainingCost / newRemainingShares
+    : 0;
 
-  setNetProceeds(netSell);
-  setProfitOrLoss(realizedPL);
-  setRemainingShares(newRemainingShares);
-  setRemainingCost(newRemainingCost);
-  setNewAverageCost(newAvg);
-  setTotalProfitOrLoss(realizedPL);
+setNetProceeds(netSell);
+setProfitOrLoss(realizedPL);
+setRemainingShares(newRemainingShares);
+setRemainingCost(newRemainingCost);
+setNewAverageCost(newAvg);
+setTotalProfitOrLoss(realizedPL);
 };
 
 // -----------------------------
@@ -271,76 +271,28 @@ useEffect(() => {
   averagePrice,
   sellCommissionRate,
 ]);
-  
-  // إذا المدخلات غير مكتملة أو غير صالحة لا نحسب ولا نظهر خطأ
-  if (
-    !totalSharesCalc ||
-    isNaN(ss) ||
-    ss <= 0 ||
-    ss > totalSharesCalc ||
-    isNaN(sp) ||
-    sp <= 0
-  ) {
-    setNetProceeds(0);
-    setProfitOrLoss(0);
-    setRemainingShares(totalSharesCalc);
-    setRemainingCost(totalCost);
-    setNewAverageCost(averagePrice || 0);
-    setTotalProfitOrLoss(0);
-    return;
-  }
 
-  const sellValue = ss * sp;
-  const sellCommission = sellValue * rate;
-  const netSell = sellValue - sellCommission;
+// -----------------------------
+// 🟦 مسح البيانات
+// -----------------------------
+const handleClearAll = () => {
+  setAmount("");
+  setPrice("");
+  setShares("");
+  setPurchases([{ id: 1, shares: "", price: "" }]);
 
-  const avgBuyPrice = averagePrice;
-  const avgCostOfSold = avgBuyPrice * ss;
-  const realizedPL = netSell - avgCostOfSold;
+  setSellShares("");
+  setSellPrice("");
+  setSellMode("shares");
+  setNetProceeds(0);
+  setProfitOrLoss(0);
+  setRemainingShares(0);
+  setRemainingCost(0);
+  setNewAverageCost(0);
+  setTotalProfitOrLoss(0);
 
-  const newRemainingShares = totalSharesCalc - ss;
-  const newRemainingCost = totalCost - avgCostOfSold;
-
-  const newAvg =
-    newRemainingShares > 0
-      ? newRemainingCost / newRemainingShares
-      : 0;
-
-  setNetProceeds(netSell);
-  setProfitOrLoss(realizedPL);
-  setRemainingShares(newRemainingShares);
-  setRemainingCost(newRemainingCost);
-  setNewAverageCost(newAvg);
-  setTotalProfitOrLoss(realizedPL);
+  showToast("تم مسح جميع البيانات بنجاح", "success");
 };
-
-// تشغيل الحساب تلقائيًا عند تغيّر المدخلات
-useEffect(() => {
-  handleSellCalculation();
-}, [sellShares, sellPrice, totalSharesCalc, totalCost, averagePrice, sellCommissionRate]);
-
-
-  // -----------------------------
-  // 🟦 مسح البيانات
-  // -----------------------------
-  const handleClearAll = () => {
-    setAmount("");
-    setPrice("");
-    setShares("");
-    setPurchases([{ id: 1, shares: "", price: "" }]);
-
-    setSellShares("");
-    setSellPrice("");
-    setSellMode("shares");
-    setNetProceeds(0);
-    setProfitOrLoss(0);
-    setRemainingShares(0);
-    setRemainingCost(0);
-    setNewAverageCost(0);
-    setTotalProfitOrLoss(0);
-
-    showToast("تم مسح جميع البيانات بنجاح", "success");
-  };
 
   // -----------------------------
   // 🟦 الواجهة — بداية return
