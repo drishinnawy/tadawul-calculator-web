@@ -402,11 +402,11 @@ const handleClearAll = () => {
                 <div>
                   <Label className="text-slate-800">سعر السهم</Label>
                   <Input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    className="text-slate-800"
-                  />
+  type="number"
+  value={price}
+  onChange={(e) => setPrice(e.target.value)}
+  className="text-slate-900 bg-yellow-50 border border-yellow-400"
+/>
                 </div>
               </div>
             </TabsContent>
@@ -653,11 +653,11 @@ const handleClearAll = () => {
       <div className="space-y-3">
         <Label className="text-slate-800">عدد الأسهم المراد بيعها</Label>
         <Input
-          type="number"
-          value={sellShares}
-          onChange={(e) => setSellShares(e.target.value)}
-          className="text-slate-800"
-        />
+  type="number"
+  value={sellShares}
+  onChange={(e) => setSellShares(e.target.value)}
+  className="text-slate-900 bg-yellow-50 border border-yellow-400"
+/>
       </div>
     )}
 
