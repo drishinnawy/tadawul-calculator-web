@@ -198,79 +198,79 @@ export default function TadawulCalculator() {
     );
   };
 
-  // -----------------------------
-  // 🟦 حساب البيع (تلقائي)
-  // -----------------------------
-  const handleSellCalculation = () => {
-    const ss = parseFloat(sellShares);
-    const sp = parseFloat(sellPrice);
-    const rate = parseFloat(sellCommissionRate || "0.00015");
+ // -----------------------------
+// 🟦 حساب البيع (تلقائي)
+// -----------------------------
+const handleSellCalculation = () => {
+  const ss = parseFloat(sellShares);
+  const sp = parseFloat(sellPrice);
+  const rate = parseFloat(sellCommissionRate || "0.00015");
 
-    // لا يوجد مشتريات أصلاً
-    if (!totalSharesCalc || totalSharesCalc <= 0) {
-      setNetProceeds(0);
-      setProfitOrLoss(0);
-      setRemainingShares(0);
-      setRemainingCost(0);
-      setNewAverageCost(0);
-      setTotalProfitOrLoss(0);
-      return;
-    }
+  // لا يوجد مشتريات أصلاً
+  if (!totalSharesCalc || totalSharesCalc <= 0) {
+    setNetProceeds(0);
+    setProfitOrLoss(0);
+    setRemainingShares(0);
+    setRemainingCost(0);
+    setNewAverageCost(0);
+    setTotalProfitOrLoss(0);
+    return;
+  }
 
-    // مدخلات بيع غير مكتملة أو غير صالحة → نظهر وضع المحفظة قبل البيع
-    if (
-      isNaN(ss) ||
-      ss <= 0 ||
-      ss > totalSharesCalc ||
-      isNaN(sp) ||
-      sp <= 0
-    ) {
-      setNetProceeds(0);
-      setProfitOrLoss(0);
-      setRemainingShares(totalSharesCalc);
-      setRemainingCost(totalCost);
-      setNewAverageCost(averagePrice || 0);
-      setTotalProfitOrLoss(0);
-      return;
-    }
+  // مدخلات بيع غير مكتملة أو غير صالحة → نظهر وضع المحفظة قبل البيع
+  if (
+    isNaN(ss) ||
+    ss <= 0 ||
+    ss > totalSharesCalc ||
+    isNaN(sp) ||
+    sp <= 0
+  ) {
+    setNetProceeds(0);
+    setProfitOrLoss(0);
+    setRemainingShares(totalSharesCalc);
+    setRemainingCost(totalCost);
+    setNewAverageCost(averagePrice || 0);
+    setTotalProfitOrLoss(0);
+    return;
+  }
 
-    const sellValue = ss * sp;
-    const sellCommission = sellValue * rate;
-    const netSell = sellValue - sellCommission;
+  const sellValue = ss * sp;
+  const sellCommission = sellValue * rate;
+  const netSell = sellValue - sellCommission;
 
-    const avgBuyPrice = averagePrice;
-    const avgCostOfSold = avgBuyPrice * ss;
-    const realizedPL = netSell - avgCostOfSold;
+  const avgBuyPrice = averagePrice;
+  const avgCostOfSold = avgBuyPrice * ss;
+  const realizedPL = netSell - avgCostOfSold;
 
-    const newRemainingShares = totalSharesCalc - ss;
-    const newRemainingCost = totalCost - avgCostOfSold;
+  const newRemainingShares = totalSharesCalc - ss;
+  const newRemainingCost = totalCost - avgCostOfSold;
 
-    const newAvg =
-      newRemainingShares > 0
-        ? newRemainingCost / newRemainingShares
-        : 0;
+  const newAvg =
+    newRemainingShares > 0
+      ? newRemainingCost / newRemainingShares
+      : 0;
 
-    setNetProceeds(netSell);
-    setProfitOrLoss(realizedPL);
-    setRemainingShares(newRemainingShares);
-    setRemainingCost(newRemainingCost);
-    setNewAverageCost(newAvg);
-    setTotalProfitOrLoss(realizedPL);
-  };
+  setNetProceeds(netSell);
+  setProfitOrLoss(realizedPL);
+  setRemainingShares(newRemainingShares);
+  setRemainingCost(newRemainingCost);
+  setNewAverageCost(newAvg);
+  setTotalProfitOrLoss(realizedPL);
+};
 
-  // -----------------------------
-  // 🟦 تفعيل الحساب التلقائي للبيع
-  // -----------------------------
-  useEffect(() => {
-    handleSellCalculation();
-  }, [
-    sellShares,
-    sellPrice,
-    totalSharesCalc,
-    totalCost,
-    averagePrice,
-    sellCommissionRate,
-  ]);
+// -----------------------------
+// 🟦 تفعيل الحساب التلقائي
+// -----------------------------
+useEffect(() => {
+  handleSellCalculation();
+}, [
+  sellShares,
+  sellPrice,
+  totalSharesCalc,
+  totalCost,
+  averagePrice,
+  sellCommissionRate,
+]);
   
   // إذا المدخلات غير مكتملة أو غير صالحة لا نحسب ولا نظهر خطأ
   if (
