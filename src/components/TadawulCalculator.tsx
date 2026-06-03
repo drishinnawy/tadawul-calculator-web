@@ -265,7 +265,7 @@ export default function TadawulCalculator() {
         <Toast message={toastMsg.message} type={toastMsg.type} />
       )}
       
-{/* شريط الإعدادات (الثيم + عمولة المنصة + النص التوضيحي) */}
+{/* شريط الإعدادات (الثيم + عمولة المنصة + التوضيح) */}
 <div className="mt-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-white/70 p-3 rounded-xl border border-purple-200 shadow-sm">
 
   {/* الثيم */}
@@ -294,9 +294,9 @@ export default function TadawulCalculator() {
     />
   </div>
 
-  {/* النص التوضيحي */}
+  {/* التوضيح */}
   <div className="text-center text-sm text-slate-700">
-    بعض المنصات لا تضيف عمولة المنصة لكن المنصة تضيفها لتشمل جميع المنصات
+    بعض المنصات لا تضيف عمولة المنصة لكن الحاسبة تضيفها لتشمل جميع المنصات
   </div>
 
   {/* عمولة المنصة */}
