@@ -653,11 +653,11 @@ const handleClearAll = () => {
       <div className="space-y-3">
         <Label className="text-slate-800">عدد الأسهم المراد بيعها</Label>
         <Input
-  type="number"
-  value={sellShares}
-  onChange={(e) => setSellShares(e.target.value)}
-  className="text-slate-900 bg-yellow-50 border border-yellow-400"
-/>
+          type="number"
+          value={sellShares}
+          onChange={(e) => setSellShares(e.target.value)}
+          className="text-slate-900 bg-yellow-50 border border-yellow-400"
+        />
       </div>
     )}
 
@@ -722,11 +722,11 @@ const handleClearAll = () => {
     <div className="space-y-3">
       <Label className="text-slate-800">سعر البيع</Label>
       <Input
-  type="number"
-  value={sellPrice}
-  onChange={(e) => setSellPrice(e.target.value)}
-  className="text-slate-900 bg-blue-50 border border-blue-400"
-/>
+        type="number"
+        value={sellPrice}
+        onChange={(e) => setSellPrice(e.target.value)}
+        className="text-slate-900 bg-purple-50 border border-purple-400"
+      />
     </div>
 
     {/* النتائج */}
@@ -762,6 +762,13 @@ const handleClearAll = () => {
           <span>الأسهم المتبقية:</span>
           <span className="font-bold text-blue-700">
             {formatNumber(remainingShares)}
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>متوسط سعر السهم بعد البيع:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(newAverageCost)} ر.س
           </span>
         </div>
       </AlertDescription>
