@@ -260,6 +260,90 @@ export default function TadawulCalculator() {
         <Toast message={toastMsg.message} type={toastMsg.type} />
       )}
 
+      {/* حاسبة الصفقة */}
+<Card className="mt-6 bg-white/90 shadow-md border border-purple-200">
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2 text-purple-700">
+      <Calculator /> حاسبة الصفقة
+    </CardTitle>
+  </CardHeader>
+
+  <CardContent className="space-y-4">
+
+    {/* Tabs */}
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid grid-cols-2 w-full">
+        <TabsTrigger value="byAmount">حسب المبلغ</TabsTrigger>
+        <TabsTrigger value="byShares">حسب عدد الأسهم</TabsTrigger>
+      </TabsList>
+
+      {/* حسب المبلغ */}
+      <TabsContent value="byAmount" className="space-y-3">
+        <Label>المبلغ المراد استثماره</Label>
+        <Input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <Label>سعر السهم</Label>
+        <Input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </TabsContent>
+
+      {/* حسب عدد الأسهم */}
+      <TabsContent value="byShares" className="space-y-3">
+        <Label>عدد الأسهم</Label>
+        <Input
+          type="number"
+          value={shares}
+          onChange={(e) => setShares(e.target.value)}
+        />
+
+        <Label>سعر السهم</Label>
+        <Input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </TabsContent>
+    </Tabs>
+
+    {/* النتائج */}
+    <Alert className="mt-4 bg-purple-50 border-purple-200">
+      <AlertTitle className="text-purple-700">نتائج الصفقة</AlertTitle>
+      <AlertDescription className="space-y-2">
+
+        <div className="flex justify-between">
+          <span>عدد الأسهم المتوقع:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(calculatedShares)}
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>إجمالي التكلفة مع العمولة:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(calculatedCost)} ر.س
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>متوسط سعر السهم بعد الرسوم:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(averagePriceWithFees)} ر.س
+          </span>
+        </div>
+
+      </AlertDescription>
+    </Alert>
+
+  </CardContent>
+</Card>
+
       {/* روابط مفيدة + حاسبة متوسط التكلفة */}
       <div className="grid md:grid-cols-3 gap-6">
 
