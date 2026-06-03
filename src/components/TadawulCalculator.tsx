@@ -158,14 +158,29 @@ export default function TadawulCalculator() {
   // -----------------------------
   // 🟦 دوال الشراء
   // -----------------------------
-  const handlePurchaseChange = (id, f, v) =>
+  const handlePurchaseChange = (
+  id: number,
+  f: "shares" | "price",
+  v: string
+) =>
     setPurchases(purchases.map((p) => (p.id === id ? { ...p, [f]: v } : p)));
 
   const handleAddNewPurchase = () =>
-    setPurchases([...purchases, { id: Date.now(), shares: "", price: "" }]);
+  setPurchases([
+    ...purchases,
+    {
+      id: Date.now(),
+      shares: "",
+      price: "",
+    } as {
+      id: number;
+      shares: string;
+      price: string;
+    },
+  ]);
 
-  const handleRemovePurchase = (id) =>
-    setPurchases(purchases.filter((p) => p.id !== id));
+  const handleRemovePurchase = (id: number) =>
+  setPurchases(purchases.filter((p) => p.id !== id));
 
   // -----------------------------
   // 🟦 دالة التحقق الشرعي
@@ -183,7 +198,7 @@ export default function TadawulCalculator() {
   // 🟦 حساب البيع
   // -----------------------------
   const handleSellCalculation = () => {
-    const ss = parseFloat(sellShares),
+    const ss: number = parseFloat(sellShares),
       sp = parseFloat(sellPrice),
       rate = parseFloat(sellCommissionRate || "0.00015");
 
