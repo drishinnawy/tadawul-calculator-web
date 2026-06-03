@@ -22,7 +22,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 
-const Toast = ({ message, type }) => (
+const Toast = ({
+  message,
+  type,
+}: {
+  message: string;
+  type: "success" | "error" | "info";
+}) => (
   <div
     className={`fixed top-6 right-6 z-50 px-4 py-2 rounded-lg shadow-lg text-white text-sm ${
       type === "success"
