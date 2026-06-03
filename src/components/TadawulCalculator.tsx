@@ -275,78 +275,89 @@ export default function TadawulCalculator() {
 
         <CardContent className="space-y-4">
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-2 w-full">
-              <TabsTrigger
-                value="byAmount"
-                className={
-                  activeTab === "byAmount"
-                    ? "bg-purple-600 text-white"
-                    : "bg-purple-100 text-purple-700"
-                }
-              >
-                حسب المبلغ
-              </TabsTrigger>
+         {/* Tabs */}
+<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+  <TabsList className="grid grid-cols-2 w-full">
 
-              <TabsTrigger
-                value="byShares"
-                className={
-                  activeTab === "byShares"
-                    ? "bg-purple-600 text-white"
-                    : "bg-purple-100 text-purple-700"
-                }
-              >
-                حسب عدد الأسهم
-              </TabsTrigger>
-            </TabsList>
+    <TabsTrigger
+      value="byAmount"
+      className="
+        bg-purple-100 text-purple-700
+        data-[state=active]:bg-purple-600
+        data-[state=active]:text-white
+      "
+    >
+      حسب المبلغ
+    </TabsTrigger>
 
-            {/* حسب المبلغ */}
-            <TabsContent value="byAmount" className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label className="text-slate-800">المبلغ المراد استثماره</Label>
-                  <Input
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
+    <TabsTrigger
+      value="byShares"
+      className="
+        bg-purple-100 text-purple-700
+        data-[state=active]:bg-purple-600
+        data-[state=active]:text-white
+      "
+    >
+      حسب عدد الأسهم
+    </TabsTrigger>
 
-                <div>
-                  <Label className="text-slate-800">سعر السهم</Label>
-                  <Input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-              </div>
-            </TabsContent>
+  </TabsList>
 
-            {/* حسب عدد الأسهم */}
-            <TabsContent value="byShares" className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label className="text-slate-800">عدد الأسهم</Label>
-                  <Input
-                    type="number"
-                    value={shares}
-                    onChange={(e) => setShares(e.target.value)}
-                  />
-                </div>
+  {/* حسب المبلغ */}
+  <TabsContent value="byAmount" className="space-y-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <div>
-                  <Label className="text-slate-800">سعر السهم</Label>
-                  <Input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+      <div>
+        <Label className="text-slate-800">المبلغ المراد استثماره</Label>
+        <Input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="text-slate-800"
+        />
+      </div>
+
+      <div>
+        <Label className="text-slate-800">سعر السهم</Label>
+        <Input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="text-slate-800"
+        />
+      </div>
+
+    </div>
+  </TabsContent>
+
+  {/* حسب عدد الأسهم */}
+  <TabsContent value="byShares" className="space-y-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div>
+        <Label className="text-slate-800">عدد الأسهم</Label>
+        <Input
+          type="number"
+          value={shares}
+          onChange={(e) => setShares(e.target.value)}
+          className="text-slate-800"
+        />
+      </div>
+
+      <div>
+        <Label className="text-slate-800">سعر السهم</Label>
+        <Input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="text-slate-800"
+        />
+      </div>
+
+    </div>
+  </TabsContent>
+
+</Tabs>
 
           {/* النتائج */}
           <Alert className="mt-4 bg-purple-50 border-purple-200">
