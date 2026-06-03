@@ -338,181 +338,179 @@ const handleClearAll = () => {
         </div>
 
         {/* عمولة المنصة */}
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-slate-700">عمولة المنصة:</span>
-          <Input
-            type="number"
-            value={commission}
-            onChange={(e) => setCommission(e.target.value)}
-            className="w-24 text-slate-800"
-          />
+<div className="flex items-center gap-2">
+  <span className="text-sm text-slate-700">عمولة المنصة:</span>
+  <Input
+    type="number"
+    value={commission}
+    onChange={(e) => setCommission(e.target.value)}
+    className="w-24 text-slate-800"
+  />
+</div>
+
+</div>
+
+{/* حاسبة الصفقة */}
+<Card className="mt-6 bg-white/90 shadow-md border border-purple-200">
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2 text-purple-700">
+      <Calculator /> حاسبة الصفقة
+    </CardTitle>
+  </CardHeader>
+
+  <CardContent className="space-y-4">
+
+    {/* Tabs */}
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid grid-cols-2 w-full">
+        <TabsTrigger
+          value="byAmount"
+          className="
+            bg-purple-100 text-purple-700
+            data-[state=active]:bg-purple-600
+            data-[state=active]:text-white
+          "
+        >
+          حسب المبلغ
+        </TabsTrigger>
+
+        <TabsTrigger
+          value="byShares"
+          className="
+            bg-purple-100 text-purple-700
+            data-[state=active]:bg-purple-600
+            data-[state=active]:text-white
+          "
+        >
+          حسب عدد الأسهم
+        </TabsTrigger>
+      </TabsList>
+
+      {/* حسب المبلغ */}
+      <TabsContent value="byAmount" className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label className="text-slate-800">المبلغ المراد استثماره</Label>
+            <Input
+              type="number"
+              value={amount}
+              onChange={(e) => {
+                const v = e.target.value;
+                setAmount(v);
+
+                const amt = parseFloat(v);
+                const pr = parseFloat(price);
+                if (!isNaN(amt) && !isNaN(pr) && pr > 0) {
+                  const sh = Math.floor(amt / pr);
+                  setShares(sh.toString());
+                  setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
+                }
+              }}
+              className="text-slate-900 bg-yellow-50 border border-yellow-400"
+            />
+          </div>
+
+          <div>
+            <Label className="text-slate-800">سعر السهم</Label>
+            <Input
+              type="number"
+              value={price}
+              onChange={(e) => {
+                const v = e.target.value;
+                setPrice(v);
+
+                const amt = parseFloat(amount);
+                const pr = parseFloat(v);
+                if (!isNaN(amt) && !isNaN(pr) && pr > 0) {
+                  const sh = Math.floor(amt / pr);
+                  setShares(sh.toString());
+                  setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
+                }
+              }}
+              className="text-slate-900 bg-yellow-50 border border-yellow-400"
+            />
+          </div>
+        </div>
+      </TabsContent>
+
+      {/* حسب عدد الأسهم */}
+      <TabsContent value="byShares" className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label className="text-slate-800">عدد الأسهم</Label>
+            <Input
+              type="number"
+              value={shares}
+              onChange={(e) => {
+                const v = e.target.value;
+                setShares(v);
+
+                const sh = parseFloat(v);
+                const pr = parseFloat(price);
+                if (!isNaN(sh) && !isNaN(pr) && pr > 0) {
+                  setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
+                }
+              }}
+              className="text-slate-900 bg-yellow-50 border border-yellow-400"
+            />
+          </div>
+
+          <div>
+            <Label className="text-slate-800">سعر السهم</Label>
+            <Input
+              type="number"
+              value={price}
+              onChange={(e) => {
+                const v = e.target.value;
+                setPrice(v);
+
+                const sh = parseFloat(shares);
+                const pr = parseFloat(v);
+                if (!isNaN(sh) && !isNaN(pr) && pr > 0) {
+                  setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
+                }
+              }}
+              className="text-slate-900 bg-yellow-50 border border-yellow-400"
+            />
+          </div>
+        </div>
+      </TabsContent>
+
+    </Tabs>  {/* ← ← ← هذا هو الإغلاق المفقود */}
+
+    {/* النتائج */}
+    <Alert className="mt-4 bg-purple-50 border-purple-200">
+      <AlertTitle className="text-purple-700">نتائج الصفقة</AlertTitle>
+      <AlertDescription className="space-y-2">
+
+        <div className="flex justify-between text-slate-800">
+          <span>عدد الأسهم المتوقع:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(calculatedShares)}
+          </span>
         </div>
 
-      </div>
+        <div className="flex justify-between text-slate-800">
+          <span>إجمالي التكلفة مع العمولة:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(calculatedCost)} ر.س
+          </span>
+        </div>
 
-      {/* حاسبة الصفقة */}
-      <Card className="mt-6 bg-white/90 shadow-md border border-purple-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-purple-700">
-            <Calculator /> حاسبة الصفقة
-          </CardTitle>
-        </CardHeader>
+        <div className="flex justify-between text-slate-800">
+          <span>متوسط سعر السهم بعد الرسوم:</span>
+          <span className="font-bold text-purple-700">
+            {formatNumber(averagePriceWithFees)} ر.س
+          </span>
+        </div>
 
-        <CardContent className="space-y-4">
+      </AlertDescription>
+    </Alert>
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-2 w-full">
-              <TabsTrigger
-                value="byAmount"
-                className="
-                  bg-purple-100 text-purple-700
-                  data-[state=active]:bg-purple-600
-                  data-[state=active]:text-white
-                "
-              >
-                حسب المبلغ
-              </TabsTrigger>
+  </CardContent>
+</Card>
 
-              <TabsTrigger
-                value="byShares"
-                className="
-                  bg-purple-100 text-purple-700
-                  data-[state=active]:bg-purple-600
-                  data-[state=active]:text-white
-                "
-              >
-                حسب عدد الأسهم
-              </TabsTrigger>
-            </TabsList>
-
-           {/* حسب المبلغ */}
-<TabsContent value="byAmount" className="space-y-3">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <Label className="text-slate-800">المبلغ المراد استثماره</Label>
-      <Input
-        type="number"
-        value={amount}
-        onChange={(e) => {
-          const v = e.target.value;
-          setAmount(v);
-
-          // ربط حاسبة الصفقة مع البيع
-          const amt = parseFloat(v);
-          const pr = parseFloat(price);
-          if (!isNaN(amt) && !isNaN(pr) && pr > 0) {
-            const sh = Math.floor(amt / pr);
-            setShares(sh.toString());
-            setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
-          }
-        }}
-        className="text-slate-900 bg-yellow-50 border border-yellow-400"
-      />
-    </div>
-
-    <div>
-      <Label className="text-slate-800">سعر السهم</Label>
-      <Input
-        type="number"
-        value={price}
-        onChange={(e) => {
-          const v = e.target.value;
-          setPrice(v);
-
-          // ربط حاسبة الصفقة مع البيع
-          const amt = parseFloat(amount);
-          const pr = parseFloat(v);
-          if (!isNaN(amt) && !isNaN(pr) && pr > 0) {
-            const sh = Math.floor(amt / pr);
-            setShares(sh.toString());
-            setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
-          }
-        }}
-        className="text-slate-900 bg-yellow-50 border border-yellow-400"
-      />
-    </div>
-  </div>
-</TabsContent>
-
-{/* حسب عدد الأسهم */}
-<TabsContent value="byShares" className="space-y-3">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <Label className="text-slate-800">عدد الأسهم</Label>
-      <Input
-        type="number"
-        value={shares}
-        onChange={(e) => {
-          const v = e.target.value;
-          setShares(v);
-
-          // ربط حاسبة الصفقة مع البيع
-          const sh = parseFloat(v);
-          const pr = parseFloat(price);
-          if (!isNaN(sh) && !isNaN(pr) && pr > 0) {
-            setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
-          }
-        }}
-        className="text-slate-900 bg-yellow-50 border border-yellow-400"
-      />
-    </div>
-
-    <div>
-      <Label className="text-slate-800">سعر السهم</Label>
-      <Input
-        type="number"
-        value={price}
-        onChange={(e) => {
-          const v = e.target.value;
-          setPrice(v);
-
-          // ربط حاسبة الصفقة مع البيع
-          const sh = parseFloat(shares);
-          const pr = parseFloat(v);
-          if (!isNaN(sh) && !isNaN(pr) && pr > 0) {
-            setPurchases([{ id: 1, shares: sh.toString(), price: pr.toString() }]);
-          }
-        }}
-        className="text-slate-900 bg-yellow-50 border border-yellow-400"
-      />
-    </div>
-  </div>
-</TabsContent>
-
-          {/* النتائج */}
-          <Alert className="mt-4 bg-purple-50 border-purple-200">
-            <AlertTitle className="text-purple-700">نتائج الصفقة</AlertTitle>
-            <AlertDescription className="space-y-2">
-
-              <div className="flex justify-between text-slate-800">
-                <span>عدد الأسهم المتوقع:</span>
-                <span className="font-bold text-purple-700">
-                  {formatNumber(calculatedShares)}
-                </span>
-              </div>
-
-              <div className="flex justify-between text-slate-800">
-                <span>إجمالي التكلفة مع العمولة:</span>
-                <span className="font-bold text-purple-700">
-                  {formatNumber(calculatedCost)} ر.س
-                </span>
-              </div>
-
-              <div className="flex justify-between text-slate-800">
-                <span>متوسط سعر السهم بعد الرسوم:</span>
-                <span className="font-bold text-purple-700">
-                  {formatNumber(averagePriceWithFees)} ر.س
-                </span>
-              </div>
-
-            </AlertDescription>
-          </Alert>
-
-        </CardContent>
-      </Card>
-
-      <Separator className="my-6" />
+<Separator className="my-6" />
 
       {/* روابط مفيدة + حاسبة متوسط التكلفة */}
       <div className="grid md:grid-cols-3 gap-6">
