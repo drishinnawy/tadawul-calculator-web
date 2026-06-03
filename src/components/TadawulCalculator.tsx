@@ -264,6 +264,53 @@ export default function TadawulCalculator() {
       {toastMsg && (
         <Toast message={toastMsg.message} type={toastMsg.type} />
       )}
+      
+{/* شريط الإعدادات (الثيم + عمولة المنصة + النص التوضيحي) */}
+<div className="mt-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-white/70 p-3 rounded-xl border border-purple-200 shadow-sm">
+
+  {/* الثيم */}
+  <div className="flex items-center gap-2">
+    <span className="text-sm text-slate-700">الثيم:</span>
+
+    <button
+      onClick={() => setTheme("mint")}
+      className={`w-5 h-5 rounded-full border bg-emerald-100 ${
+        theme === "mint" ? "ring-2 ring-emerald-500" : ""
+      }`}
+    />
+
+    <button
+      onClick={() => setTheme("sand")}
+      className={`w-5 h-5 rounded-full border bg-amber-100 ${
+        theme === "sand" ? "ring-2 ring-amber-500" : ""
+      }`}
+    />
+
+    <button
+      onClick={() => setTheme("sky")}
+      className={`w-5 h-5 rounded-full border bg-sky-100 ${
+        theme === "sky" ? "ring-2 ring-sky-500" : ""
+      }`}
+    />
+  </div>
+
+  {/* النص التوضيحي */}
+  <div className="text-center text-sm text-slate-700">
+    بعض المنصات لا تضيف عمولة المنصة لكن المنصة تضيفها لتشمل جميع المنصات
+  </div>
+
+  {/* عمولة المنصة */}
+  <div className="flex items-center gap-2">
+    <span className="text-sm text-slate-700">عمولة المنصة:</span>
+    <Input
+      type="number"
+      value={commission}
+      onChange={(e) => setCommission(e.target.value)}
+      className="w-24 text-slate-800"
+    />
+  </div>
+
+</div>
 
       {/* حاسبة الصفقة */}
       <Card className="mt-6 bg-white/90 shadow-md border border-purple-200">
