@@ -83,7 +83,10 @@ export default function TadawulCalculator() {
   // -----------------------------
   // 🟦 Toast
   // -----------------------------
-  const [toastMsg, setToastMsg] = useState(null);
+  const [toastMsg, setToastMsg] = useState<{
+  message: string;
+  type: "success" | "error" | "info";
+} | null>(null);
 
   const showToast = (m: string, t: "success" | "error" | "info" = "info") => {
     setToastMsg({ message: m, type: t });
