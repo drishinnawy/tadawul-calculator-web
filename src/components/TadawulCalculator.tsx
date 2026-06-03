@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Calculator,
   Info,
@@ -197,46 +197,61 @@ export default function TadawulCalculator() {
     );
   };
 
-  // -----------------------------
-  // 🟦 حساب البيع
-  // -----------------------------
-  const handleSellCalculation = () => {
-    const ss: number = parseFloat(sellShares),
-      sp = parseFloat(sellPrice),
-      rate = parseFloat(sellCommissionRate || "0.00015");
+// -----------------------------
+// 🟦 حساب البيع (تلقائي)
+// -----------------------------
+const handleSellCalculation = () => {
+  const ss: number = parseFloat(sellShares),
+    sp = parseFloat(sellPrice),
+    rate = parseFloat(sellCommissionRate || "0.00015");
 
-    if (isNaN(ss) || ss <= 0)
-      return showToast("الكمية غير صالحة.", "error");
+  // إذا المدخلات غير مكتملة أو غير صالحة لا نحسب ولا نظهر خطأ
+  if (
+    !totalSharesCalc ||
+    isNaN(ss) ||
+    ss <= 0 ||
+    ss > totalSharesCalc ||
+    isNaN(sp) ||
+    sp <= 0
+  ) {
+    setNetProceeds(0);
+    setProfitOrLoss(0);
+    setRemainingShares(totalSharesCalc);
+    setRemainingCost(totalCost);
+    setNewAverageCost(averagePrice || 0);
+    setTotalProfitOrLoss(0);
+    return;
+  }
 
-    if (ss > totalSharesCalc)
-      return showToast("لا يمكنك بيع أكثر من إجمالي الأسهم.", "error");
+  const sellValue = ss * sp;
+  const sellCommission = sellValue * rate;
+  const netSell = sellValue - sellCommission;
 
-    if (isNaN(sp) || sp <= 0)
-      return showToast("سعر البيع غير صالح.", "error");
+  const avgBuyPrice = averagePrice;
+  const avgCostOfSold = avgBuyPrice * ss;
+  const realizedPL = netSell - avgCostOfSold;
 
-    const sellValue = ss * sp;
-    const sellCommission = sellValue * rate;
-    const netSell = sellValue - sellCommission;
+  const newRemainingShares = totalSharesCalc - ss;
+  const newRemainingCost = totalCost - avgCostOfSold;
 
-    const avgBuyPrice = averagePrice;
-    const avgCostOfSold = avgBuyPrice * ss;
-    const realizedPL = netSell - avgCostOfSold;
+  const newAvg =
+    newRemainingShares > 0
+      ? newRemainingCost / newRemainingShares
+      : 0;
 
-    const newRemainingShares = totalSharesCalc - ss;
-    const newRemainingCost = totalCost - avgCostOfSold;
+  setNetProceeds(netSell);
+  setProfitOrLoss(realizedPL);
+  setRemainingShares(newRemainingShares);
+  setRemainingCost(newRemainingCost);
+  setNewAverageCost(newAvg);
+  setTotalProfitOrLoss(realizedPL);
+};
 
-    const newAvg =
-      newRemainingShares > 0
-        ? newRemainingCost / newRemainingShares
-        : 0;
+// تشغيل الحساب تلقائيًا عند تغيّر المدخلات
+useEffect(() => {
+  handleSellCalculation();
+}, [sellShares, sellPrice, totalSharesCalc, totalCost, averagePrice, sellCommissionRate]);
 
-    setNetProceeds(netSell);
-    setProfitOrLoss(realizedPL);
-    setRemainingShares(newRemainingShares);
-    setRemainingCost(newRemainingCost);
-    setNewAverageCost(newAvg);
-    setTotalProfitOrLoss(realizedPL);
-  };
 
   // -----------------------------
   // 🟦 مسح البيانات
@@ -683,15 +698,7 @@ export default function TadawulCalculator() {
               />
             </div>
           )}
-
-          {/* زر حساب البيع */}
-          <Button
-            onClick={handleSellCalculation}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            احسب نتيجة البيع
-          </Button>
-
+         
           {/* النتائج */}
           <Alert
             className="mt-4 bg-blue-50 border-blue-200"
