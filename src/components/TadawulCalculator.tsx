@@ -722,11 +722,11 @@ const handleClearAll = () => {
     <div className="space-y-3">
       <Label className="text-slate-800">سعر البيع</Label>
       <Input
-        type="number"
-        value={sellPrice}
-        onChange={(e) => setSellPrice(e.target.value)}
-        className="text-slate-800"
-      />
+  type="number"
+  value={sellPrice}
+  onChange={(e) => setSellPrice(e.target.value)}
+  className="text-slate-900 bg-blue-50 border border-blue-400"
+/>
     </div>
 
     {/* النتائج */}
