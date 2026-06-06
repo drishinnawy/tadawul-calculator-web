@@ -7,12 +7,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>أفضل حاسبة تداول</title>
-        <meta
-          name="description"
-          content="أفضل حاسبة تداول لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
-        />
-      </Head>
+  <MetaTags />
+  <OpenGraph />
+  <TwitterCards />
+  <Schema />
+</Head>
 
       {/* Navbar */}
       <nav
