@@ -24,14 +24,6 @@ const Home: NextPage = () => {
         <Schema />
       </Head>
 
-      <TadawulCalculator />
-      <VisitCounter />
-    </>
-  );
-};
-
-export default Home;
-
       {/* Navbar */}
       <nav
         style={{
@@ -59,7 +51,7 @@ export default Home;
           أفضل حاسبة تداول
         </div>
 
-        {/* Center Section (Counter فقط بدون رولر) */}
+        {/* Center Section */}
         <div
           style={{
             display: "flex",
@@ -67,7 +59,6 @@ export default Home;
             gap: "20px",
           }}
         >
-          {/* Counter */}
           <div
             style={{
               display: "flex",
