@@ -3,15 +3,21 @@ import Head from "next/head";
 import TadawulCalculator from "../components/TadawulCalculator";
 import VisitCounter from "../components/VisitCounter";
 
+// استيراد ملفات السيو الأربعة
+import MetaTags from "../seo/MetaTags";
+import OpenGraph from "../seo/OpenGraph";
+import TwitterCards from "../seo/TwitterCards";
+import Schema from "../seo/Schema";
+
 const Home: NextPage = () => {
   return (
     <>
       <Head>
-  <MetaTags />
-  <OpenGraph />
-  <TwitterCards />
-  <Schema />
-</Head>
+        <MetaTags />
+        <OpenGraph />
+        <TwitterCards />
+        <Schema />
+      </Head>
 
       {/* Navbar */}
       <nav
