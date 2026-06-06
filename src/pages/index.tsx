@@ -1,20 +1,36 @@
-<Head>
-  <title>أفضل حاسبة تداول</title>
-  <meta
-    name="description"
-    content="أفضل حاسبة تداول لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
-  />
+import type { NextPage } from "next";
+import Head from "next/head";
+import TadawulCalculator from "../components/TadawulCalculator";
+import VisitCounter from "../components/VisitCounter";
 
-  <MetaTags />
-  <OpenGraph />
-  <TwitterCards />
-  <Schema />
-</Head>
+import MetaTags from "../seo/MetaTags";
+import OpenGraph from "../seo/OpenGraph";
+import TwitterCards from "../seo/TwitterCards";
+import Schema from "../seo/Schema";
+
+const Home: NextPage = () => {
+  return (
+    <>
+      <Head>
+        <title>أفضل حاسبة تداول</title>
+        <meta
+          name="description"
+          content="أفضل حاسبة تداول لحساب الصفقة، المتوسط، البيع، ونظرة شاملة على المحفظة."
+        />
+
         <MetaTags />
         <OpenGraph />
         <TwitterCards />
         <Schema />
       </Head>
+
+      <TadawulCalculator />
+      <VisitCounter />
+    </>
+  );
+};
+
+export default Home;
 
       {/* Navbar */}
       <nav
