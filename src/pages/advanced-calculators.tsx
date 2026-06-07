@@ -10,6 +10,13 @@ import {
   PinOff,
 } from "lucide-react";
 
+// استيراد الأدوات
+import StopLossTool from "@/components/tools/StopLoss";
+import PositionSizeTool from "@/components/tools/PositionSize";
+import RiskTool from "@/components/tools/RiskTool";
+import ProfitLossTool from "@/components/tools/ProfitLossTool";
+import AveragePriceTool from "@/components/tools/AveragePriceTool";
+
 export default function AdvancedCalculatorsPage() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [isSidebarPinned, setIsSidebarPinned] = useState(true);
@@ -108,23 +115,11 @@ export default function AdvancedCalculatorsPage() {
         {/* Tools Area */}
         <div className="flex-1 max-h-[75vh] overflow-y-auto pr-1 space-y-8">
 
-          {tools.map((item) => (
-            <div
-              key={item.id}
-              className={`transition-all duration-300 rounded-xl ${
-                activeTool === item.id
-                  ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                  : "scale-100"
-              }`}
-            >
-              <div className="p-6 bg-white rounded-xl border">
-                <h2 className="text-lg font-bold text-purple-700 mb-3">
-                  {item.label}
-                </h2>
-                <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
-              </div>
-            </div>
-          ))}
+          {activeTool === "stoploss" && <StopLossTool />}
+          {activeTool === "position" && <PositionSizeTool />}
+          {activeTool === "risk" && <RiskTool />}
+          {activeTool === "profitloss" && <ProfitLossTool />}
+          {activeTool === "average" && <AveragePriceTool />}
 
         </div>
       </div>
