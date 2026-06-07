@@ -22,6 +22,34 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 
+/* ⭐ إضافة استقبال الـ mode هنا فقط */
+export default function TadawulCalculator({ mode = "default" }: { mode?: string }) {
+  /* ⭐ تعريف حالات الـ mode */
+  const isStopLoss = mode === "stoploss";
+  const isPosition = mode === "position";
+  const isRisk = mode === "risk";
+  const isProfitLoss = mode === "profitloss";
+  const isAverage = mode === "average";
+
+  /* ⭐ عناوين ووصف الحاسبة حسب الـ mode */
+  const calculatorTitle = {
+    stoploss: "حاسبة وقف الخسارة",
+    position: "حاسبة حجم الصفقة",
+    risk: "حاسبة نسبة المخاطرة",
+    profitloss: "حاسبة الربح والخسارة",
+    average: "حاسبة متوسط السعر",
+    default: "حاسبة التداول",
+  }[mode];
+
+  const calculatorDescription = {
+    stoploss: "احسب وقف الخسارة المثالي بناءً على سعر الدخول ونسبة المخاطرة.",
+    position: "احسب حجم الصفقة المناسب بناءً على رأس المال ونسبة المخاطرة.",
+    risk: "احسب نسبة المخاطرة المناسبة لكل صفقة.",
+    profitloss: "احسب صافي الربح أو الخسارة بناءً على سعر الدخول والخروج.",
+    average: "احسب متوسط تكلفة السهم بعد عمليات شراء متعددة.",
+    default: "حاسبة تداول شاملة.",
+  }[mode];
+
 const Toast = ({
   message,
   type,
