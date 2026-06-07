@@ -62,79 +62,105 @@ const Home: NextPage = () => {
       </div>
 
       {/* Navbar */}
-      <nav
-        style={{
-          width: "100%",
-          backgroundColor: "#e6f0ff",
-          padding: "12px 25px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderBottom: "1px solid #cdd7f3",
-          position: "sticky",
-          top: 0,
-          zIndex: 1000,
-        }}
-      >
-        {/* Logo */}
-        <div
-          style={{
-            fontSize: "20px",
-            fontWeight: "bold",
-            color: "#0044aa",
-            whiteSpace: "nowrap",
-          }}
-        >
-          أفضل حاسبة تداول
-        </div>
+<nav
+  style={{
+    width: "100%",
+    backgroundColor: "#e6f0ff",
+    padding: "12px 25px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: "1px solid #cdd7f3",
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+  }}
+>
+  {/* Logo */}
+  <div
+    style={{
+      fontSize: "20px",
+      fontWeight: "bold",
+      color: "#0044aa",
+      whiteSpace: "nowrap",
+    }}
+  >
+    أفضل حاسبة تداول
+  </div>
 
-        {/* Center Section */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "10px 18px",
-              borderRadius: "14px",
-              backdropFilter: "blur(10px)",
-              background: "rgba(255, 255, 255, 0.35)",
-              border: "1px solid rgba(255, 255, 255, 0.4)",
-              fontSize: "17px",
-              fontWeight: "bold",
-              color: "#0044aa",
-              whiteSpace: "nowrap",
-            }}
-          >
-            <span style={{ fontSize: "20px" }}>📊</span>
-            <span>
-              عدد الزيارات: <VisitCounter />
-            </span>
-          </div>
-        </div>
+  {/* Center Section */}
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        padding: "10px 18px",
+        borderRadius: "14px",
+        backdropFilter: "blur(10px)",
+        background: "rgba(255, 255, 255, 0.35)",
+        border: "1px solid rgba(255, 255, 255, 0.4)",
+        fontSize: "17px",
+        fontWeight: "bold",
+        color: "#0044aa",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <span style={{ fontSize: "20px" }}>📊</span>
+      <span>
+        عدد الزيارات: <VisitCounter />
+      </span>
+    </div>
+  </div>
 
-        {/* Links */}
-        <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
-          <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
-            الرئيسية
-          </a>
-          <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
-            حول الموقع
-          </a>
-          <a
-            href="/contact"
-            style={{ color: "#0044aa", textDecoration: "none" }}
-          >
-            اتصل بنا
-          </a>
-        </div>
-      </nav>
+  {/* Links */}
+  <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
+    <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
+      الرئيسية
+    </a>
+    <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
+      حول الموقع
+    </a>
+    <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
+      اتصل بنا
+    </a>
+
+    {/* روابط الحاسبات الجديدة */}
+    <a href="/stop-loss" style={{ color: "#0044aa", textDecoration: "none" }}>
+      وقف الخسارة
+    </a>
+    <a
+      href="/position-size"
+      style={{ color: "#0044aa", textDecoration: "none" }}
+    >
+      حجم الصفقة
+    </a>
+    <a
+      href="/risk-percentage"
+      style={{ color: "#0044aa", textDecoration: "none" }}
+    >
+      نسبة المخاطرة
+    </a>
+    <a
+      href="/profit-loss"
+      style={{ color: "#0044aa", textDecoration: "none" }}
+    >
+      الربح والخسارة
+    </a>
+    <a
+      href="/average-price"
+      style={{ color: "#0044aa", textDecoration: "none" }}
+    >
+      متوسط السعر
+    </a>
+  </div>
+</nav>
 
       {/* الشريط المتحرك */}
       <div
