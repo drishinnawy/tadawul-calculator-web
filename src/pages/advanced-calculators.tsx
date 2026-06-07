@@ -83,7 +83,7 @@ export default function AdvancedCalculatorsPage() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setActiveTool(item.id)}
+                    onClick={() => setActiveTool(item.id as any)}
                     className={`w-full flex items-center gap-3 px-3 py-2 text-sm transition-all ${
                       active
                         ? "bg-purple-50 text-purple-700 border-r-4 border-purple-500"
