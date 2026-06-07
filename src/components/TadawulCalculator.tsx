@@ -22,8 +22,32 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 
-/* ⭐ إضافة استقبال الـ mode هنا فقط */
-export default function TadawulCalculator({ mode = "default" }: { mode?: string }) {
+const Toast = ({
+  message,
+  type,
+}: {
+  message: string;
+  type: "success" | "error" | "info";
+}) => (
+  <div
+    className={`fixed top-6 right-6 z-50 px-4 py-2 rounded-lg shadow-lg text-white text-sm ${
+      type === "success"
+        ? "bg-green-600"
+        : type === "error"
+        ? "bg-red-600"
+        : "bg-sky-600"
+    }`}
+  >
+    {message}
+  </div>
+);
+
+/* ⭐ استقبال الـ mode هنا فقط */
+export default function TadawulCalculator({
+  mode = "default",
+}: {
+  mode?: string;
+}) {
   /* ⭐ تعريف حالات الـ mode */
   const isStopLoss = mode === "stoploss";
   const isPosition = mode === "position";
@@ -50,27 +74,6 @@ export default function TadawulCalculator({ mode = "default" }: { mode?: string 
     default: "حاسبة تداول شاملة.",
   }[mode];
 
-const Toast = ({
-  message,
-  type,
-}: {
-  message: string;
-  type: "success" | "error" | "info";
-}) => (
-  <div
-    className={`fixed top-6 right-6 z-50 px-4 py-2 rounded-lg shadow-lg text-white text-sm ${
-      type === "success"
-        ? "bg-green-600"
-        : type === "error"
-        ? "bg-red-600"
-        : "bg-sky-600"
-    }`}
-  >
-    {message}
-  </div>
-);
-
-export default function TadawulCalculator() {
   // -----------------------------
   // 🟦 الحقول الأساسية
   // -----------------------------
@@ -82,14 +85,18 @@ export default function TadawulCalculator() {
   const [vat, setVat] = useState("15");
   const [stockName, setStockName] = useState("");
 
-  const [purchases, setPurchases] = useState([{ id: 1, shares: "", price: "" }]);
+  const [purchases, setPurchases] = useState([
+    { id: 1, shares: "", price: "" },
+  ]);
 
   // -----------------------------
   // 🟦 البيع الجزئي
   // -----------------------------
   const [sellShares, setSellShares] = useState("");
   const [sellPrice, setSellPrice] = useState("");
-  const [sellMode, setSellMode] = useState<"shares" | "percentShares" | "percentValue">("shares");
+  const [sellMode, setSellMode] = useState<
+    "shares" | "percentShares" | "percentValue"
+  >("shares");
   const [profitOrLoss, setProfitOrLoss] = useState(0);
   const [netProceeds, setNetProceeds] = useState(0);
   const [remainingShares, setRemainingShares] = useState(0);
@@ -161,6 +168,7 @@ export default function TadawulCalculator() {
     () => (calculatedShares && price ? calculatedCost / calculatedShares : 0),
     [calculatedCost, calculatedShares]
   );
+
   // -----------------------------
   // 🟦 حساب متوسط التكلفة العام
   // -----------------------------
