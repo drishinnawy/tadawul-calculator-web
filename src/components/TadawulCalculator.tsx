@@ -651,101 +651,90 @@ return (
       </>
     )}
 
-    {/* ⭐⭐ الوضع الثاني: الحاسبات المتقدمة (سيأتي في ج4) ⭐⭐ */}
-    {viewMode === "new" && (
-      <div className="mt-6">
-        {/* سيتم دمج Sidebar + Collapse + Pin + Scroll + الحاسبات الجديدة هنا في ج4 */}
-      </div>
-    )}
-  </div>
-);
+            {/* ⭐⭐⭐ تكملة الحاسبة الأصلية — ج4 ⭐⭐⭐ */}
 
-        {/* ⭐⭐⭐ تكملة الحاسبة الأصلية — ج4 ⭐⭐⭐ */}
+        {/* حاسبة متوسط التكلفة */}
+        <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-700">
+              <Repeat /> حاسبة متوسط التكلفة
+            </CardTitle>
+          </CardHeader>
 
-{/* حاسبة متوسط التكلفة */}
-<Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
-  <CardHeader>
-    <CardTitle className="flex items-center gap-2 text-emerald-700">
-      <Repeat /> حاسبة متوسط التكلفة
-    </CardTitle>
-  </CardHeader>
+          <CardContent>
+            {purchases.map((p) => (
+              <div key={p.id} className="flex gap-2 mb-2">
+                <Input
+                  type="number"
+                  placeholder="عدد الأسهم"
+                  value={p.shares}
+                  onChange={(e) =>
+                    handlePurchaseChange(p.id, "shares", e.target.value)
+                  }
+                  className="text-slate-800"
+                />
 
-  <CardContent>
-    {purchases.map((p) => (
-      <div key={p.id} className="flex gap-2 mb-2">
-        <Input
-          type="number"
-          placeholder="عدد الأسهم"
-          value={p.shares}
-          onChange={(e) =>
-            handlePurchaseChange(p.id, "shares", e.target.value)
-          }
-          className="text-slate-800"
-        />
+                <Input
+                  type="number"
+                  placeholder="سعر الشراء"
+                  value={p.price}
+                  onChange={(e) =>
+                    handlePurchaseChange(p.id, "price", e.target.value)
+                  }
+                  className="text-slate-800"
+                />
 
-        <Input
-          type="number"
-          placeholder="سعر الشراء"
-          value={p.price}
-          onChange={(e) =>
-            handlePurchaseChange(p.id, "price", e.target.value)
-          }
-          className="text-slate-800"
-        />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleRemovePurchase(p.id)}
+                >
+                  <MinusCircle className="text-red-500" />
+                </Button>
+              </div>
+            ))}
 
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => handleRemovePurchase(p.id)}
-        >
-          <MinusCircle className="text-red-500" />
-        </Button>
-      </div>
-    ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAddNewPurchase}
+              className="mt-2 border-emerald-400 text-emerald-700 hover:bg-emerald-100"
+            >
+              <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
+            </Button>
 
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={handleAddNewPurchase}
-      className="mt-2 border-emerald-400 text-emerald-700 hover:bg-emerald-100"
-    >
-      <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
-    </Button>
+            <Alert
+              variant="default"
+              className="mt-4 bg-emerald-50 border-emerald-200"
+            >
+              <Info className="h-5 w-5 text-emerald-700" />
+              <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
 
-    <Alert
-      variant="default"
-      className="mt-4 bg-emerald-50 border-emerald-200"
-    >
-      <Info className="h-5 w-5 text-emerald-700" />
-      <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
+              <AlertDescription className="space-y-2 text-slate-800">
+                <div className="flex justify-between">
+                  <span>إجمالي الأسهم:</span>
+                  <span className="font-bold text-emerald-700">
+                    {formatNumber(totalSharesCalc)}
+                  </span>
+                </div>
 
-      <AlertDescription className="space-y-2 text-slate-800">
-        <div className="flex justify-between">
-          <span>إجمالي الأسهم:</span>
-          <span className="font-bold text-emerald-700">
-            {formatNumber(totalSharesCalc)}
-          </span>
-        </div>
+                <div className="flex justify-between">
+                  <span>متوسط سعر السهم:</span>
+                  <span className="font-bold text-emerald-700">
+                    {formatNumber(averagePrice)} ر.س
+                  </span>
+                </div>
 
-        <div className="flex justify-between">
-          <span>متوسط سعر السهم:</span>
-          <span className="font-bold text-emerald-700">
-            {formatNumber(averagePrice)} ر.س
-          </span>
-        </div>
-
-        <div className="flex justify-between">
-          <span>إجمالي التكلفة:</span>
-          <span className="font-bold text-emerald-700">
-            {formatNumber(totalCost)} ر.س
-          </span>
-        </div>
-      </AlertDescription>
-    </Alert>
-  </CardContent>
-</Card>
-
-</div> {/* ← إغلاق grid md:grid-cols-3 */}
+                <div className="flex justify-between">
+                  <span>إجمالي التكلفة:</span>
+                  <span className="font-bold text-emerald-700">
+                    {formatNumber(totalCost)} ر.س
+                  </span>
+                </div>
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        </Card>
 
 {/* حاسبة البيع الجزئي */}
 <Card className="mt-6 bg-white/90 shadow-md border border-blue-200">
