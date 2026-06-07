@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import {
   LayoutDashboard,
@@ -19,6 +17,14 @@ export default function AdvancedCalculatorsPage() {
   const [activeTool, setActiveTool] = useState<
     "stoploss" | "position" | "risk" | "profitloss" | "average"
   >("stoploss");
+
+  const tools = [
+    { id: "stoploss", label: "وقف الخسارة", icon: ShieldAlert },
+    { id: "position", label: "حجم الصفقة", icon: Scale },
+    { id: "risk", label: "نسبة المخاطرة", icon: AlertTriangle },
+    { id: "profitloss", label: "الربح والخسارة", icon: LineChart },
+    { id: "average", label: "متوسط السعر", icon: BarChart3 },
+  ] as const;
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -70,13 +76,7 @@ export default function AdvancedCalculatorsPage() {
               onMouseEnter={() => !isSidebarPinned && setIsSidebarExpanded(true)}
               onMouseLeave={() => !isSidebarPinned && setIsSidebarExpanded(false)}
             >
-              {[
-                { id: "stoploss", label: "وقف الخسارة", icon: ShieldAlert },
-                { id: "position", label: "حجم الصفقة", icon: Scale },
-                { id: "risk", label: "نسبة المخاطرة", icon: AlertTriangle },
-                { id: "profitloss", label: "الربح والخسارة", icon: LineChart },
-                { id: "average", label: "متوسط السعر", icon: BarChart3 },
-              ].map((item) => {
+              {tools.map((item) => {
                 const Icon = item.icon;
                 const active = activeTool === item.id;
 
@@ -108,80 +108,23 @@ export default function AdvancedCalculatorsPage() {
         {/* Tools Area */}
         <div className="flex-1 max-h-[75vh] overflow-y-auto pr-1 space-y-8">
 
-          <div
-            className={`transition-all duration-300 rounded-xl ${
-              activeTool === "stoploss"
-                ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                : "scale-100"
-            }`}
-          >
-            <div className="p-6 bg-white rounded-xl border">
-              <h2 className="text-lg font-bold text-purple-700 mb-3">
-                حاسبة وقف الخسارة
-              </h2>
-              <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
+          {tools.map((item) => (
+            <div
+              key={item.id}
+              className={`transition-all duration-300 rounded-xl ${
+                activeTool === item.id
+                  ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
+                  : "scale-100"
+              }`}
+            >
+              <div className="p-6 bg-white rounded-xl border">
+                <h2 className="text-lg font-bold text-purple-700 mb-3">
+                  {item.label}
+                </h2>
+                <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
+              </div>
             </div>
-          </div>
-
-          <div
-            className={`transition-all duration-300 rounded-xl ${
-              activeTool === "position"
-                ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                : "scale-100"
-            }`}
-          >
-            <div className="p-6 bg-white rounded-xl border">
-              <h2 className="text-lg font-bold text-purple-700 mb-3">
-                حاسبة حجم الصفقة
-              </h2>
-              <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
-            </div>
-          </div>
-
-          <div
-            className={`transition-all duration-300 rounded-xl ${
-              activeTool === "risk"
-                ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                : "scale-100"
-            }`}
-          >
-            <div className="p-6 bg-white rounded-xl border">
-              <h2 className="text-lg font-bold text-purple-700 mb-3">
-                حاسبة نسبة المخاطرة
-              </h2>
-              <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
-            </div>
-          </div>
-
-          <div
-            className={`transition-all duration-300 rounded-xl ${
-              activeTool === "profitloss"
-                ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                : "scale-100"
-            }`}
-          >
-            <div className="p-6 bg-white rounded-xl border">
-              <h2 className="text-lg font-bold text-purple-700 mb-3">
-                حاسبة الربح والخسارة
-              </h2>
-              <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
-            </div>
-          </div>
-
-          <div
-            className={`transition-all duration-300 rounded-xl ${
-              activeTool === "average"
-                ? "scale-[1.01] ring-2 ring-purple-400 shadow-md"
-                : "scale-100"
-            }`}
-          >
-            <div className="p-6 bg-white rounded-xl border">
-              <h2 className="text-lg font-bold text-purple-700 mb-3">
-                حاسبة متوسط السعر
-              </h2>
-              <p className="text-slate-600">ضع كود الحاسبة هنا…</p>
-            </div>
-          </div>
+          ))}
 
         </div>
       </div>
