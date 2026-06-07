@@ -24,24 +24,27 @@ const Home: NextPage = () => {
         <Schema />
       </Head>
 
-      {/* فقرة الكلمات المفتاحية — تمت إضافتها هنا فقط */}
-      <p
+      {/* فقرة الكلمات المفتاحية بخلفية منسجمة مع تصميم الحاسبة */}
+      <div
         style={{
-          textAlign: "center",
-          color: "#555",
-          marginTop: "20px",
-          maxWidth: "750px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          lineHeight: "1.7",
+          backgroundColor: "#eaf3ff", // نفس روح ألوان الحاسبة
+          padding: "20px 24px",
+          borderRadius: "14px",
+          maxWidth: "800px",
+          margin: "28px auto",
+          color: "#333",
+          lineHeight: "1.85",
           fontSize: "16px",
+          textAlign: "center",
+          border: "1px solid #c7d9f5", // نفس درجة حدود الحاسبة
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)", // ظل خفيف مثل بطاقات الحاسبة
         }}
       >
         هذه الحاسبة تساعدك على حساب الربح والخسارة، وتحديد نسبة المخاطرة، وحجم
         الصفقة، وإدارة رأس المال بدقة. تعتبر أفضل حاسبة تداول للأسهم والعملات،
         وتوفر أدوات مهمة مثل حساب وقف الخسارة والهدف الربحي، مما يجعلها مناسبة
         للمتداولين المبتدئين والمحترفين.
-      </p>
+      </div>
 
       {/* Navbar */}
       <nav
