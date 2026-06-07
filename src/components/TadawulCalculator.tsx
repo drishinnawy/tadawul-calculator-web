@@ -602,243 +602,138 @@ return (
 
         <Separator className="my-6" />
 
-        {/* روابط مفيدة + حاسبة متوسط التكلفة */}
-        <div className="grid md:grid-cols-3 gap-6">
+       {/* روابط مفيدة + حاسبة متوسط التكلفة */}
+<div className="grid md:grid-cols-3 gap-6">
 
-          {/* روابط مفيدة */}
-          <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-sky-700">
-                <BookOpen /> روابط مفيدة
-              </CardTitle>
-            </CardHeader>
+  {/* روابط مفيدة */}
+  <Card className="bg-gradient-to-br from-sky-50 to-white shadow-sm border">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-sky-700">
+        <BookOpen /> روابط مفيدة
+      </CardTitle>
+    </CardHeader>
 
-            <CardContent className="space-y-3">
-              <Input
-                placeholder="اسم السهم أو رمزه"
-                value={stockName}
-                onChange={(e) => setStockName(e.target.value)}
-                className="text-slate-800"
-              />
+    <CardContent className="space-y-3">
+      <Input
+        placeholder="اسم السهم أو رمزه"
+        value={stockName}
+        onChange={(e) => setStockName(e.target.value)}
+        className="text-slate-800"
+      />
 
-              <Button
-                onClick={handleShariaCheck}
-                className="w-full bg-sky-600 hover:bg-sky-700 text-white"
-              >
-                <ShieldCheck className="mr-2 h-4 w-4" /> التحقق من الشرعية
-              </Button>
+      <Button
+        onClick={handleShariaCheck}
+        className="w-full bg-sky-600 hover:bg-sky-700 text-white"
+      >
+        <ShieldCheck className="mr-2 h-4 w-4" /> التحقق من الشرعية
+      </Button>
 
-              <Button variant="outline" asChild className="w-full text-slate-700">
-                <a href="https://trynaqua.com/calculator" target="_blank">
-                  <ExternalLink className="mr-2 h-4 w-4" /> صفحة التطهير
-                </a>
-              </Button>
+      <Button variant="outline" asChild className="w-full text-slate-700">
+        <a href="https://trynaqua.com/calculator" target="_blank">
+          <ExternalLink className="mr-2 h-4 w-4" /> صفحة التطهير
+        </a>
+      </Button>
 
-              <Button variant="outline" asChild className="w-full text-slate-700">
-                <a href="https://www.tickerchart.net/app/ar" target="_blank">
-                  <ExternalLink className="mr-2 h-4 w-4" /> تكرتشارت
-                </a>
-              </Button>
+      <Button variant="outline" asChild className="w-full text-slate-700">
+        <a href="https://www.tickerchart.net/app/ar" target="_blank">
+          <ExternalLink className="mr-2 h-4 w-4" /> تكرتشارت
+        </a>
+      </Button>
 
-              <Button variant="outline" asChild className="w-full text-slate-700">
-                <a href="https://ar.tradingview.com/" target="_blank">
-                  <ExternalLink className="mr-2 h-4 w-4" /> تريدينج فيو
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+      <Button variant="outline" asChild className="w-full text-slate-700">
+        <a href="https://ar.tradingview.com/" target="_blank">
+          <ExternalLink className="mr-2 h-4 w-4" /> تريدينج فيو
+        </a>
+      </Button>
+    </CardContent>
+  </Card>
+
+  {/* حاسبة متوسط التكلفة */}
+  <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-emerald-700">
+        <Repeat /> حاسبة متوسط التكلفة
+      </CardTitle>
+    </CardHeader>
+
+    <CardContent>
+      {purchases.map((p) => (
+        <div key={p.id} className="flex gap-2 mb-2">
+          <Input
+            type="number"
+            placeholder="عدد الأسهم"
+            value={p.shares}
+            onChange={(e) =>
+              handlePurchaseChange(p.id, "shares", e.target.value)
+            }
+            className="text-slate-800"
+          />
+
+          <Input
+            type="number"
+            placeholder="سعر الشراء"
+            value={p.price}
+            onChange={(e) =>
+              handlePurchaseChange(p.id, "price", e.target.value)
+            }
+            className="text-slate-800"
+          />
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => handleRemovePurchase(p.id)}
+          >
+            <MinusCircle className="text-red-500" />
+          </Button>
         </div>
-      </>
-    )}
+      ))}
 
-            {/* ⭐⭐⭐ تكملة الحاسبة الأصلية — ج4 ⭐⭐⭐ */}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={handleAddNewPurchase}
+        className="mt-2 border-emerald-400 text-emerald-700 hover:bg-emerald-100"
+      >
+        <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
+      </Button>
 
-        {/* حاسبة متوسط التكلفة */}
-        <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-emerald-700">
-              <Repeat /> حاسبة متوسط التكلفة
-            </CardTitle>
-          </CardHeader>
+      <Alert
+        variant="default"
+        className="mt-4 bg-emerald-50 border-emerald-200"
+      >
+        <Info className="h-5 w-5 text-emerald-700" />
+        <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
 
-          <CardContent>
-            {purchases.map((p) => (
-              <div key={p.id} className="flex gap-2 mb-2">
-                <Input
-                  type="number"
-                  placeholder="عدد الأسهم"
-                  value={p.shares}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "shares", e.target.value)
-                  }
-                  className="text-slate-800"
-                />
+        <AlertDescription className="space-y-2 text-slate-800">
+          <div className="flex justify-between">
+            <span>إجمالي الأسهم:</span>
+            <span className="font-bold text-emerald-700">
+              {formatNumber(totalSharesCalc)}
+            </span>
+          </div>
 
-                <Input
-                  type="number"
-                  placeholder="سعر الشراء"
-                  value={p.price}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "price", e.target.value)
-                  }
-                  className="text-slate-800"
-                />
+          <div className="flex justify-between">
+            <span>متوسط سعر السهم:</span>
+            <span className="font-bold text-emerald-700">
+              {formatNumber(averagePrice)} ر.س
+            </span>
+          </div>
 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRemovePurchase(p.id)}
-                >
-                  <MinusCircle className="text-red-500" />
-                </Button>
-              </div>
-            ))}
+          <div className="flex justify-between">
+            <span>إجمالي التكلفة:</span>
+            <span className="font-bold text-emerald-700">
+              {formatNumber(totalCost)} ر.س
+            </span>
+          </div>
+        </AlertDescription>
+      </Alert>
+    </CardContent>
+  </Card>
 
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleAddNewPurchase}
-              className="mt-2 border-emerald-400 text-emerald-700 hover:bg-emerald-100"
-            >
-              <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
-            </Button>
+</div> {/* ← إغلاق grid */}
 
-            <Alert
-              variant="default"
-              className="mt-4 bg-emerald-50 border-emerald-200"
-            >
-              <Info className="h-5 w-5 text-emerald-700" />
-              <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
-
-              <AlertDescription className="space-y-2 text-slate-800">
-                <div className="flex justify-between">
-                  <span>إجمالي الأسهم:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(totalSharesCalc)}
-                  </span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span>متوسط سعر السهم:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(averagePrice)} ر.س
-                  </span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span>إجمالي التكلفة:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(totalCost)} ر.س
-                  </span>
-                </div>
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </Card>
-
-        {/* ⭐⭐⭐ تكملة الحاسبة الأصلية — ج4 ⭐⭐⭐ */}
-
-        {/* حاسبة متوسط التكلفة */}
-        <Card className="lg:col-span-2 bg-white/80 shadow-md border border-emerald-100">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-emerald-700">
-              <Repeat /> حاسبة متوسط التكلفة
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent>
-            {purchases.map((p) => (
-              <div key={p.id} className="flex gap-2 mb-2">
-                <Input
-                  type="number"
-                  placeholder="عدد الأسهم"
-                  value={p.shares}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "shares", e.target.value)
-                  }
-                  className="text-slate-800"
-                />
-
-                <Input
-                  type="number"
-                  placeholder="سعر الشراء"
-                  value={p.price}
-                  onChange={(e) =>
-                    handlePurchaseChange(p.id, "price", e.target.value)
-                  }
-                  className="text-slate-800"
-                />
-
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRemovePurchase(p.id)}
-                >
-                  <MinusCircle className="text-red-500" />
-                </Button>
-              </div>
-            ))}
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleAddNewPurchase}
-              className="mt-2 border-emerald-400 text-emerald-700 hover:bg-emerald-100"
-            >
-              <PlusCircle className="mr-2 h-4 w-4" /> إضافة عملية شراء
-            </Button>
-
-            <Alert
-              variant="default"
-              className="mt-4 bg-emerald-50 border-emerald-200"
-            >
-              <Info className="h-5 w-5 text-emerald-700" />
-              <AlertTitle className="text-emerald-700">النتائج</AlertTitle>
-
-              <AlertDescription className="space-y-2 text-slate-800">
-                <div className="flex justify-between">
-                  <span>إجمالي الأسهم:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(totalSharesCalc)}
-                  </span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span>متوسط سعر السهم:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(averagePrice)} ر.س
-                  </span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span>إجمالي التكلفة:</span>
-                  <span className="font-bold text-emerald-700">
-                    {formatNumber(totalCost)} ر.س
-                  </span>
-                </div>
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </Card>
-
-        {/* ⚠️ إغلاق grid md:grid-cols-3 */}
-        </div>
-
-      </>
-    )}
-
-    {/* ⭐⭐⭐ الوضع الثاني: الحاسبات المتقدمة ⭐⭐⭐ */}
-    {viewMode === "new" && (
-      <div className="mt-6">
-        {/* سيتم وضع الحاسبات المتقدمة هنا */}
-      </div>
-    )}
-
-  </div>
-);
-}
-
-{/* نظرة شاملة */}
+{/* 🔥 نظرة شاملة */}
 <Card className="mt-6 bg-white/80 shadow-md border border-blue-100">
   <CardHeader>
     <CardTitle className="flex items-center gap-2 text-blue-700">
@@ -903,23 +798,18 @@ return (
   <a href="/contact" className="mx-2 hover:underline">اتصل بنا</a>
 </div>
 
-</div> {/* ← إغلاق الحاسبة الأصلية بالكامل */}
+</>  {/* ← إغلاق الوضع الأصلي */}
+)}   {/* ← إغلاق شرط viewMode === original */}
 
 {/* ⭐⭐⭐ الوضع الثاني: الحاسبات المتقدمة ⭐⭐⭐ */}
 {viewMode === "new" && (
   <div className="mt-10 flex gap-6">
 
-    {/* ─────────────────────────────── */}
-    {/* 🟣 Sidebar الاحترافي (Sticky + Collapse + Pin) */}
-    {/* ─────────────────────────────── */}
-    <div
-      className={`transition-all duration-300 ${
-        isSidebarExpanded ? "w-56" : "w-20"
-      }`}
-    >
+    {/* Sidebar */}
+    <div className={`transition-all duration-300 ${isSidebarExpanded ? "w-56" : "w-20"}`}>
       <div className="sticky top-4 h-fit bg-white/90 border border-slate-200 rounded-xl shadow-sm flex flex-col">
 
-        {/* شريط علوي + Pin */}
+        {/* شريط علوي */}
         <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200">
           <div className="flex items-center gap-2">
             <LayoutDashboard className="w-4 h-4 text-purple-600" />
@@ -950,12 +840,8 @@ return (
         {/* عناصر القائمة */}
         <div
           className="flex-1 py-2"
-          onMouseEnter={() => {
-            if (!isSidebarPinned) setIsSidebarExpanded(true);
-          }}
-          onMouseLeave={() => {
-            if (!isSidebarPinned) setIsSidebarExpanded(false);
-          }}
+          onMouseEnter={() => !isSidebarPinned && setIsSidebarExpanded(true)}
+          onMouseLeave={() => !isSidebarPinned && setIsSidebarExpanded(false)}
         >
           {[
             { id: "stoploss", label: "وقف الخسارة", icon: ShieldAlert },
@@ -966,6 +852,7 @@ return (
           ].map((item) => {
             const Icon = item.icon;
             const active = activeTool === item.id;
+
             return (
               <button
                 key={item.id}
@@ -991,14 +878,10 @@ return (
       </div>
     </div>
 
-    {/* ─────────────────────────────── */}
-    {/* 🟢 منطقة الحاسبات المتقدمة (Scroll داخلي + Animation) */}
-    {/* ─────────────────────────────── */}
+    {/* منطقة الحاسبات */}
     <div className="flex-1 max-h-[75vh] overflow-y-auto pr-1 space-y-8">
 
-      {/* ─────────────── */}
-      {/* 🔴 حاسبة وقف الخسارة */}
-      {/* ─────────────── */}
+      {/* 🔴 وقف الخسارة */}
       <div
         className={`transition-all duration-300 rounded-xl ${
           activeTool === "stoploss"
@@ -1006,12 +889,10 @@ return (
             : "scale-100"
         }`}
       >
-        {/* ⭐ ضع هنا كود حاسبة وقف الخسارة كما هو عندك */}
+        {/* ⭐ ضع هنا كود وقف الخسارة */}
       </div>
 
-      {/* ─────────────── */}
-      {/* 🟣 حاسبة حجم الصفقة */}
-      {/* ─────────────── */}
+      {/* 🟣 حجم الصفقة */}
       <div
         className={`transition-all duration-300 rounded-xl ${
           activeTool === "position"
@@ -1019,12 +900,10 @@ return (
             : "scale-100"
         }`}
       >
-        {/* ⭐ ضع هنا كود حاسبة حجم الصفقة كما هو عندك */}
+        {/* ⭐ ضع هنا كود حجم الصفقة */}
       </div>
 
-      {/* ─────────────── */}
-      {/* 🔶 حاسبة نسبة المخاطرة */}
-      {/* ─────────────── */}
+      {/* 🔶 نسبة المخاطرة */}
       <div
         className={`transition-all duration-300 rounded-xl ${
           activeTool === "risk"
@@ -1032,17 +911,10 @@ return (
             : "scale-100"
         }`}
       >
-        {/* ⭐ ضع هنا كود حاسبة نسبة المخاطرة كما هو عندك
-            ✔ مع تعديل ألوان المخاطرة:
-              - عالية: أحمر
-              - متوسطة: أصفر
-              - منخفضة: أزرق سماوي
-        */}
+        {/* ⭐ ضع هنا كود نسبة المخاطرة */}
       </div>
 
-      {/* ─────────────── */}
-      {/* 🟢 حاسبة الربح والخسارة */}
-      {/* ─────────────── */}
+      {/* 🟢 الربح والخسارة */}
       <div
         className={`transition-all duration-300 rounded-xl ${
           activeTool === "profitloss"
@@ -1050,15 +922,10 @@ return (
             : "scale-100"
         }`}
       >
-        {/* ⭐ ضع هنا كود حاسبة الربح والخسارة كما هو عندك
-            ✔ مع إضافة هدف الربح:
-              targetPrice = entryPrice * (1 + targetPercent/100)
-        */}
+        {/* ⭐ ضع هنا كود الربح والخسارة */}
       </div>
 
-      {/* ─────────────── */}
-      {/* 🔵 حاسبة متوسط السعر */}
-      {/* ─────────────── */}
+      {/* 🔵 متوسط السعر */}
       <div
         className={`transition-all duration-300 rounded-xl ${
           activeTool === "average"
@@ -1066,7 +933,7 @@ return (
             : "scale-100"
         }`}
       >
-        {/* ⭐ ضع هنا كود حاسبة متوسط السعر (نسخة مبسطة أو كاملة) */}
+        {/* ⭐ ضع هنا كود متوسط السعر */}
       </div>
 
     </div>
