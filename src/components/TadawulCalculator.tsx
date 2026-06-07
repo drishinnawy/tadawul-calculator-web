@@ -813,20 +813,39 @@ return (
       </div>
     )}
 
+    {/* أزرار النسب السريعة */}
+    <div className="flex gap-2">
+      {[5, 10, 25, 50, 100].map((p) => (
+        <Button
+          key={p}
+          variant="outline"
+          onClick={() =>
+            setSellShares(
+              Math.floor((totalSharesCalc * p) / 100).toString()
+            )
+          }
+          className="border-blue-400 text-blue-700 hover:bg-blue-100"
+        >
+          {p}%
+        </Button>
+      ))}
+    </div>
+
     {/* وضع 3: بيع حسب نسبة المبلغ */}
     {sellMode === "percentValue" && (
       <div className="space-y-3">
-        <Label className="text-slate-800">نسبة البيع من قيمة الصفقة</Label>
+        <Label className="text-slate-800">نسبة البيع من قيمة المحفظة</Label>
         <Input
           type="number"
           onChange={(e) => {
             const v = parseFloat(e.target.value);
-            if (!isNaN(v) && sellPrice) {
-              const sp = parseFloat(sellPrice);
-              const totalValue = totalSharesCalc * sp;
-              setSellShares(
-                Math.floor((totalValue * v) / 100 / sp).toString()
+            if (!isNaN(v)) {
+              const portfolioValue = totalSharesCalc * averagePrice;
+              const targetValue = (portfolioValue * v) / 100;
+              const sharesToSell = Math.floor(
+                targetValue / parseFloat(sellPrice || "1")
               );
+              setSellShares(sharesToSell.toString());
             }
           }}
           className="text-slate-800"
@@ -834,108 +853,63 @@ return (
       </div>
     )}
 
-  </CardContent>
-</Card>
+    {/* سعر البيع */}
+    <div className="space-y-3">
+      <Label className="text-slate-800">سعر البيع</Label>
+      <Input
+        type="number"
+        value={sellPrice}
+        onChange={(e) => setSellPrice(e.target.value)}
+        className="text-slate-900 bg-purple-50 border border-purple-400"
+      />
+    </div>
 
-        {/* ⭐⭐⭐ تكملة الحاسبة الأصلية — ج5 ⭐⭐⭐ */}
-
-{/* أزرار النسب السريعة */}
-<div className="flex gap-2">
-  {[5, 10, 25, 50, 100].map((p) => (
-    <Button
-      key={p}
-      variant="outline"
-      onClick={() =>
-        setSellShares(
-          Math.floor((totalSharesCalc * p) / 100).toString()
-        )
-      }
-      className="border-blue-400 text-blue-700 hover:bg-blue-100"
+    {/* النتائج */}
+    <Alert
+      className="mt-4 bg-blue-50 border-blue-200"
+      variant={profitOrLoss >= 0 ? "default" : "destructive"}
     >
-      {p}%
-    </Button>
-  ))}
-</div>
+      <AlertTitle className="text-blue-700">نتائج البيع</AlertTitle>
 
-{/* وضع 3: بيع حسب نسبة المبلغ */}
-{sellMode === "percentValue" && (
-  <div className="space-y-3">
-    <Label className="text-slate-800">نسبة البيع من قيمة المحفظة</Label>
-    <Input
-      type="number"
-      onChange={(e) => {
-        const v = parseFloat(e.target.value);
-        if (!isNaN(v)) {
-          const portfolioValue = totalSharesCalc * averagePrice;
-          const targetValue = (portfolioValue * v) / 100;
-          const sharesToSell = Math.floor(
-            targetValue / parseFloat(sellPrice || "1")
-          );
-          setSellShares(sharesToSell.toString());
-        }
-      }}
-      className="text-slate-800"
-    />
-  </div>
-)}
+      <AlertDescription className="space-y-3 text-slate-800">
+        <div className="flex justify-between">
+          <span>صافي البيع:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(netProceeds)} ر.س
+          </span>
+        </div>
 
-{/* سعر البيع */}
-<div className="space-y-3">
-  <Label className="text-slate-800">سعر البيع</Label>
-  <Input
-    type="number"
-    value={sellPrice}
-    onChange={(e) => setSellPrice(e.target.value)}
-    className="text-slate-900 bg-purple-50 border border-purple-400"
-  />
-</div>
+        <div className="flex justify-between">
+          <span>الربح/الخسارة لكل سهم:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(profitPerShare)} ر.س
+          </span>
+        </div>
 
-{/* النتائج */}
-<Alert
-  className="mt-4 bg-blue-50 border-blue-200"
-  variant={profitOrLoss >= 0 ? "default" : "destructive"}
->
-  <AlertTitle className="text-blue-700">نتائج البيع</AlertTitle>
+        <div className="flex justify-between">
+          <span>الربح/الخسارة الإجمالي:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(profitOrLoss)} ر.س
+          </span>
+        </div>
 
-  <AlertDescription className="space-y-3 text-slate-800">
-    <div className="flex justify-between">
-      <span>صافي البيع:</span>
-      <span className="font-bold text-blue-700">
-        {formatNumber(netProceeds)} ر.س
-      </span>
-    </div>
+        <div className="flex justify-between">
+          <span>الأسهم المتبقية:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(remainingShares)}
+          </span>
+        </div>
 
-    <div className="flex justify-between">
-      <span>الربح/الخسارة لكل سهم:</span>
-      <span className="font-bold text-blue-700">
-        {formatNumber(profitPerShare)} ر.س
-      </span>
-    </div>
+        <div className="flex justify-between">
+          <span>متوسط سعر السهم بعد البيع:</span>
+          <span className="font-bold text-blue-700">
+            {formatNumber(newAverageCost)} ر.س
+          </span>
+        </div>
+      </AlertDescription>
+    </Alert>
 
-    <div className="flex justify-between">
-      <span>الربح/الخسارة الإجمالي:</span>
-      <span className="font-bold text-blue-700">
-        {formatNumber(profitOrLoss)} ر.س
-      </span>
-    </div>
-
-    <div className="flex justify-between">
-      <span>الأسهم المتبقية:</span>
-      <span className="font-bold text-blue-700">
-        {formatNumber(remainingShares)}
-      </span>
-    </div>
-
-    <div className="flex justify-between">
-      <span>متوسط سعر السهم بعد البيع:</span>
-      <span className="font-bold text-blue-700">
-        {formatNumber(newAverageCost)} ر.س
-      </span>
-    </div>
-  </AlertDescription>
-</Alert>
-
-</CardContent>
+  </CardContent>
 </Card>
 
 {/* نظرة شاملة */}
