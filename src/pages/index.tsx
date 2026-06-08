@@ -120,47 +120,55 @@ const Home: NextPage = () => {
   </div>
 
   {/* Links */}
-  <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
-    <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
-      الرئيسية
-    </a>
-    <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
-      حول الموقع
-    </a>
-    <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
-      اتصل بنا
-    </a>
+<div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
+  <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
+    الرئيسية
+  </a>
 
-    {/* روابط الحاسبات الجديدة */}
-    <a href="/stop-loss" style={{ color: "#0044aa", textDecoration: "none" }}>
-      وقف الخسارة
-    </a>
-    <a
-      href="/position-size"
-      style={{ color: "#0044aa", textDecoration: "none" }}
-    >
-      حجم الصفقة
-    </a>
-    <a
-      href="/risk-percentage"
-      style={{ color: "#0044aa", textDecoration: "none" }}
-    >
-      نسبة المخاطرة
-    </a>
-    <a
-      href="/profit-loss"
-      style={{ color: "#0044aa", textDecoration: "none" }}
-    >
-      الربح والخسارة
-    </a>
-    <a
-      href="/average-price"
-      style={{ color: "#0044aa", textDecoration: "none" }}
-    >
-      متوسط السعر
-    </a>
-  </div>
-</nav>
+  <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
+    حول الموقع
+  </a>
+
+  <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
+    اتصل بنا
+  </a>
+
+  {/* روابط الحاسبات المتقدمة */}
+  <a
+    href="/advanced-calculators"
+    style={{ color: "#0044aa", textDecoration: "none" }}
+  >
+    وقف الخسارة
+  </a>
+
+  <a
+    href="/advanced-calculators"
+    style={{ color: "#0044aa", textDecoration: "none" }}
+  >
+    حجم الصفقة
+  </a>
+
+  <a
+    href="/advanced-calculators"
+    style={{ color: "#0044aa", textDecoration: "none" }}
+  >
+    نسبة المخاطرة
+  </a>
+
+  <a
+    href="/advanced-calculators"
+    style={{ color: "#0044aa", textDecoration: "none" }}
+  >
+    الربح والخسارة
+  </a>
+
+  <a
+    href="/advanced-calculators"
+    style={{ color: "#0044aa", textDecoration: "none" }}
+  >
+    متوسط السعر
+  </a>
+</div>
 
       {/* الشريط المتحرك */}
       <div
