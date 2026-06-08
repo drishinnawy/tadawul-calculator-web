@@ -24,24 +24,23 @@ const Home: NextPage = () => {
         <Schema />
       </Head>
 
-      {/* فقرة الكلمات المفتاحية بخلفية كاملة منسجمة مع الحاسبة */}
+      {/* فقرة الكلمات المفتاحية */}
       <div
         style={{
           width: "100%",
-          background: "linear-gradient(135deg, #1e3c72, #2a5298)", // أزرق ملكي ناعم
+          background: "linear-gradient(135deg, #1e3c72, #2a5298)",
           padding: "22px 28px",
           color: "white",
           direction: "rtl",
           textAlign: "right",
           lineHeight: "1.9",
           fontSize: "17px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)", // ظل أزرق ثقيل وناعم
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
           display: "flex",
           gap: "14px",
           alignItems: "flex-start",
         }}
       >
-        {/* أيقونة معلومات */}
         <span
           style={{
             fontSize: "22px",
@@ -52,7 +51,6 @@ const Home: NextPage = () => {
           ℹ️
         </span>
 
-        {/* النص */}
         <span style={{ flex: 1 }}>
           هذه الحاسبة تساعدك على حساب الربح والخسارة، وتحديد نسبة المخاطرة، وحجم
           الصفقة، وإدارة رأس المال بدقة. تعتبر أفضل حاسبة تداول للأسهم والعملات،
@@ -62,113 +60,117 @@ const Home: NextPage = () => {
       </div>
 
       {/* Navbar */}
-<nav
-  style={{
-    width: "100%",
-    backgroundColor: "#e6f0ff",
-    padding: "12px 25px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottom: "1px solid #cdd7f3",
-    position: "sticky",
-    top: 0,
-    zIndex: 1000,
-  }}
->
-  {/* Logo */}
-  <div
-    style={{
-      fontSize: "20px",
-      fontWeight: "bold",
-      color: "#0044aa",
-      whiteSpace: "nowrap",
-    }}
-  >
-    أفضل حاسبة تداول
-  </div>
+      <nav
+        style={{
+          width: "100%",
+          backgroundColor: "#e6f0ff",
+          padding: "12px 25px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderBottom: "1px solid #cdd7f3",
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+        }}
+      >
+        {/* Logo */}
+        <div
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "#0044aa",
+            whiteSpace: "nowrap",
+          }}
+        >
+          أفضل حاسبة تداول
+        </div>
 
-  {/* Center Section */}
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      gap: "20px",
-    }}
-  >
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        padding: "10px 18px",
-        borderRadius: "14px",
-        backdropFilter: "blur(10px)",
-        background: "rgba(255, 255, 255, 0.35)",
-        border: "1px solid rgba(255, 255, 255, 0.4)",
-        fontSize: "17px",
-        fontWeight: "bold",
-        color: "#0044aa",
-        whiteSpace: "nowrap",
-      }}
-    >
-      <span style={{ fontSize: "20px" }}>📊</span>
-      <span>
-        عدد الزيارات: <VisitCounter />
-      </span>
-    </div>
-  </div>
+        {/* Center Section */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "10px 18px",
+              borderRadius: "14px",
+              backdropFilter: "blur(10px)",
+              background: "rgba(255, 255, 255, 0.35)",
+              border: "1px solid rgba(255, 255, 255, 0.4)",
+              fontSize: "17px",
+              fontWeight: "bold",
+              color: "#0044aa",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <span style={{ fontSize: "20px" }}>📊</span>
+            <span>
+              عدد الزيارات: <VisitCounter />
+            </span>
+          </div>
+        </div>
 
-  {/* Links */}
-<div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
-  <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
-    الرئيسية
-  </a>
+        {/* Links */}
+        <div style={{ display: "flex", gap: "20px", fontSize: "16px" }}>
+          <a href="/" style={{ color: "#0044aa", textDecoration: "none" }}>
+            الرئيسية
+          </a>
 
-  <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
-    حول الموقع
-  </a>
+          <a href="/about" style={{ color: "#0044aa", textDecoration: "none" }}>
+            حول الموقع
+          </a>
 
-  <a href="/contact" style={{ color: "#0044aa", textDecoration: "none" }}>
-    اتصل بنا
-  </a>
+          <a
+            href="/contact"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            اتصل بنا
+          </a>
 
-  {/* روابط الحاسبات المتقدمة */}
-  <a
-    href="/advanced-calculators"
-    style={{ color: "#0044aa", textDecoration: "none" }}
-  >
-    وقف الخسارة
-  </a>
+          {/* روابط الحاسبات المتقدمة */}
+          <a
+            href="/advanced-calculators"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            وقف الخسارة
+          </a>
 
-  <a
-    href="/advanced-calculators"
-    style={{ color: "#0044aa", textDecoration: "none" }}
-  >
-    حجم الصفقة
-  </a>
+          <a
+            href="/advanced-calculators"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            حجم الصفقة
+          </a>
 
-  <a
-    href="/advanced-calculators"
-    style={{ color: "#0044aa", textDecoration: "none" }}
-  >
-    نسبة المخاطرة
-  </a>
+          <a
+            href="/advanced-calculators"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            نسبة المخاطرة
+          </a>
 
-  <a
-    href="/advanced-calculators"
-    style={{ color: "#0044aa", textDecoration: "none" }}
-  >
-    الربح والخسارة
-  </a>
+          <a
+            href="/advanced-calculators"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            الربح والخسارة
+          </a>
 
-  <a
-    href="/advanced-calculators"
-    style={{ color: "#0044aa", textDecoration: "none" }}
-  >
-    متوسط السعر
-  </a>
-</div>
+          <a
+            href="/advanced-calculators"
+            style={{ color: "#0044aa", textDecoration: "none" }}
+          >
+            متوسط السعر
+          </a>
+        </div>
+      </nav>
 
       {/* الشريط المتحرك */}
       <div
