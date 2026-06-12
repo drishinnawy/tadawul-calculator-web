@@ -1,66 +1,30 @@
 import Head from "next/head";
-import TadawulCalculator from "@/components/TadawulCalculator";
 
-export default function RiskPercentageCalculator() {
+export default function RiskPercentageSEOPage() {
   return (
     <>
       <Head>
-        <title>حاسبة نسبة المخاطرة | تحديد نسبة المخاطرة المثالية في التداول</title>
+        <title>حاسبة نسبة المخاطرة | تحديد نسبة المخاطرة المثالية</title>
         <meta
           name="description"
-          content="حاسبة نسبة المخاطرة تساعدك على تحديد نسبة المخاطرة المناسبة لكل صفقة بناءً على رأس المال ووقف الخسارة. أداة مهمة لإدارة رأس المال في التداول."
+          content="شرح مفهوم نسبة المخاطرة وكيفية تحديد النسبة المناسبة لكل صفقة لحماية رأس المال. صفحة مخصصة لرفع الظهور في محركات البحث."
         />
         <meta
           name="keywords"
-          content="حاسبة نسبة المخاطرة, إدارة رأس المال, تداول الأسهم, الفوركس, crypto, risk percentage calculator"
+          content="نسبة المخاطرة, حاسبة نسبة المخاطرة, إدارة رأس المال, التداول, risk percentage calculator"
         />
       </Head>
 
-      {/* خلفية تعريفية */}
-      <div
-        style={{
-          width: "100%",
-          background: "linear-gradient(135deg, #1e3c72, #2a5298)",
-          padding: "22px 28px",
-          color: "white",
-          direction: "rtl",
-          textAlign: "right",
-          lineHeight: "1.9",
-          fontSize: "17px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
-          display: "flex",
-          gap: "14px",
-          alignItems: "flex-start",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "22px",
-            marginTop: "2px",
-            opacity: 0.95,
-          }}
-        >
-          🎯
-        </span>
-
-        <span style={{ flex: 1 }}>
-          تساعدك هذه الحاسبة على تحديد نسبة المخاطرة المناسبة لكل صفقة، مما
-          يساعدك على حماية رأس المال وتقليل الخسائر. تحديد نسبة المخاطرة هو أحد
-          أهم مبادئ إدارة رأس المال الاحترافية في التداول.
-        </span>
-      </div>
-
-      {/* محتوى الصفحة */}
-      <div style={{ padding: "25px" }}>
+      <div style={{ padding: "25px", direction: "rtl", textAlign: "right" }}>
         <h1
           style={{
-            textAlign: "center",
-            marginBottom: "20px",
             fontSize: "26px",
+            marginBottom: "18px",
             color: "#1e3c72",
+            textAlign: "center",
           }}
         >
-          حاسبة نسبة المخاطرة
+          نسبة المخاطرة في التداول
         </h1>
 
         <p
@@ -71,19 +35,20 @@ export default function RiskPercentageCalculator() {
             lineHeight: "1.8",
             marginBottom: "25px",
             border: "1px solid #c7d9f5",
-            direction: "rtl",
-            textAlign: "right",
           }}
         >
-          تساعدك هذه الأداة على تحديد نسبة المخاطرة المناسبة بناءً على رأس المال
-          المتاح وسعر الدخول ووقف الخسارة. اختيار نسبة مخاطرة ثابتة هو أساس
-          التداول الاحترافي وإدارة رأس المال السليمة.
+          نسبة المخاطرة هي النسبة المئوية من رأس المال التي يوافق المتداول على
+          المخاطرة بها في كل صفقة. اختيار نسبة مخاطرة ثابتة يساعد على حماية رأس
+          المال وتقليل الخسائر الكبيرة.
         </p>
 
-        {/* استدعاء الحاسبة كما هي */}
-        <TadawulCalculator />
+        <p style={{ lineHeight: "1.9", marginBottom: "20px" }}>
+          ينصح معظم المتداولين المحترفين بعدم المخاطرة بأكثر من 1% إلى 3% من رأس
+          المال في كل صفقة. الالتزام بهذه النسبة يساعد على الاستمرارية في السوق
+          وتجنب التذبذب الكبير في الحساب.
+        </p>
 
-        {/* زر العودة للصفحة الرئيسية */}
+        {/* زر العودة */}
         <div style={{ textAlign: "center", marginTop: "30px" }}>
           <a
             href="/"
