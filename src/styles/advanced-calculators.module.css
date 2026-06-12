@@ -1,0 +1,18 @@
+/* جعل الصفحة RTL بالكامل */
+.advancedRtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.advancedRtl .flex {
+  flex-direction: row-reverse;
+}
+
+.advancedRtl button {
+  flex-direction: row-reverse;
+}
+
+.advancedRtl .border-r-4 {
+  border-right-width: 0;
+  border-left-width: 4px;
+}
