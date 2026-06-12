@@ -78,6 +78,54 @@ export default function Schema() {
         "query-input": "required name=search_term_string",
       },
     },
+
+    /* ---------------------- FAQ Schema ---------------------- */
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "ما هي حاسبة التداول؟",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "هي أداة تساعد المتداولين على حساب الربح والخسارة، وحجم الصفقة، ونسبة المخاطرة بدقة وسرعة.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "هل تعمل الحاسبة على جميع الأجهزة؟",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "نعم، تعمل على الجوال والكمبيوتر والمتصفح دون الحاجة إلى تثبيت أي برنامج.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "هل يمكن حساب وقف الخسارة؟",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "نعم، توفر الحاسبة أداة مخصصة لحساب مستوى وقف الخسارة بناءً على نسبة المخاطرة.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "هل يمكن حساب متوسط السعر؟",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "نعم، يمكنك حساب متوسط السعر بعد عمليات الشراء المتعددة بسهولة.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "هل سيتم إضافة أدوات جديدة؟",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "نعم، يتم تطوير أدوات جديدة بشكل مستمر لتلبية احتياجات المتداولين.",
+          },
+        },
+      ],
+    },
   ];
 
   return (
