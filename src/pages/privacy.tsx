@@ -1,10 +1,131 @@
-export default function PrivacyPage() {
+import Head from "next/head";
+
+export default function PrivacyPolicy() {
   return (
-    <main style={{ maxWidth: 800, margin: "40px auto", padding: "0 16px" }}>
-      <h1>Privacy Policy</h1>
-      <p>We do not collect personal financial data or trading account credentials.</p>
-      <p>Basic technical data (such as browser type and usage analytics) may be collected to improve the service.</p>
-      <p>We do not sell or share your personal data with third parties for marketing.</p>
-    </main>
+    <>
+      <Head>
+        <title>سياسة الخصوصية | أفضل حاسبة تداول</title>
+        <meta
+          name="description"
+          content="سياسة الخصوصية الخاصة بموقع أفضل حاسبة تداول. نوضح فيها كيفية التعامل مع البيانات وحماية خصوصية المستخدم."
+        />
+        <meta
+          name="keywords"
+          content="سياسة الخصوصية, privacy policy, تداول, إدارة رأس المال"
+        />
+      </Head>
+
+      <div style={{ padding: "25px", direction: "rtl", textAlign: "right" }}>
+        <h1
+          style={{
+            fontSize: "28px",
+            marginBottom: "18px",
+            color: "#1e3c72",
+            textAlign: "center",
+          }}
+        >
+          السلام عليكم ورحمة الله وبركاته
+        </h1>
+
+        <p
+          style={{
+            background: "#eaf3ff",
+            padding: "18px 22px",
+            borderRadius: "12px",
+            lineHeight: "1.8",
+            marginBottom: "25px",
+            border: "1px solid #c7d9f5",
+          }}
+        >
+          نقدر ثقتك في موقع أفضل حاسبة تداول، ونلتزم بحماية خصوصيتك. توضح هذه
+          الصفحة كيفية جمع البيانات واستخدامها وحمايتها عند استخدامك للموقع.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          1. البيانات التي لا نقوم بجمعها
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          لا نقوم بجمع أي بيانات مالية أو معلومات حساسة مثل:
+          <br />– بيانات الحسابات البنكية
+          <br />– بيانات المحافظ الاستثمارية
+          <br />– بيانات الدخول إلى منصات التداول
+          <br />– أي معلومات شخصية حساسة
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          2. البيانات التي قد يتم جمعها تلقائيًا
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          قد يتم جمع بعض البيانات التقنية البسيطة بشكل تلقائي بهدف تحسين أداء
+          الموقع، مثل:
+          <br />– نوع المتصفح
+          <br />– نوع الجهاز
+          <br />– الصفحات الأكثر زيارة
+          <br />– مدة البقاء في الموقع
+          <br />
+          هذه البيانات لا تحتوي على أي معلومات شخصية ويمكن استخدامها فقط لتحسين
+          تجربة المستخدم.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          3. استخدام ملفات تعريف الارتباط (Cookies)
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          قد يستخدم الموقع ملفات تعريف الارتباط لتحسين الأداء وتجربة المستخدم.
+          يمكنك تعطيلها من إعدادات المتصفح في أي وقت دون التأثير على استخدام
+          الموقع.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          4. مشاركة البيانات
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          لا نقوم ببيع أو مشاركة أي بيانات مع أطراف خارجية لأغراض تسويقية. يتم
+          استخدام البيانات التقنية فقط لتحسين أداء الموقع.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          5. حماية البيانات
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          نستخدم إجراءات تقنية مناسبة لحماية البيانات ومنع الوصول غير المصرح به.
+          ومع ذلك، لا يمكن ضمان أمان كامل بنسبة 100% لأي بيانات يتم نقلها عبر
+          الإنترنت.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          6. التعديلات على سياسة الخصوصية
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سيتم نشر أي تحديثات على هذه
+          الصفحة، ويعتبر استمرارك في استخدام الموقع موافقة على التعديلات.
+        </p>
+
+        <h2 style={{ color: "#1e3c72", marginTop: "25px" }}>
+          7. التواصل معنا
+        </h2>
+        <p style={{ lineHeight: "1.9" }}>
+          إذا كان لديك أي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر صفحة{" "}
+          <a href="/contact" style={{ color: "#1e3c72", textDecoration: "underline" }}>
+            اتصل بنا
+          </a>
+          .
+        </p>
+
+        {/* زر العودة */}
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <a
+            href="/"
+            style={{
+              color: "#1e3c72",
+              textDecoration: "underline",
+              fontSize: "16px",
+            }}
+          >
+            العودة إلى الصفحة الرئيسية
+          </a>
+        </div>
+      </div>
+    </>
   );
 }
