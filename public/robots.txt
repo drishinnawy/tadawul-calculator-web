@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+# منع صفحات الأخطاء من الفهرسة (تحسين اختياري)
+Disallow: /404
+Disallow: /500
+
+# منع ملفات API (إن وجدت)
+Disallow: /api/
+
+# تحديد السيت ماب
 Sitemap: https://tadawul-calculator-web.vercel.app/sitemap.xml
+
+# تحديد المضيف (اختياري لكنه مفيد)
+Host: https://tadawul-calculator-web.vercel.app
