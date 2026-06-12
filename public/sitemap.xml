@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- الصفحة الرئيسية -->
   <url>
     <loc>https://tadawul-calculator-web.vercel.app/</loc>
     <priority>1.0</priority>
   </url>
 
+  <!-- الصفحات القانونية -->
   <url>
     <loc>https://tadawul-calculator-web.vercel.app/terms</loc>
     <priority>0.8</priority>
@@ -24,6 +26,42 @@
   <url>
     <loc>https://tadawul-calculator-web.vercel.app/contact</loc>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/about</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحات SEO -->
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/risk-percentage</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/stop-loss</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/position-size</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/profit-loss</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/average-price</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tadawul-calculator-web.vercel.app/faq</loc>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
