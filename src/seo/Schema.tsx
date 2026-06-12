@@ -1,5 +1,6 @@
 export default function Schema() {
   const jsonLd = [
+    /* ---------------------- FinancialProduct Schema ---------------------- */
     {
       "@context": "https://schema.org",
       "@type": "FinancialProduct",
@@ -61,6 +62,20 @@ export default function Schema() {
         contactType: "customer support",
         availableLanguage: ["Arabic", "English"],
         url: "https://tadawul-calculator-web.vercel.app/contact",
+      },
+    },
+
+    /* ---------------------- WebSite Schema ---------------------- */
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "أفضل حاسبة تداول",
+      url: "https://tadawul-calculator-web.vercel.app/",
+      potentialAction: {
+        "@type": "SearchAction",
+        target:
+          "https://tadawul-calculator-web.vercel.app/?s={search_term_string}",
+        "query-input": "required name=search_term_string",
       },
     },
   ];
