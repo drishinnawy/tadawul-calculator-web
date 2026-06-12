@@ -17,6 +17,9 @@ import RiskTool from "@/components/tools/RiskTool";
 import ProfitLossTool from "@/components/tools/ProfitLossTool";
 import AveragePriceTool from "@/components/tools/AveragePriceTool";
 
+// استيراد ملف CSS الخاص بالحاسبة المتقدمة
+import "@/styles/advanced-calculators.css";
+
 export default function AdvancedCalculatorsPage() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [isSidebarPinned, setIsSidebarPinned] = useState(true);
@@ -34,7 +37,7 @@ export default function AdvancedCalculatorsPage() {
   ] as const;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="advanced-rtl p-6 max-w-7xl mx-auto">
 
       <h1 className="text-2xl font-bold text-purple-700 mb-6 flex items-center gap-2">
         <LayoutDashboard className="w-6 h-6" />
